@@ -1,0 +1,732 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>弹幕姬主页</title>
+    <meta name="referrer" content="no-referrer"/>
+    <style>
+.touxiang img
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    border-radius: 5%;
+    margin-left: 45px;
+}
+
+.fengmian img{
+    width: 160px;
+    height: 90px;
+    background-size: cover;
+    border-radius: 5%;
+    margin-left: 45px;
+}
+.row{
+    display: inline-flex;
+    margin-top: 60px;
+}
+
+.row1{
+    margin-left: 20px;
+}
+.row2{
+    padding-left: 40px;
+    margin-left: 40px
+}
+
+.testswitch {
+    position: relative;
+    float: left;
+    width: 90px;
+    margin: 0;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+}
+
+.testswitch-checkbox {
+    display: none;
+}
+
+.testswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+}
+
+.testswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.testswitch-inner::before, .testswitch-inner::after {
+    display: block;
+    float: right;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family:
+    Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.testswitch-inner::after {
+    content: attr(data-on);
+    padding-left: 10px;
+    background-color: #00e500;
+    color: #FFFFFF;
+}
+
+.testswitch-inner::before {
+    content: attr(data-off);
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #999999;
+    text-align: right;
+}
+
+
+.mySwitchName{
+    float: left;
+}
+
+.mySwitchName span{
+    font-size: 24px;
+}
+.Setting_block {
+display: flow-root;
+}
+
+
+.mySwitch{
+    position: absolute;
+    float: right;
+    display: inline-block;
+    margin-left: 10px;
+}
+float: left
+
+.testswitch-switch {
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 4px;
+    background: #FFFFFF;
+    top: 0;
+    bottom: 0;
+    right: 56px;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-inner {
+    margin-left: 0;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-switch {
+    right: 0px;
+
+
+    </style>
+</head>
+<body>
+<br>
+<div>
+    <input type="text" id='room' class="form-control" style='width:600px' placeholder="房间号">
+    <input type="button" id="set" value="连接房间"/>
+</div>
+<br>
+<div>
+    <span>显示弹幕: </span>
+    <input type="text" id='url1' class="form-control" style='width:600px' placeholder="链接">
+    <input type="button" id="url1_button" value="进入"/>
+</div>
+
+<div id="UserInfo">
+    <!--        <div class="row">-->
+    <!--            <div class="touxiang">-->
+    <!--&lt;!&ndash;                <img src="https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg">&ndash;&gt;-->
+
+    <!--                <a href="https://space.bilibili.com/939948">-->
+    <!--                    <img src="https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg">-->
+    <!--                </a>-->
+
+    <!--            </div>-->
+    <!--            <div class="row1">-->
+    <!--                <div class="row2">-->
+    <!--                    主播名称 猫小姐77-4月17周年庆-->
+    <!--                </div>-->
+
+
+    <!--                <div class="row2">-->
+    <!--                    开播状态 未开播-->
+    <!--                </div>-->
+    <!--                <div class="row2">-->
+    <!--                    直播标题 猫系女友 你喜欢的我都会-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--            <div class="fengmian">-->
+    <!--                <a href="https://space.bilibili.com/939948">-->
+    <!--                    <img src="http://i0.hdslb.com/bfs/live/user_cover/2b2e2c8d72aa785d6b53e6885be097c9619ac1f1.jpg">-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+
+    <!--        cover: "http://i0.hdslb.com/bfs/live/user_cover/2b2e2c8d72aa785d6b53e6885be097c9619ac1f1.jpg"-->
+    <!--        face: "https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg"-->
+    <!--        liveStatus: "未开播"-->
+    <!--        name: "猫小姐77-4月17周年庆"-->
+    <!--        roomId: null-->
+    <!--        sign: "一只可盐可甜  治愈系的猫猫   \n每天的14:00-23:00  我在房间等你喔~\n\n"-->
+    <!--        title: "猫系女友 你喜欢的我都会"-->
+    <!--        uid: 1887537943-->
+
+
+</div>
+<br>
+<div id="Setting">
+    <!--        <div class="Setting_block">-->
+    <!--            <div class="mySwitchName">-->
+    <!--                <span>屏蔽红包</span>-->
+    <!--            </div>-->
+    <!--            <div class="mySwitch">-->
+    <!--                <div class="testswitch">-->
+    <!--                    <input class="testswitch-checkbox" id="onoffswitch" checked="checked" type="checkbox"/>-->
+    <!--                    <label class="testswitch-label" for="onoffswitch">-->
+    <!--                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>-->
+    <!--                        <span class="testswitch-switch"></span>-->
+    <!--                    </label>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+
+    <br>
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>屏蔽天选</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch1" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch1">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>银瓜子礼物</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch2" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch2">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>系统表情</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch3" checked="checked" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch3">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!--    <div class="Setting_block" >-->
+    <!--        <div class="mySwitchName">-->
+    <!--            <span>自定义表情</span>-->
+    <!--        </div>-->
+    <!--        <div class="mySwitch">-->
+    <!--            <div class="testswitch">-->
+    <!--                <input class="testswitch-checkbox" id="onoffswitch4" checked="checked" type="checkbox"/>-->
+    <!--                <label class="testswitch-label" for="onoffswitch4">-->
+    <!--                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>-->
+    <!--                    <span class="testswitch-switch"></span>-->
+    <!--                </label>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+
+</div>
+
+<div>
+    <span>弹幕体高度</span>
+    <input type="text" id='danmuHeight' class="form-control" style='width:600px' placeholder="弹幕高度">
+</div>
+
+<div>
+    <span>弹幕字体大小</span>
+    <input type="text" id='danmuFont' class="form-control" style='width:600px' placeholder="弹幕字体大小">
+</div>
+
+<div>
+    <span>弹幕颜色</span>
+    <input type="text" id='danmuColor' class="form-control" style='width:600px' placeholder="弹幕颜色">
+</div>
+
+
+<div>
+    <span>用户名字体大小</span>
+    <input type="text" id='userNameFont' class="form-control" style='width:600px' placeholder="用户名字体大小">
+</div>
+
+<div>
+    <span>用户名颜色</span>
+    <input type="text" id='userNameColor' class="form-control" style='width:600px' placeholder="用户名颜色">
+</div>
+
+
+<div>
+    <span>头像框 背景图片</span>
+    <input type="text" id='face_backgroundUrl' class="form-control" style='width:600px' placeholder="头像框 背景图片">
+</div>
+<div>
+    <span>用户名背景图片</span>
+    <input type="text" id='username_backgroundUrl' class="form-control" style='width:600px' placeholder="用户名背景图片">
+</div>
+<div>
+    <span>观众弹幕 背景图片</span>
+    <input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕 背景图片">
+</div>
+
+<div>
+    <span>舰队弹幕 背景图片</span>
+    <input type="text" id='fleetDanmu_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕 背景图片">
+</div>
+
+<div>
+    <span>弹幕右下角装饰 背景图片</span>
+    <input type="text" id='pendant_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕右下角装饰 背景图片">
+</div>
+
+
+<div>
+    <input type="button" id="saveSet" value="保存配置"/>
+</div>
+
+<br>
+<div>
+    <input type="button" id="startTestSet" value="开启测试"/>
+</div>
+<div>
+    <input type="button" id="closeTestSet" value="关闭测试"/>
+</div>
+
+<!--<div>-->
+<!--    &lt;!&ndash;    自定义表情  左侧显示名字 右侧显示图片 &ndash;&gt;-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    &lt;!&ndash;    系统交易  左侧显示名字 右侧显示图片 &ndash;&gt;-->
+<!--    <table border="1">-->
+<!--        <tr>-->
+<!--            <th>[dog]</th>-->
+<!--            <th><img src="http://i0.hdslb.com/bfs/live/4428c84e694fbf4e0ef6c06e958d9352c3582740.png"></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>January</td>-->
+<!--            <td>-->
+<!--                <img src="SystemEmoji/doge2.png">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>February</td>-->
+<!--            <td>$80</td>-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    礼物显示黑名单-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    礼物叠加显示  1秒内相同用户投喂的礼物会叠加显示-->
+<!--</div>-->
+
+
+<!--<marquee width="100%" behavior="scroll" bgcolor="pink" style="color: #fff;">-->
+<!--    中秋节，又称祭月节、月光诞、月夕、秋节、仲秋节、拜月节、月娘节、月亮节、团圆节等，是中国民间的传统节日。-->
+<!--</marquee>-->
+
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script language="javascript" type="text/javascript">
+			function formatDate(now) {
+				var year = now.getFullYear();
+				var month = now.getMonth() + 1;
+				var date = now.getDate();
+				var hour = now.getHours();
+				var minute = now.getMinutes();
+				var second = now.getSeconds();
+				return year + "-" + (month = month < 10 ? ("0" + month) : month) + "-" + (date = date < 10 ? ("0" + date) : date) +
+					" " + (hour = hour < 10 ? ("0" + hour) : hour) + ":" + (minute = minute < 10 ? ("0" + minute) : minute) + ":" + (
+						second = second < 10 ? ("0" + second) : second);
+			}
+			var output;
+			var websocket;
+
+			function init() {
+				output = document.getElementById("output");
+				testWebSocket();
+			}
+
+			function addsocket() {
+				var wsaddr = $("#wsaddr").val();
+				if (wsaddr == '') {
+					alert("请填写websocket的地址");
+					return false;
+				}
+				StartWebSocket(wsaddr);
+			}
+
+			function closesocket() {
+				websocket.close();
+			}
+
+			function StartWebSocket(wsUri) {
+				websocket = new WebSocket(wsUri);
+				websocket.onopen = function(evt) {
+					onOpen(evt)
+				};
+				websocket.onclose = function(evt) {
+					onClose(evt)
+				};
+				websocket.onmessage = function(evt) {
+					onMessage(evt)
+				};
+				websocket.onerror = function(evt) {
+					onError(evt)
+				};
+			}
+
+			function onOpen(evt) {
+				writeToScreen("<span style='color:red'>连接成功，现在你可以发送信息啦！！！</span>");
+			}
+
+			function onClose(evt) {
+				writeToScreen("<span style='color:red'>websocket连接已断开!!!</span>");
+				websocket.close();
+			}
+
+			function onMessage(evt) {
+				writeToScreen('<span style="color:blue">服务端回应&nbsp;' + formatDate(new Date()) + '</span><br/><span class="bubble">' +
+					evt.data + '</span>');
+			}
+
+			function onError(evt) {
+				writeToScreen('<span style="color: red;">发生错误:</span> ' + evt.data);
+			}
+
+			function doSend() {
+				var message = $("#message").val();
+				if (message == '') {
+					alert("请先填写发送信息");
+					$("#message").focus();
+					return false;
+				}
+				if (typeof websocket === "undefined") {
+					alert("websocket还没有连接，或者连接失败，请检测");
+					return false;
+				}
+				if (websocket.readyState == 3) {
+					alert("websocket已经关闭，请重新连接");
+					return false;
+				}
+				console.log(websocket);
+				$("#message").val('');
+				writeToScreen('<span style="color:green">你发送的信息&nbsp;' + formatDate(new Date()) + '</span><br/>' + message);
+				websocket.send(message);
+			}
+
+			function writeToScreen(message) {
+				var div = "<div class='newmessage'>" + message + "</div>";
+				var d = $("#output");
+				var d = d[0];
+<!--				var doScroll = d.scrollTop == d.scrollHeight - d.clientHeight;-->
+				$("#output").append(div);
+<!--				if (doScroll) {-->
+<!--					d.scrollTop = d.scrollHeight - d.clientHeight;-->
+<!--				}-->
+			}
+
+
+			function en(event) {
+				var evt = evt ? evt : (window.event ? window.event : null);
+				if (evt.keyCode == 13) {
+					doSend()
+				}
+			}
+
+<!--save-->
+
+$("#set").click(function(){
+var str1 = $('input').val();
+            $.ajax({
+            url: '../connectRoom',
+            data: {
+            roomId:  $("#room").val()
+            },
+            async: false,
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                   $.ajax({
+                   url: '../getUserInfo',
+                   data: {
+                   roomId:  $("#room").val()
+                   },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log('getSet');
+                console.log(data.data);
+                setUserInfo(data.data);
+             }
+        })
+            }
+            });
+              });
+
+
+
+<!--页面加载后执行-->
+window.onload = function () {
+    getSet();
+
+    var strUrl1 = $(location).attr('href') + 'danmu.html';
+    $("#url1").val(strUrl1)
+
+    var d = $("#output");
+    for (var i = 1; i <= 4; i++) {
+        writeToScreen("");
+
+<!--         writeToScreen( $(location).attr('href'));-->
+<!-- $(location).attr('href')-->
+<!--获取当前页面网址-->
+        }
+    }
+
+
+function  getSet() {
+$.ajax({
+            url: '../getSet',
+            data: {
+            },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log('getSet')
+                console.log(data)
+                var roomid = data.data.roomid
+                $("#room").val(roomid)
+                if(roomid === '' || roomid === 0 ) {
+                    console.log('房间号为空');
+                } else {
+                    $("#set").click();
+                }
+                var isAnchorLot = data.data.isAnchorLot;
+                var isSilverGift = data.data.isSilverGift;
+                var isSystemEmoji = data.data.isSystemEmoji;
+                var isUserEmoji = data.data.isUserEmoji;
+                var danmuHeight = data.data.danmuHeight;
+                var danmuFont = data.data.danmuFont;
+                var danmuColor = data.data.danmuColor;
+                var userNameFont = data.data.userNameFont;
+                var userNameColor = data.data.userNameColor;
+
+                var face_backgroundUrl = data.data.face_backgroundUrl;
+                var username_backgroundUrl = data.data.username_backgroundUrl;
+                var commonDanmu_backgroundUrl = data.data.commonDanmu_backgroundUrl;
+                var fleetDanmu_backgroundUrl = data.data.fleetDanmu_backgroundUrl;
+                var pendant_backgroundUrl = data.data.pendant_backgroundUrl;
+
+                $("#onoffswitch1").prop("checked",isAnchorLot);
+                $("#onoffswitch2").prop("checked",isSilverGift);
+                $("#onoffswitch3").prop("checked",isSystemEmoji);
+                $("#danmuHeight").val(danmuHeight);
+                $("#danmuFont").val(danmuFont);
+                $("#danmuColor").val(danmuColor);
+                $("#userNameFont").val(userNameFont);
+                $("#userNameColor").val(userNameColor);
+
+                $("#face_backgroundUrl").val(face_backgroundUrl);
+                $("#username_backgroundUrl").val(username_backgroundUrl);
+                $("#commonDanmu_backgroundUrl").val(commonDanmu_backgroundUrl);
+                $("#fleetDanmu_backgroundUrl").val(fleetDanmu_backgroundUrl);
+                $("#pendant_backgroundUrl").val(pendant_backgroundUrl);
+
+             }
+        })
+}
+
+function  setUserInfo(data) {
+    $("#UserInfo").empty()
+    var uid = data.uid;
+    var roomId = data.roomId;
+    var div =
+    ' <div class="row">' +
+            '<div class="touxiang">' +
+<!--          '  <img src="https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg">' +-->
+                ' <a href=" https://space.bilibili.com/' + uid +'">' +
+<!--                https://live.bilibili.com/3961583-->
+                    '  <img src="' + data.face + '   ">' +
+                ' </a>' +
+        '</div>' +
+        '<div class="row1">' +
+         '   <div class="row2">' +
+           '      主播名称 '+  data.name     +
+
+           ' </div>' +
+            '<div class="row2">' +
+             '   开播状态 ' + data.liveStatus +
+            '</div>' +
+            '<div class="row2">' +
+             '   直播标题 ' + data.title +
+            '</div>' +
+        '</div>' +
+
+        '<div class="fengmian">' +
+<!--         '   <img src="http://i0.hdslb.com/bfs/live/user_cover/2b2e2c8d72aa785d6b53e6885be097c9619ac1f1.jpg">' +-->
+               ' <a href=" https://live.bilibili.com/' + roomId +'">' +
+                    '  <img src="' + data.cover + '   ">' +
+                ' </a>' +
+         '</div>'+
+           '</div>'
+    $("#UserInfo").append(div);
+}
+
+
+$("#url1_button").click(function(){
+    var newWeb=window.open('_blank');
+    newWeb.location= $("#url1").val();
+})
+
+
+$(document).ready(function() {
+	$("#onoffswitch3").on('click', function(){
+		clickSwitch()
+	});
+
+<!--	var clickSwitch = function() {-->
+<!--		if ($("#onoffswitch3").is(':checked')) {-->
+<!--			console.log("在ON的状态下");-->
+<!--		} else {-->
+<!--			console.log("在OFF的状态下");-->
+<!--		}-->
+<!--	};-->
+});
+
+
+$("#saveSet").click(function(){
+<!--    var isGift;-->
+    var isAnchorLot = $("#onoffswitch1").is(':checked');
+    var isSilverGift = $("#onoffswitch2").is(':checked');
+    var isSystemEmoji = $("#onoffswitch3").is(':checked');
+    var isUserEmoji = $("#onoffswitch4").is(':checked');
+    var danmuHeight = $("#danmuHeight").val();
+    var danmuFont = $("#danmuFont").val();
+    var danmuColor = $("#danmuColor").val();
+    var userNameFont = $("#userNameFont").val();
+    var userNameColor = $("#userNameColor").val();
+
+    var face_backgroundUrl = $("#face_backgroundUrl").val();
+    var username_backgroundUrl = $("#username_backgroundUrl").val();
+    var commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
+    var fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
+    var pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
+
+            $.ajax({
+            url: '../saveSet',
+            data: {
+                isAnchorLot: isAnchorLot,
+                isSilverGift: isSilverGift,
+                isSystemEmoji, isSystemEmoji,
+                isUserEmoji: isUserEmoji,
+                danmuHeight: danmuHeight,
+                danmuFont: danmuFont,
+                danmuColor: danmuColor,
+                userNameFont: userNameFont,
+                userNameColor: userNameColor,
+
+                face_backgroundUrl: face_backgroundUrl,
+                username_backgroundUrl: username_backgroundUrl,
+                commonDanmu_backgroundUrl: commonDanmu_backgroundUrl,
+                fleetDanmu_backgroundUrl: fleetDanmu_backgroundUrl,
+                pendant_backgroundUrl: pendant_backgroundUrl
+            },
+            async: false,
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+            alert('保存成功');
+            }
+            });
+});
+
+$("#startTestSet").click(function(){
+            $.ajax({
+            url: '../startTestSet',
+            data: {
+
+            },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+            }
+            });
+});
+
+$("#closeTestSet").click(function(){
+            $.ajax({
+            url: '../closeTestSet',
+            data: {
+            },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+            }
+            });
+});
+
+
+
+</script>
+</html>

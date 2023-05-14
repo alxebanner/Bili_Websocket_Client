@@ -1,0 +1,63 @@
+spring:
+  #  指定哪个文件，比如dev.yml local.yml
+  config:
+    activate:
+      on-profile:
+  # 需要将其设置为always，彩色打印日志
+  output:
+    ansi:
+      enabled: always
+
+
+  #开放spring完全循环构造引入
+  main:
+    allow-circular-references: false
+  thymeleaf:
+  prefix : classpath:/templates/
+#    prefix : classpath:/templates
+  suffix : .html
+  cache: false
+  encoding: UTF-8
+  mode: HTML5
+  mvc:
+    static-path-pattern: /**
+    resources:
+      chain:
+        strategy:
+          content:
+            paths: /**
+            enabled: true
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  async:
+    request-timeout: -1
+#  datasource:
+#    username: root
+#    password: 521ghq
+#    # 若是时区报错则添加参数：serverTimezone=Asia/Shanghai&
+#    url: jdbc:mysql://localhost:3306/fleet?useUnicode=true&characterEncoding=utf-8
+#    # 使用com.mysql.jdbc.Driver测试datasource.getClass()表示过时，可使用com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+#  port: ${PORT:5000}
+  port: 24335
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+    tomcat:
+      uri-encoding: UTF-8
+
+logging:
+  level:
+    root: info
+  config: "classpath:log4j2.xml"
+
+
+#  mybatis:
+#    mapper-locations: classpath:mapper/*.xml
+#    #目的是为了省略resultType里的代码量
+#    type-aliases-package: com.chf.pojo
+#    configuration:
+#      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

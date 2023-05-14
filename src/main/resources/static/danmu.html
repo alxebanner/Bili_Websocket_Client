@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer"/>
+    <title>Title</title>
+    <style>
+    body {
+<!--        /*与边框对其*/-->
+<!--        margin: 0;-->
+<!--        /*背景颜色*/-->
+<!--        background-color: #4e4e4e;-->
+    }
+
+.now1 {
+    height: 125px;
+    width: 125px;
+    background-size: 125px 125px;
+    background-image: url(../../danmuCss/top/舰长头像框.png);
+    background-repeat: no-repeat;
+}
+
+.d3 {
+    height: 100px;
+    width: 100px;
+}
+.d3>img {
+    width: 100%;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.face {
+    width: 40px;
+    float:left
+}
+.content {
+    width: 700px;
+    float:left;
+    margin-left: 100px;
+}
+
+.danmu_name_border {
+    margin-top: 0px;
+    background-size:100% 100%;
+    width: fit-content;
+    height: 50px;
+    background-image: url(../../danmuCss/top/观众用户名称.png);
+    background-repeat: no-repeat;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 100px;
+    padding-bottom: 5px;
+    font-family: myFont;
+    font-weight:bold;
+    color: #D2B48C;
+    font-size: 30px;
+}
+
+.danmu_wenzi_border {
+    background-image: url(../../danmuCss/top/底板-舰长用.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+.danmu_wenzi_border1 {
+    background-image: url(../../danmuCss/fans/底板-粉丝.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+.danmu_picture_img{
+
+}
+
+.danmu_picture{
+    width: auto;
+    display: flex;
+}
+
+.danmu_picture>img{
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.danmu_xingxing{
+    width: 84px;
+    height: 44px;
+    margin-top: -50px;
+    float: right;
+}
+.danmu_wenzi {
+    text-align: left;
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+
+
+    font-family: myFont;
+    font-size: 32px;
+    font-weight: bold;
+
+}
+.danmu_wenzi>span {
+
+
+    color: #FF60AF;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+
+.danmu_gift {
+    text-align: center;
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+
+
+<!--    font-family: myFont;-->
+<!--    font-size: 32px;-->
+<!--    font-weight: bold;-->
+<!--    color: red;-->
+<!--    overflow: hidden;-->
+<!--    margin-left: 5px;-->
+}
+
+.danmu_gift>span {
+    font-family: myFont;
+    font-size: 32px;
+    font-weight: bold;
+    color: red;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+
+@font-face{
+    font-family:myFont;
+    src:url('../../font/SourceHanSansSC-Normal-2.otf');
+}
+
+
+.newmessage{
+    width: 850px;
+    display: inline-block;
+    animation-fill-mode: both;
+    animation-name: fadenum;
+    animation-duration: 3s;
+    animation-delay: 1s;
+    animation-timing-function: ease-in;
+
+}
+
+@keyframes fadenum{
+
+0% {
+<!--transform: translate3d(-125px, 0, 0);-->
+        transform: translateY(-1001px);
+	transition: all .4s ease 0s;
+
+    }
+100% {
+opacity: 1;
+	transform: scale(1);
+	transition: all .4s ease 0s;
+}
+}
+    .chat-window {
+        width: 900px;
+        height: 980px;
+        overflow-y: scroll;
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        scroll-behavior: smooth;
+        scroll-padding-bottom:100pxx
+
+    }
+    .chat-window::-webkit-scrollbar {
+        display: none;
+    }
+    .message {
+        margin: 0 10px 10px;
+        border-radius: 10px;
+        padding: 5px;
+
+        position: initial;
+        animation: anim1 500ms;
+        animation-fill-mode: both;
+        transition-property: height;
+        transition-duration: 1s;
+        transition-timing-function: ease-in;
+        transition-delay: 100ms;
+    }
+    .padding{
+        flex: 1;
+    }
+
+@keyframes anim1 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-1000px, 0, 0);
+	transition: all .4s ease 0s;
+  }
+  100% {
+    opacity: 1;
+	transform: scale(1);
+	transition: all .4s ease 0s;
+  }
+}
+
+
+
+    </style>
+</head>
+<body>
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风-->
+<!--        </div>-->
+
+<!--        <div class="danmu_wenzi_border">-->
+<!--            <div class="danmu_picture">-->
+<!--                <img class="danmu_picture_img"-->
+<!--                     src="https://i0.hdslb.com/bfs/emote/26302b7080569b9370bafd4cbca0d3d2e0a3e1df.png">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风十里不如一路有语-->
+<!--        </div>-->
+<!--        <div class="danmu_wenzi_border">-->
+<!--            <div class="danmu_wenzi">-->
+<!--                <span>一二三四五六七八大九十一二三四五六七八大九十一二三四五六七八大九十一二三四五六七八大九十</span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风十里不如一路有语-->
+<!--        </div>-->
+<!--        <div class="danmu_wenzi_border">-->
+<!--            <div class="danmu_wenzi">-->
+<!--                <span>一二三四五六七八大九十</span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风十里不如一路有语-->
+<!--        </div>-->
+<!--        <div class="danmu_wenzi_border1">-->
+<!--            <div class="danmu_wenzi">-->
+<!--                <span>非舰长用户</span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风十里不如一路有语-->
+<!--        </div>-->
+<!--        <div class="danmu_wenzi_border">-->
+<!--            <div class="danmu_wenzi">-->
+<!--                <span>系统表情狗头<img src="SystemEmoji/dog.png" alt="">  </span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class='newMessage'>-->
+<!--    <div class="face">-->
+<!--        <div class="now1">-->
+<!--            <div class="d3">-->
+<!--                <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="content">-->
+<!--        <div class="danmu_name_border">-->
+<!--            春风十里不如一路有语-->
+<!--        </div>-->
+<!--        <div class="danmu_wenzi_border">-->
+<!--            <div class="danmu_gift">-->
+<!--                <span class="danmu_wenzi1">感谢 赠送的1个辣条</span>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="chat-window">
+    <div class="padding"></div>
+    <!--     padding元素消息解决不满一屏时,会靠下排放问题 -->
+</div>
+
+
+<!--<div>-->
+<!--    <div id="output" style=" overflow:hidden; height: 500px;margin: 20px 0;"></div>-->
+<!--</div>-->
+<div id="now">
+    <input type="text" id='danmuHeight' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='danmuFont' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='danmuColor' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='userNameFont' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='userNameColor' style='display:none' placeholder="弹幕高度">
+
+    <input type="text" id='face_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='username_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='commonDanmu_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='fleetDanmu_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='pendant_backgroundUrl' style='display:none' placeholder="弹幕高度">
+
+</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+<!--页面加载后执行-->
+window.onload = function () {
+    <!--    连接服务器-->
+    ConnectWebSocket();
+    <!--    获取配置-->
+    getSet();
+
+
+}
+
+function  ConnectWebSocket() {
+    var myPort = location.port;
+    var ws_Address = 'ws://localhost:' + myPort + '/danmu/sub';
+    if (ws_Address == '') {
+        return false;
+    }
+    StartWebSocket(ws_Address);
+}
+
+<!--获取基础配置-->
+function  getSet() {
+$.ajax({
+    url: '../getSet',
+    data: { },
+    async: false,
+    cache: false,
+    type: 'GET',
+    dataType: 'json',
+    success: function (data) {
+        var danmuHeight = data.data.danmuHeight;
+        var danmuFont = data.data.danmuFont;
+        var danmuColor = data.data.danmuColor;
+        var userNameFont = data.data.userNameFont;
+        var userNameColor = data.data.userNameColor;
+
+
+        var face_backgroundUrl = data.data.face_backgroundUrl;
+        var username_backgroundUrl = data.data.username_backgroundUrl;
+        var commonDanmu_backgroundUrl = data.data.commonDanmu_backgroundUrl;
+        var fleetDanmu_backgroundUrl = data.data.fleetDanmu_backgroundUrl;
+        var pendant_backgroundUrl = data.data.pendant_backgroundUrl;
+
+        $("#danmuHeight").val(danmuHeight);
+        $("#danmuFont").val(danmuFont);
+        $("#danmuColor").val(danmuColor);
+        $("#userNameFont").val(userNameFont);
+        $("#userNameColor").val(userNameColor);
+
+        $("#face_backgroundUrl").val(face_backgroundUrl);
+        $("#username_backgroundUrl").val(username_backgroundUrl);
+        $("#commonDanmu_backgroundUrl").val(commonDanmu_backgroundUrl);
+        $("#fleetDanmu_backgroundUrl").val(fleetDanmu_backgroundUrl);
+        $("#pendant_backgroundUrl").val(pendant_backgroundUrl);
+
+
+<!--            设置弹幕-->
+            $(".chat-window").css({
+                height: danmuHeight,
+            });
+
+
+<!--                console.log("danmuFont")-->
+<!--                console.log(danmuFont)-->
+<!--                console.log("danmuColor")-->
+<!--                console.log(danmuColor)-->
+
+<!--                console.log("userNameFont")-->
+<!--                console.log(userNameFont)-->
+<!--                console.log("userNameColor")-->
+<!--                console.log(userNameColor)-->
+
+
+    }
+    })
+}
+
+function StartWebSocket(wsUri) {
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) {
+        onOpen(evt)
+    };
+    websocket.onclose = function(evt) {
+        onClose(evt)
+    };
+    websocket.onmessage = function(evt) {
+        onMessage(evt)
+    };
+    websocket.onerror = function(evt) {
+        onError(evt)
+    };
+}
+<!--WebSocket启动事件-->
+function onOpen(evt) {
+<!--连接-->
+}
+function onClose(evt) {
+    writeToScreen("<span style='color:red'>websocket连接已断开!!!</span>");
+	websocket.close();
+}
+function onError(evt) {
+    writeToScreen('<span style="color: red;">发生错误:</span> ' + evt.data);
+}
+function onMessage(evt) {
+<!--    收到消息处理-->
+<!--    console.log("evt.data");-->
+<!--    console.log(evt.data);-->
+    var parjson = JSON.parse(evt.data);
+    var type = parjson.type;
+    var data = parjson.result;
+    var uname = data.uname;
+    var faceUrl = data.faceUrl;
+    var message = data.message;
+
+<!--    console.log("parjson.result");-->
+<!--    console.log(parjson.result);-->
+
+<!--下面两行用于收集测试数据-->
+<!--    console.log("String");-->
+<!--    console.log(JSON.stringify(parjson.result));-->
+
+
+    var lastMessage;
+    switch(type) {
+        case "danmu" :
+            lastMessage = danmuMessage(data)
+        break;
+        case "emoticon" :
+            lastMessage = emoticonMessage(data)
+        break;
+        case "gift" :
+            lastMessage = giftMessage(data)
+        break;
+        default:
+<!--            console.log("otherType");-->
+<!--            console.log(type);-->
+            break;
+    }
+<!--    console.log('howHead');-->
+<!--    console.log(showHead(data.faceUrl));-->
+
+<!--    console.log('lastMessage');-->
+<!--    console.log(lastMessage);-->
+
+
+     var wenzi_border = "danmu_wenzi_border";
+     var danmuColor = data.danmuColor;
+     if(danmuColor==="") {
+        wenzi_border = "danmu_wenzi_border1";
+     }
+
+
+    var str_danmu =
+
+<!--    '<div class="newMessage">'+-->
+
+<!--    '<div class="face">'+-->
+<!--    '    <div class="now1">'+-->
+<!--    '        <div class="d3">'+-->
+<!--    '            <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">'+-->
+<!--    '        </div>'+-->
+<!--    '    </div>'+-->
+<!--    '</div>'+-->
+
+    showHead(data.faceUrl) +
+
+    '<div class="content">'+
+<!--     '   <div class="danmu_name_border">'+-->
+<!--     '       name'+-->
+<!--     '   </div>'+-->
+     showName(data.uname) +
+
+      '  <div class=" ' + wenzi_border + '">' +
+<!--     '  <div class="danmu_wenzi_border">'+-->
+
+
+<!--     '       <div class="danmu_picture">'+-->
+<!--     '           <img class="danmu_picture_img"'+-->
+<!--     '                src="https://i0.hdslb.com/bfs/emote/26302b7080569b9370bafd4cbca0d3d2e0a3e1df.png">'+-->
+<!--     '       </div>'+-->
+      lastMessage +
+
+
+     '       <div>'+
+     '           <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">'+
+     '       </div>'+
+     '   </div>'+
+     '</div>'+
+     '</div>';
+     '</div>';
+
+
+    var jsonArray = ["danmu","emoticon", "gift"];
+    if (jsonArray.includes(type)) {
+<!--        console.log('str_danmu')-->
+<!--        console.log(str_danmu)-->
+        writeToScreen1(str_danmu);
+    }
+}
+
+<!--显示消息-->
+function danmuMessage(data) {
+    var uname = data.uname;
+    var faceUrl = data.faceUrl;
+    var message = data.message;
+
+<!--    系统表情-->
+    var emojiList =  data.emojiList;
+    if (data.isHaveSystemEmoji){
+        message = message.toString();
+        for (var i = 0; i < emojiList.length; i++) {
+            var newDiv = '<img src="SystemEmoji/'   + emojiList[i].substring(1, emojiList[i].length - 1) +'.png">';
+            message = message.replaceAll(emojiList[i], newDiv );
+        }
+    }
+    lastMessage ='<div class="danmu_wenzi">'+
+                    ' <span class="danmu_wenzi1" >'  + message + ' </span>'+
+                 '</div>';
+    return lastMessage;
+}
+<!--显示系统表情表情-->
+function emoticonMessage(data) {
+    var emoticon_url = data.emoticon_url;
+    var lastMessage;
+    if (data.bulge_display) {
+    <!--                        用户表情-->
+        lastMessage =
+            '<div class="danmu_picture">' +
+                            '<img class="danmu_picture_img" src="' + emoticon_url + ' ">' +
+                        '</div>';
+
+    } else {
+    <!--                         todo系统表情-->
+                        lastMessage =
+                        '<div class="danmu_wenzi">' +
+                            '<img class="danmu_picture_img" src="' + emoticon_url + ' ">' +
+                        '</div>';
+    }
+    return lastMessage;
+}
+<!--显示礼物-->
+function giftMessage(data) {
+    var giftName = data.giftName;
+    var num = data.num;
+    var img_basic = data.img_basic;
+    lastMessage =
+    ' <div class="danmu_gift">' +
+              '  <span class="danmu_wenzi1">感谢 赠送的' + num + '个 ' + giftName + ' </span>' +
+    '  </div>';
+    return lastMessage;
+}
+
+<!--显示头像-->
+function showHead(faceUrl) {
+    var faceDiv =
+    '<div class="face">'+
+    '    <div class="now1">'+
+    '        <div class="d3">'+
+    '            <img src='+ faceUrl +' alt="">'+
+    '        </div>'+
+    '    </div>'+
+    '</div>';
+    return faceDiv;
+}
+
+<!--显示用户名称-->
+function showName(name) {
+    var nameDiv =
+    '   <div class="danmu_name_border">'+
+    name+
+    '   </div>';
+    return nameDiv;
+}
+<!--显示表情包消息-->
+function showPictureMessage(picture) {
+    var pictureDiv =
+    '   <div class="danmu_wenzi_border">'+
+    '        <div class="danmu_picture">'+
+    '            <img class="danmu_picture_img"'+
+<!--    '                 src="https://i0.hdslb.com/bfs/emote/26302b7080569b9370bafd4cbca0d3d2e0a3e1df.png">'+-->
+    '                 src="' +  picture+'   ">'+
+
+    '        </div>'+
+    '        <div>'+
+    '            <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">'+
+    '        </div>'+
+    '    </div>';
+    return pictureDiv;
+}
+
+<!--显示聊天消息-->
+function showMessage(message) {
+    var messageDiv =
+    '<div class="danmu_wenzi_border">'+
+    '        <div class="danmu_wenzi">'+
+    '            <span>' + message +  '</span>'+
+    '        </div>'+
+    '        <div>'+
+    '            <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">'+
+    '        </div>'+
+    '</div>';
+    return messageDiv;
+}
+
+
+function writeToScreen(message) {
+    var div = "<div class='newmessage'>" + message + "</div>";
+	var d = $("#output");
+	var d = d[0];
+	$("#output").append(div);
+<!--	if (doScroll) {-->
+<!--	    d.scrollTop = d.scrollHeight - d.clientHeight;-->
+<!--	    }-->
+}
+function writeToScreen1(message) {
+    const chatWindow = document.querySelector('.chat-window');
+    let msg = document.createElement('div');
+    msg.className = 'message';
+    msg.innerHTML = message;
+
+    const newMessage = document.createElement('div');
+    newMessage.classList.add('message', 'new-message');
+    newMessage.innerHTML = message;
+    const padding = document.querySelector('.padding')
+    var d = $(".chat-window");
+	var d = d[0];
+
+    $(".chat-window").append(newMessage);
+
+    var danmuFont = $("#danmuFont").val();
+    var danmuColor = $("#danmuColor").val();
+    var userNameFont = $("#userNameFont").val();
+    var userNameColor = $("#userNameColor").val();
+
+    var face_backgroundUrl = $("#face_backgroundUrl").val();
+    var username_backgroundUrl = $("#username_backgroundUrl").val();
+    var commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
+    var fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
+    var pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
+
+
+    <!--            设置弹幕样式-->
+                $(".danmu_wenzi").css({
+                "font-size": danmuFont + "px", "color": danmuColor
+                });
+
+<!--            设置用户名文字 大小     背景图片-->
+               $(".danmu_name_border").css({
+                "font-size": userNameFont + "px", "color": userNameColor, "background-image": "url(" +  username_backgroundUrl  +")",
+                });
+
+                <!--            设置用户头像框->
+               $(".now1").css({
+                "background-image": "url( "+  face_backgroundUrl  +" )",
+                });
+                <!--            设置非舰队聊天框->
+                $(".danmu_wenzi_border1").css({
+                "background-image": "url( "+  commonDanmu_backgroundUrl  +" )",
+                });
+
+                <!--            设置舰队聊天框->
+                $(".danmu_wenzi_border").css({
+                "background-image": "url( "+  fleetDanmu_backgroundUrl  +" )",
+                });
+
+                <!--            设置弹幕右下角图片挂件->
+                $(".danmu_xingxing").attr("src", pendant_backgroundUrl)
+
+
+
+    if(d.scrollHeight > $(".chat-window").height() + d.scrollTop) {
+        chatWindow.scrollTop = d.scrollHeight;
+    };
+}
+
+
+
+</script>
+</html>
