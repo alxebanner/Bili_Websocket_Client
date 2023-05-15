@@ -4,7 +4,7 @@
     <title>弹幕姬主页</title>
     <meta name="referrer" content="no-referrer"/>
     <style>
-.touxiang img
+.touxiang img {
     width: 100px;
     height: 100px;
     background-size: cover;
@@ -276,56 +276,65 @@ float: left
 
 </div>
 
-<div>
-    <span>弹幕体高度</span>
-    <input type="text" id='danmuHeight' class="form-control" style='width:600px' placeholder="弹幕高度">
-</div>
-
-<div>
-    <span>弹幕字体大小</span>
-    <input type="text" id='danmuFont' class="form-control" style='width:600px' placeholder="弹幕字体大小">
-</div>
-
-<div>
-    <span>弹幕颜色</span>
-    <input type="text" id='danmuColor' class="form-control" style='width:600px' placeholder="弹幕颜色">
-</div>
+<table>
+    <tr>
+        <td>弹幕体高度：</td>
+        <td><input type="text" id='danmuHeight' class="form-control" style='width:600px' placeholder="弹幕体高度"></td>
+    </tr>
+    <tr>
+        <td>弹幕字体大小：</td>
+        <td><input type="text" id='danmuFont' class="form-control" style='width:600px' placeholder="弹幕字体大小"></td>
+    </tr>
 
 
-<div>
-    <span>用户名字体大小</span>
-    <input type="text" id='userNameFont' class="form-control" style='width:600px' placeholder="用户名字体大小">
-</div>
+    <tr>
+        <td>弹幕颜色：</td>
+        <td><input type="text" id='danmuColor' class="form-control" style='width:600px' placeholder="弹幕颜色"></td>
+    </tr>
 
-<div>
-    <span>用户名颜色</span>
-    <input type="text" id='userNameColor' class="form-control" style='width:600px' placeholder="用户名颜色">
-</div>
+    <tr>
+        <td>用户名字体大小：</td>
+        <td><input type="text" id='userNameFont' class="form-control" style='width:600px' placeholder="用户名字体大小">
+        </td>
+    </tr>
+
+    <tr>
+        <td>用户名颜色：</td>
+        <td><input type="text" id='userNameColor' class="form-control" style='width:600px' placeholder="用户名颜色">
+        </td>
+    </tr>
 
 
-<div>
-    <span>头像框 背景图片</span>
-    <input type="text" id='face_backgroundUrl' class="form-control" style='width:600px' placeholder="头像框 背景图片">
-</div>
-<div>
-    <span>用户名背景图片</span>
-    <input type="text" id='username_backgroundUrl' class="form-control" style='width:600px' placeholder="用户名背景图片">
-</div>
-<div>
-    <span>观众弹幕 背景图片</span>
-    <input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕 背景图片">
-</div>
+    <tr>
+        <td>头像框 背景图片：</td>
+        <td><input type="text" id='face_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="头像框 背景图片"></td>
+    </tr>
 
-<div>
-    <span>舰队弹幕 背景图片</span>
-    <input type="text" id='fleetDanmu_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕 背景图片">
-</div>
+    <tr>
+        <td>用户名背景图片：</td>
+        <td> <input type="text" id='username_backgroundUrl' class="form-control" style='width:600px'
+                    placeholder="用户名背景图片"></td>
+    </tr>
 
-<div>
-    <span>弹幕右下角装饰 背景图片</span>
-    <input type="text" id='pendant_backgroundUrl' class="form-control" style='width:600px' placeholder="弹幕右下角装饰 背景图片">
-</div>
+    <tr>
+        <td>观众弹幕 背景图片：</td>
+        <td> <input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px'
+                    placeholder="弹幕 背景图片"></td>
+    </tr>
 
+    <tr>
+        <td>舰队弹幕 背景图片：</td>
+        <td><input type="text" id='fleetDanmu_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="弹幕 背景图片"></td>
+    </tr>
+
+    <tr>
+        <td>弹幕右下角装饰 背景图片：</td>
+        <td><input type="text" id='pendant_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="弹幕右下角装饰 背景图片"></td>
+    </tr>
+</table>
 
 <div>
     <input type="button" id="saveSet" value="保存配置"/>
