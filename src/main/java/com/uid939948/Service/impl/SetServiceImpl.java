@@ -2,6 +2,7 @@ package com.uid939948.Service.impl;
 
 import com.uid939948.Conf.CenterSetConf;
 import com.uid939948.Conf.MainConf;
+import com.uid939948.Service.ClientService;
 import com.uid939948.Service.SetService;
 import com.uid939948.Until.BASE64Encoder;
 import com.uid939948.Until.ProFileTools;
@@ -9,6 +10,7 @@ import com.uid939948.component.ThreadComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,9 @@ public class SetServiceImpl implements SetService {
     @Resource
     private Environment environment;
 
+
     private ThreadComponent threadComponent;
+
 
     @Override
     public void init() {
@@ -214,10 +218,17 @@ public class SetServiceImpl implements SetService {
     }
 
     private void openBrowser(String port) {
+
+
+
+
         try {
             // 打开浏览器
             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + "http://localhost:" + port);
         } catch (IOException e) {
+
+
+
             log.info("自动打开浏览器错误:当前系统缺少rundll32 url.dll组件或者不是window系统，无法自动启动默认浏览器打开配置页面，请手动打开浏览器地址栏输入http://127.0.0.1:" + port + "进行配置");
         }
     }

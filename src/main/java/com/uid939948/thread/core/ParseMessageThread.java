@@ -108,8 +108,8 @@ public class ParseMessageThread extends Thread {
                     writeList.add("LIKE_INFO_V3_CLICK");//  手机双击点赞推送
 
                     if (!writeList.contains(cmd)) {
-                        log.info("消息类型为" + cmd);
-                        log.info("消息为" + message);
+//                        log.info("消息类型为" + cmd);
+//                        log.info("消息为" + message);
                     }
 
                     switch (cmd) {

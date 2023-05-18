@@ -8,7 +8,6 @@ spring:
     ansi:
       enabled: always
 
-
   #开放spring完全循环构造引入
   main:
     allow-circular-references: false
@@ -32,7 +31,7 @@ spring:
     request-timeout: -1
 #  datasource:
 #    username: root
-#    password: 521ghq
+#    password:
 #    # 若是时区报错则添加参数：serverTimezone=Asia/Shanghai&
 #    url: jdbc:mysql://localhost:3306/fleet?useUnicode=true&characterEncoding=utf-8
 #    # 使用com.mysql.jdbc.Driver测试datasource.getClass()表示过时，可使用com.mysql.cj.jdbc.Driver

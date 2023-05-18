@@ -141,7 +141,10 @@ public class HttpRoomUtil {
 
 //        https://api.bilibili.com/x/space/wbi/acc/info?mid=327126417&token=&platform=web&web_location=1550101&w_rid=97cabccb69750659ed72c5244b46d134&wts=1682957910
 
-        String url = "https://api.bilibili.com/x/space/acc/info?mid=" + uid + "&token=&platform=web";
+//        String url = "https://api.bilibili.com/x/space/acc/info?mid=" + uid + "&token=&platform=web";
+
+
+        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token&platform=web";
         String result = HttpUtil.doGetWithHeader(url, headers);
 
         JSONObject jsonObject = new JSONObject();
@@ -163,6 +166,11 @@ public class HttpRoomUtil {
             System.out.println(result);
             return "";
         }
+
+        if (!jsonObject.getString("code") .equals("0") ) {
+            return "";
+        }
+
 
         String data = jsonObject.getString("data");
         return JSONObject.parseObject(data).getString("face");

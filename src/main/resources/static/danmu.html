@@ -411,7 +411,7 @@ window.onload = function () {
 
 function  ConnectWebSocket() {
     var myPort = location.port;
-    var ws_Address = 'ws://localhost:' + myPort + '/danmu/sub';
+    var ws_Address =  "ws://" + window.location.host + "/danmu/sub"
     if (ws_Address == '') {
         return false;
     }

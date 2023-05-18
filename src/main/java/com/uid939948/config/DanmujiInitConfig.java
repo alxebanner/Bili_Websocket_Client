@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.uid939948.Conf.CenterSetConf;
 import com.uid939948.Conf.MainConf;
 import com.uid939948.DO.*;
+import com.uid939948.Service.ClientService;
 import com.uid939948.Service.impl.SetServiceImpl;
 import com.uid939948.Until.BASE64Encoder;
 import com.uid939948.Until.ProFileTools;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Hashtable;
 
@@ -19,6 +21,11 @@ import java.util.Hashtable;
 public class DanmujiInitConfig {
     private final String cookies = "1";
     private SetServiceImpl checkService;
+
+    @Autowired
+    @Lazy
+    private ClientService clientService;
+
 
     public void init() {
         Hashtable<String, String> hashtable = new Hashtable<String, String>();

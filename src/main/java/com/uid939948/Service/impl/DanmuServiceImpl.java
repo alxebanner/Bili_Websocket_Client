@@ -521,7 +521,7 @@ public class DanmuServiceImpl implements DanmuService {
                     .collect(Collectors.toMap(FacePicture::getUid, v -> v, (p1, p2) -> p1));
             if (map.containsKey(uid)) {
                 nowFaceUrl = map.get(uid).getFaceUrl();
-                log.info("使用历史头像");
+//                log.info("使用历史头像");
 
                 FacePicture new_facePicture = map.get(uid);
                 new_facePicture.setCount(new_facePicture.getCount() + 1);

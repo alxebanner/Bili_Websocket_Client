@@ -1,17 +1,10 @@
 package com.uid939948.Result;
 
-import java.io.Serializable;
 
 /**
  * 返回集合
- *
  */
-public class Result implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
+public class Result {
     //状态码
     private Integer code;
 
@@ -45,15 +38,16 @@ public class Result implements Serializable {
         this.data = data;
     }
 
-    public Result(ResultCode resultCode,Object data) {
-        this.code=resultCode.getCode();
-        this.msg=resultCode.getMsg();
-        this.data=data;
+    public Result(ResultCode resultCode, Object data) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMsg();
+        this.data = data;
     }
-    public Result(Integer code,String msg,Object data) {
-        this.code=code;
-        this.msg=msg;
-        this.data=data;
+
+    public Result(Integer code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
     }
 
 }
