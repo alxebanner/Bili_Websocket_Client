@@ -27,6 +27,7 @@ public class FacePicture {
 
     /**
      * 最近更新的时间戳
+     * 暂时废弃
      */
     private Long timestamp;
 

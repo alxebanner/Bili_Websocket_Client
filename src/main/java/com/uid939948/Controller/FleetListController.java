@@ -1,6 +1,7 @@
 package com.uid939948.Controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.uid939948.Conf.CenterSetConf;
 import com.uid939948.Conf.MainConf;
 import com.uid939948.DO.UserInfoData.UserInfo;
@@ -81,12 +82,13 @@ public class FleetListController {
         return new Result(ResultCode.SUCCESS, list);
     }
 
+    // 废弃
     @ResponseBody
     @PostMapping(value = "/saveSet")
     public Result saveSet(Boolean isAnchorLot, Boolean isSilverGift, Boolean isSystemEmoji, Boolean isUserEmoj,
                           int danmuHeight, int danmuFont, String danmuColor, int userNameFont, String userNameColor,
-                          String face_backgroundUrl,String username_backgroundUrl,String commonDanmu_backgroundUrl,
-                          String fleetDanmu_backgroundUrl,String pendant_backgroundUrl) {
+                          String face_backgroundUrl, String username_backgroundUrl, String commonDanmu_backgroundUrl,
+                          String fleetDanmu_backgroundUrl, String pendant_backgroundUrl) {
         CenterSetConf centerSetConf = MainConf.centerSetConf;
         centerSetConf.setIsAnchorLot(isAnchorLot);
         centerSetConf.setIsSilverGift(isSilverGift);
@@ -123,9 +125,21 @@ public class FleetListController {
     }
 
 
+//    @ResponseBody
+//    @PostMapping(value = "/sendSet")
+//    public Result get1() {
+//        return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
+//    }
+
+
+    //    @RequestParam("set") String set
     @ResponseBody
     @PostMapping(value = "/sendSet")
-    public Result get1() {
+    public Result sendSet(@RequestParam("set") String set) {
+        CenterSetConf centerSetConf = JSONObject.parseObject(set, CenterSetConf.class);
+        setService.changeSet(centerSetConf);
+
+        MainConf.centerSetConf = centerSetConf;
         return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
     }
 

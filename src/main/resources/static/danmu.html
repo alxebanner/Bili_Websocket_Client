@@ -225,6 +225,7 @@ opacity: 1;
 
 
 
+
     </style>
 </head>
 <body>
@@ -740,7 +741,7 @@ function writeToScreen1(message) {
 
 
     <!--            设置弹幕样式-->
-                $(".danmu_wenzi").css({
+                $(".danmu_wenzi>span").css({
                 "font-size": danmuFont + "px", "color": danmuColor
                 });
 
@@ -766,12 +767,11 @@ function writeToScreen1(message) {
                 <!--            设置弹幕右下角图片挂件->
                 $(".danmu_xingxing").attr("src", pendant_backgroundUrl)
 
-
-
     if(d.scrollHeight > $(".chat-window").height() + d.scrollTop) {
         chatWindow.scrollTop = d.scrollHeight;
     };
 }
+
 
 
 

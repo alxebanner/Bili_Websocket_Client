@@ -2,6 +2,8 @@ package com.uid939948.Service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.uid939948.Conf.MainConf;
+import com.uid939948.DO.Face.RoomInfo;
+import com.uid939948.DO.Room;
 import com.uid939948.DO.RoomInit;
 import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
@@ -25,16 +27,41 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo getUserInfo(String roomId) {
         // 通过房间号获取uid 再反查用户信息
-        if (ObjectUtils.isEmpty(MainConf.userInfo)) {
-            log.info("通过房间号获取用户信息" + roomId);
-            long l1 = Long.parseLong(roomId);
-            RoomInit roomInit = HttpRoomUtil.GetRoomInit(l1);
-            return HttpRoomUtil.httpGetUserInfo(roomInit.getUid());
-        } else {
-            return MainConf.userInfo;
-        }
-    }
+//        if (ObjectUtils.isEmpty(MainConf.userInfo)) {
+//            log.info("通过房间号获取用户信息" + roomId);
+//            long l1 = Long.parseLong(roomId);
+//            UserInfo userInfo = new UserInfo();
+//
+//            Room room = HttpRoomUtil.httpGetRoomData(MainConf.ROOMID);
+//            userInfo.setUid(Long.valueOf(room.getUid()));
+//            userInfo.setName(room.getUname());
+//            userInfo.setRoomId(Long.valueOf(room.getRoomId()));
+//
+//            userInfo.setFace(HttpRoomUtil.httpGetFaceUrl_V2(Long.parseLong(room.getUid())));
+//
+//
+//            RoomInfo roomInfo = HttpRoomUtil.httpGetRoomBaseInfo(MainConf.ROOMID);
+//            userInfo.setCover(roomInfo.getCover());
+//            userInfo.setTitle(roomInfo.getTitle());
+//            userInfo.setLiveStatus(LiveStateEnum.getCountryValue(roomInfo.getLive_status()));
+//            MainConf.userInfo = userInfo;
+//            return userInfo;
+//        } else {
+//            if (roomId.equals(MainConf.userInfo.getRoomId() + "")) {
+//                log.info(roomId + "房间号相同 不需要重复获取");
+//                return MainConf.userInfo;
+//            }
+//            log.info(roomId + "房间号不同 重复获取");
+//            long l1 = Long.parseLong(roomId);
+//            RoomInit roomInit = HttpRoomUtil.GetRoomInit(l1);
+//
+//            UserInfo userInfo = HttpRoomUtil.httpGetUserInfo(roomInit.getUid());
+//            MainConf.userInfo = userInfo;
+//            return userInfo;
+//        }
 
+        return MainConf.userInfo;
+    }
 
     @Override
     public List<GiftConfigData> getGiftData(long uid) {

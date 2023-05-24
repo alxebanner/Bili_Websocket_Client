@@ -337,7 +337,7 @@ float: left
 </table>
 
 <div>
-    <input type="button" id="saveSet" value="保存配置"/>
+    <input type="button" id="sendSet" value="保存配置"/>
 </div>
 
 <br>
@@ -347,6 +347,9 @@ float: left
 <div>
     <input type="button" id="closeTestSet" value="关闭测试"/>
 </div>
+
+
+
 
 <!--<div>-->
 <!--    &lt;!&ndash;    自定义表情  左侧显示名字 右侧显示图片 &ndash;&gt;-->
@@ -735,6 +738,38 @@ $("#closeTestSet").click(function(){
             });
 });
 
+<!--保存配置-->
+$("#sendSet").click(function(){
+            let set = {};
+            set.isAnchorLot = $("#onoffswitch1").is(':checked');
+            set.isAnchorLot  = $("#onoffswitch1").is(':checked');
+            set.isSilverGift = $("#onoffswitch2").is(':checked');
+            set.isSystemEmoji = $("#onoffswitch3").is(':checked');
+            set.isUserEmoji = $("#onoffswitch4").is(':checked');
+            set.danmuHeight = $("#danmuHeight").val();
+            set.danmuFont = $("#danmuFont").val();
+            set.danmuColor = $("#danmuColor").val();
+            set.userNameFont = $("#userNameFont").val();
+            set.userNameColor = $("#userNameColor").val();
+            set.face_backgroundUrl = $("#face_backgroundUrl").val();
+            set.username_backgroundUrl = $("#username_backgroundUrl").val();
+            set.commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
+            set.fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
+            set.pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
+
+            $.ajax({
+            url: '../sendSet',
+            data: {
+                set: JSON.stringify(set)
+            },
+            async: false,
+            cache: false,
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+            }
+            });
+});
 
 
 </script>

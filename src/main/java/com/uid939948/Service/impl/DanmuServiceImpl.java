@@ -17,6 +17,7 @@ import com.uid939948.DO.danmu.SuperChat_MSG.SuperChatMessage;
 import com.uid939948.DO.danmu.Toast_MSG.Toast;
 import com.uid939948.DO.danmu.interact.InteractWord;
 import com.uid939948.DO.danmu.like.LikeInfo;
+import com.uid939948.DO.dianGe.MusicInfo;
 import com.uid939948.DO.temp.FacePicture;
 import com.uid939948.Enuns.GuardLevelEnum;
 import com.uid939948.Enuns.InteractWordEnum;
@@ -31,6 +32,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,6 +44,8 @@ import java.util.stream.Collectors;
 public class DanmuServiceImpl implements DanmuService {
     @Resource
     DanmuWebsocket danmuWebsocket;
+
+    private static String NO_FACE_URL = "https://s1.ax1x.com/2023/05/20/p95e0Ig.png";
 
     @Override
     public void danmuFunction(String message) {
@@ -80,13 +86,34 @@ public class DanmuServiceImpl implements DanmuService {
         }
 
         // 2.5 点歌列表
-//        if (true) {
-//            String danmuMessage = danMuMsgInfo.getMessage();
-//            if (danmuMessage.startsWith("点歌")) {
-//
-//            }
-//
-//        }
+        if (false) {
+            String danmuMessage = danMuMsgInfo.getMessage();
+            if (danmuMessage.startsWith("点歌 ")) {
+                String musicName = danmuMessage.replace("点歌 ", "");
+                // 如果是点歌， 再判断是否有歌曲重复
+                //
+                if (ObjectUtils.isEmpty(MainConf.musicInfoList)) {
+                    MusicInfo musicInfo = new MusicInfo();
+                    musicInfo.setMusicName(musicName);
+                    musicInfo.setUid(danMuMsgInfo.getUid());
+                    musicInfo.setName(danMuMsgInfo.getUname());
+                    musicInfo.setNum(1);
+                    // todo 搜索网易云 歌曲黑名单判断
+                    MainConf.musicInfoList.add(musicInfo);
+                } else if (MainConf.musicInfoList.stream().map(MusicInfo::getMusicName).anyMatch(a -> a.equals(musicName))) {
+                    // 存在重复歌曲，不上榜单
+                    log.info(danMuMsgInfo.getUname() + "  存在重复名称，不上点歌榜单");
+                } else {
+                    MusicInfo musicInfo = new MusicInfo();
+                    musicInfo.setMusicName(musicName);
+                    musicInfo.setUid(danMuMsgInfo.getUid());
+                    musicInfo.setName(danMuMsgInfo.getUname());
+                    musicInfo.setNum(MainConf.musicInfoList.size() + 1);
+                    // todo 搜索网易云 歌曲黑名单判断。，、
+                    MainConf.musicInfoList.add(musicInfo);
+                }
+            }
+        }
 
 
         // 2.6 通过缓存获取头像地址 没有就自己获取
@@ -222,7 +249,7 @@ public class DanmuServiceImpl implements DanmuService {
         Toast toast = JSONObject.toJavaObject(jsonObject, Toast.class);
 
         log.info("上船消息推送" + String.valueOf(toast));
-
+        // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
 
     @Override
@@ -388,6 +415,15 @@ public class DanmuServiceImpl implements DanmuService {
 
         GiftConfigData giftConfigData = MainConf.giftMap.get(simpleGift.getGiftId());
 
+
+        if (ObjectUtils.isEmpty(giftConfigData)) {
+            log.info("找不到礼物图片");
+            log.info("" + simpleGift.getGiftId());
+            log.info("" + MainConf.giftMap);
+            return simpleGift;
+        }
+
+
         if (StringUtils.isNotEmpty(giftConfigData.getImg_basic())) {
             simpleGift.setImg_basic(giftConfigData.getImg_basic());
         }
@@ -510,7 +546,8 @@ public class DanmuServiceImpl implements DanmuService {
     private String getFaceUrlByCache(Long uid) {
         String nowFaceUrl;
         if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
-            String faceUrl = HttpRoomUtil.httpGetFaceUrl(uid);
+            String faceUrl = NO_FACE_URL;
+//                    HttpRoomUtil.httpGetFaceUrl_V2(uid);
             nowFaceUrl = faceUrl;
             FacePicture facePicture = new FacePicture(uid,
                     faceUrl, 1, System.currentTimeMillis());
@@ -525,7 +562,6 @@ public class DanmuServiceImpl implements DanmuService {
 
                 FacePicture new_facePicture = map.get(uid);
                 new_facePicture.setCount(new_facePicture.getCount() + 1);
-
 
                 // 判断是否使用历史头像
 //                FacePicture old_facePicture = map.get(uid);
@@ -543,7 +579,8 @@ public class DanmuServiceImpl implements DanmuService {
 //                    log.info("替换失败");
 //                }
             } else {
-                String faceUrl = HttpRoomUtil.httpGetFaceUrl(uid);
+                String faceUrl = NO_FACE_URL;
+//                        HttpRoomUtil.httpGetFaceUrl_V2(uid);
                 nowFaceUrl = faceUrl;
                 FacePicture facePicture = new FacePicture(uid,
                         faceUrl, 1, System.currentTimeMillis());

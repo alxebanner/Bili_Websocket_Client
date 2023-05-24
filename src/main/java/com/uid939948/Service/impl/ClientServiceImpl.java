@@ -1,28 +1,28 @@
 package com.uid939948.Service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.uid939948.Conf.CenterSetConf;
 import com.uid939948.Conf.MainConf;
 import com.uid939948.DO.*;
+import com.uid939948.DO.FansMember.FansMemberInfo;
+import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
+import com.uid939948.DO.temp.FacePicture;
 import com.uid939948.Enuns.LiveStateEnum;
 import com.uid939948.Http.HttpRoomUtil;
 import com.uid939948.Service.ClientService;
 import com.uid939948.Service.SetService;
 import com.uid939948.Tools.HandleWebsocketPackage;
-import com.uid939948.Until.BASE64Encoder;
 import com.uid939948.Until.ByteUtils;
-import com.uid939948.Until.ProFileTools;
 import com.uid939948.WebSocketClient.WebSocketProxy;
 import com.uid939948.component.ThreadComponent;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -105,7 +105,8 @@ public class ClientServiceImpl implements ClientService {
         setService.holdSet(MainConf.centerSetConf);
 
         // 在这里查询一次用户信息，并且保存到缓存里面
-        MainConf.userInfo = HttpRoomUtil.httpGetUserInfo(roomInit.getUid());
+//        MainConf.userInfo = HttpRoomUtil.httpGetUserInfo(roomInit.getUid());
+        MainConf.userInfo = httpGetUserInfo_V2(MainConf.ROOMID);
 
 
         // 如果重新连 也会出现 不合理
@@ -135,6 +136,7 @@ public class ClientServiceImpl implements ClientService {
             MainConf.giftMap = list.stream()
                     .collect(Collectors.toMap(GiftConfigData::getId, v -> v, (p1, p2) -> p1));
         }
+
         // 测试模式弹幕
         List<String> testDanmuMessageList = new ArrayList<>();
         testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"非舰队发言\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
@@ -146,41 +148,80 @@ public class ClientServiceImpl implements ClientService {
         testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"初次见面\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
         testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"#00D1F1\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":true,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"舰队发言\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
         MainConf.testDanmuMessageList = testDanmuMessageList;
+
+        // 通过房间号获取粉丝团的表情 加入的已有头像内，
+
+        // 如果用户uid和粉丝团数量相等，则不需要重新获取
+        List<FansMemberInfo> fansMemberInfoList = HttpRoomUtil.getFansMembersRank(roomInit.getUid());
+        List<FacePicture> facePictureList = new ArrayList<>();
+
+        for (FansMemberInfo fansMember : fansMemberInfoList) {
+            FacePicture facePicture = new FacePicture();
+            facePicture.setFaceUrl(fansMember.getFace());
+            facePicture.setUid(fansMember.getUid());
+            facePicture.setCount(1);
+            facePicture.setTimestamp(System.currentTimeMillis());
+
+            facePictureList.add(facePicture);
+
+        }
+
+        // 通过勋章获取的头像 uid可能有重合，需要去重 只更新头像 不更新次数
+
+//        if(StringUtils.isEmpty())
+        if (CollectionUtils.isEmpty(MainConf.facePictureList)) {
+
+        }
+
+        if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
+            MainConf.facePictureList.addAll(facePictureList);
+        } else {
+            // 这里属于更换房间号 后的场景,需要清空原来的房间头像
+            MainConf.facePictureList = facePictureList;
+//
+//
+//            List<FacePicture> FacePictureTemp = MainConf.facePictureList;
+//            for (FacePicture facePicture : FacePictureTemp) {
+//                FacePicture f1 = facePictureList.stream().filter(mo -> mo.getUid().equals(facePicture.getUid())).findAny().get();
+
+            //
+
+
+//            }
+
+        }
+
+
     }
 
-    @Override
-    public boolean closeConnService() {
-        return false;
-    }
-
-    @Override
-    public void changeSet(CenterSetConf centerSetConf, boolean check) {
-        synchronized (centerSetConf) {
-            if (centerSetConf.toJson().equals(MainConf.centerSetConf.toJson()) && check) {
-                log.info("保存配置文件成功");
-                return;
+    /**
+     * 获取用户信息
+     *
+     * @param roomId 房间号
+     * @return
+     */
+    private UserInfo httpGetUserInfo_V2(long roomId) {
+        if (ObjectUtils.isEmpty(MainConf.userInfo)) {
+            // 为null时为 初次登录
+            log.info("初次获取UserInfo " + roomId);
+            return HttpRoomUtil.httpGetUserInfoV2(roomId);
+        } else {
+            // 不为null时 说明已经登录过一次了，如果两次相等，则不需要重新获取
+            if (MainConf.userInfo.getUid().equals(MainConf.UID)) {
+                log.info("uid相同 UserInfo不需要重新获取 " + roomId);
+                return MainConf.userInfo;
+            } else {
+                log.info("uid不相同 UserInfo需要重新获取 " + roomId);
+                return HttpRoomUtil.httpGetUserInfoV2(roomId);
             }
-            if (MainConf.ROOMID_SAFE != null && MainConf.ROOMID_SAFE > 0) {
-                centerSetConf.setRoomid(MainConf.ROOMID_SAFE);
-            }
-            Hashtable<String, String> hashtable = new Hashtable<String, String>();
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            hashtable.put("set", base64Encoder.encode(centerSetConf.toJson().getBytes()));
-            ProFileTools.write(hashtable, "DanmujiProfile");
-            try {
-                MainConf.centerSetConf = JSONObject.parseObject(
-                        new String(base64Encoder.decode(ProFileTools.read("DanmujiProfile").get("set"))),
-                        CenterSetConf.class);
-//                holdSet(centerSetConf);
-                log.info("保存配置文件成功");
-            } catch (Exception e) {
-                // TODO: handle exception
-                log.error("保存配置文件失败:" + e);
-            }
-            base64Encoder = null;
-            hashtable.clear();
         }
     }
+
+
+    @Override
+    public void closeConnService() {
+    }
+
 
     @Override
     public void starTestService() {

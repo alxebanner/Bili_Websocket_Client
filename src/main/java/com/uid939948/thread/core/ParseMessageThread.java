@@ -67,8 +67,8 @@ public class ParseMessageThread extends Thread {
                         }
                     }
 
-                    // log.info("消息类型为" + cmd);
-                    // log.info("消息为" + message);
+//                     log.info("消息类型为" + cmd);
+//                     log.info("消息为" + message);
 
                     // 消息打印黑名单 （已经检查的名单）
                     List<String> writeList = new ArrayList<>();
@@ -747,12 +747,12 @@ public class ParseMessageThread extends Thread {
 
                         // 活动pk开始
                         case "PK_BATTLE_START":
-                            log.info("房间活动pk开始:::" + message);
+//                            log.info("房间活动pk开始:::" + message);
                             break;
 
                         // 活动pk中
                         case "PK_BATTLE_PROCESS":
-                            log.info("房间活动pk中:::" + message);
+//                            log.info("房间活动pk中:::" + message);
                             break;
                         case "PK_BATTLE_PROCESS_NEW":
                             // K_BATTLE_START_NEW
@@ -784,14 +784,14 @@ public class ParseMessageThread extends Thread {
 
                         // 房间活动pk结束
                         case "PK_BATTLE_END":
-                            log.info("房间pk活动结束::" + message);
+//                            log.info("房间pk活动结束::" + message);
                             break;
 //
 //                        房间pk活动结束::{"cmd":"PK_BATTLE_END","pk_id":"322990390","pk_status":501,"timestamp":1680846390,"data":{"battle_type":1,"timer":10,"init_info":{"room_id":425837,"votes":0,"winner_type":-1,"best_uname":""},"match_info":{"room_id":25914701,"votes":110,"winner_type":3,"best_uname":"\u98df\u4e0d\u98df\u6cb9\u9905\u963f"}}}
 //{"cmd":"PK_BATTLE_END","pk_id":"323879839","pk_status":501,"timestamp":1682602487,"data":{"battle_type":1,"timer":10,"init_info":{"room_id":22953683,"votes":1,"winner_type":-1,"best_uname":"\u6f29\u6da1\u76ae\u76ae"},"match_info":{"room_id":25675792,"votes":1050,"winner_type":3,"best_uname":"\u963f\u6728\u6728\u624d\u4e0d\u4f1a\u54ed\u5462"}}}
                         // 活动pk结果用户 推送
                         case "PK_BATTLE_SETTLE_USER":
-                            log.info("活动pk结果用户 推送::" + message);
+//                            log.info("活动pk结果用户 推送::" + message);
                             break;
 
 //                        活动pk结果用户 推送::{"cmd":"PK_BATTLE_SETTLE_USER","pk_id":322990390,"pk_status":501,"settle_status":1,"timestamp":1680846390,"data":{"pk_id":"322990390","season_id":60,"settle_status":1,"result_type":3,"battle_type":0,"result_info":{"total_score":22,"result_type_score":22,"pk_votes":110,"pk_votes_name":"\u4e71\u6597\u503c","pk_crit_score":-1,"pk_resist_crit_score":-1,"pk_extra_score_slot":"","pk_extra_value":0,"pk_extra_score":0,"pk_task_score":0,"pk_times_score":0,"pk_done_times":2,"pk_total_times":-1,"win_count":2,"win_final_hit":-1,"winner_count_score":0,"task_score_list":[]},"winner":{"room_id":25914701,"uid":1007320348,"uname":"koi\u7efe\u7efe","face":"https:\/\/i1.hdslb.com\/bfs\/face\/dd1e2774e5a2084f84ccc44df42352dfdc575d1f.jpg","face_frame":"https:\/\/i0.hdslb.com\/bfs\/live\/2a790ce8d2dd5f7c5c922f5ecda6e169e20d97b3.png","exp":{"color":6406234,"user_level":13,"master_level":{"color":10512625,"level":23}},"best_user":{"uid":1083112186,"uname":"\u98df\u4e0d\u98df\u6cb9\u9905\u963f","face":"https:\/\/i1.hdslb.com\/bfs\/face\/1d94bf2f24d8d5de675be56b836414abd58125e0.jpg","pk_votes":60,"pk_votes_name":"\u4e71\u6597\u503c","exp":{"color":6406234,"level":1},"face_frame":"","badge":{"url":"","desc":"","position":0},"award_info":null,"award_info_list":[],"end_win_award_info_list":{"list":[]}}},"my_info":{"room_id":25914701,"uid":1007320348,"uname":"koi\u7efe\u7efe","face":"https:\/\/i1.hdslb.com\/bfs\/face\/dd1e2774e5a2084f84ccc44df42352dfdc575d1f.jpg","face_frame":"https:\/\/i0.hdslb.com\/bfs\/live\/2a790ce8d2dd5f7c5c922f5ecda6e169e20d97b3.png","exp":{"color":6406234,"user_level":13,"master_level":{"color":10512625,"level":23}},"best_user":{"uid":1083112186,"uname":"\u98df\u4e0d\u98df\u6cb9\u9905\u963f","face":"https:\/\/i1.hdslb.com\/bfs\/face\/1d94bf2f24d8d5de675be56b836414abd58125e0.jpg","pk_votes":60,"pk_votes_name":"\u4e71\u6597\u503c","exp":{"color":6406234,"level":1},"face_frame":"","badge":{"url":"","desc":"","position":0},"award_info":null,"award_info_list":[],"end_win_award_info_list":{"list":[]}}},"level_info":{"first_rank_name":"\u9752\u94dc\u840c\u65b0","second_rank_num":2,"first_rank_img":"https:\/\/i0.hdslb.com\/bfs\/live\/bd6ca767900adbda7cd7148db06f72726bef7813.png","second_rank_icon":"https:\/\/i0.hdslb.com\/bfs\/live\/1f8c2a959f92592407514a1afeb705ddc55429cd.png"}}}
@@ -1206,7 +1206,7 @@ public class ParseMessageThread extends Thread {
 
                             // 红包抽奖推送:::{"cmd":"POPULARITY_RED_POCKET_NEW","data":{"lot_id":10483261,"start_time":1680952449,"current_time":1680952449,"wait_num":0,"uname":"直播小电视","uid":1407831746,"action":"送出","num":1,"gift_name":"红包","gift_id":13000,"price":600,"name_color":"","medal_info":{"target_id":0,"special":"","icon_id":0,"anchor_uname":"","anchor_roomid":0,"medal_level":0,"medal_name":"","medal_color":0,"medal_color_start":0,"medal_color_end":0,"medal_color_border":0,"is_lighted":0,"guard_level":0}}}
 
-                            log.info("红包抽奖推送:::" + message);
+//                            log.info("红包抽奖推送:::" + message);
 
 //                        {"cmd":"POPULARITY_RED_POCKET_NEW","data":{"lot_id":10483908,"start_time":1680954326,"current_time":1680953743,"wait_num":5,"uname":"手残大树","uid":89739012,"action":"送出","num":1,"gift_name":"红包","gift_id":13000,"price":20,"name_color":"#00D1F1","medal_info":{"target_id":0,"special":"","icon_id":0,"anchor_uname":"","anchor_roomid":0,"medal_level":0,"medal_name":"","medal_color":0,"medal_color_start":0,"medal_color_end":0,"medal_color_border":0,"is_lighted":0,"guard_level":0}}}
                             //{"cmd":"POPULARITY_RED_POCKET_NEW",
@@ -1290,7 +1290,7 @@ public class ParseMessageThread extends Thread {
                             //					LOGGER.info("红包赠送:::" + message);
                             break;
                         case "POPULARITY_RED_POCKET_WINNER_LIST":
-                            log.info("红包抽奖结果推送:::" + message);
+//                            log.info("红包抽奖结果推送:::" + message);
                             // 红包抽奖结果推送:::{"cmd":"POPULARITY_RED_POCKET_WINNER_LIST","data":{"lot_id":10483261,"total_num":46,"winner_info":[[382169855,"這都幾點啦",5536553,31215],[26563730,"慈母手中剑游子身上扎",5547574,30971],[592298660,"200虫",5547326,30971],[5579618,"xiaobaizhi",5558028,30971],[3493110071954202,"拜伦伦拜",5553877,30971],[11260471,"笑叔家的次元魂",5498704,30971],[381835230,"暮影晓白",5547576,30971],[36224080,"寶貝貝",5547575,30971],[87577734,"华樱白猫",5503642,30971],[359746905,"GAI-Alone",5536554,30971],[349251604,"无铭智者龘龘龘龘龘",5503867,31278],[2994493,"年年の柴宝",5549049,31278],[504313725,"用名字长来引起人注意",5536324,31278],[3968797,"不忆的阿凌",5493011,31278],[1454342769,"IamMI_awa",5525245,31278],[334425358,"京东大会员",5558029,31278],[504738866,"可爱的可莹",5569751,31278],[12304672,"正经的五月",5553878,31278],[245888157,"醉酒暖茶-世一欧",5493010,31278],[253789290,"兰州挂面",5547287,31278],[332869200,"孤独回家天",5547577,31278],[324365756,"清影醉是兔免吖",5569720,31278],[241054561,"天上院幻雪",5498962,31278],[15798212,"彤彤的十六年铁粉",5553879,31278],[1233162176,"月影入画vci",5569715,31278],[697632781,"那个好吃这个也好吃w",5498961,31278],[75463100,"小短腿不舒服斯基",5547283,31278],[6046036,"无前Namako",5566534,31278],[555871534,"以己之心待他人",5503868,31278],[403319092,"ZHJ赵浙",5553880,31278],[489885564,"瓈筱",5503869,31278],[43109537,"衣同_",5488966,31278],[17283628,"喝水打豆豆吃饭",5557104,31278],[27856887,"刹二豹独家认证轧钢厂",5493012,31278],[88145446,"苍炎真司",5569976,31278],[179808226,"想吃芒果的Rinko酱",5569716,31278],[524345660,"爱吃桃桃的胡桃",5547327,31278],[3493271846259246,"嘉嘉-宝贝吖",5569977,31278],[26264583,"君敏丶",5548784,31278],[1379568084,"涵包蛋QWQ",5503870,31278],[900317,"僭语",5487399,31278],[1855543390,"老足球迷胖胖大叔",5543130,31278]],"awards":{"30971":{"award_type":1,"award_name":"这个好诶","award_pic":"https://s1.hdslb.com/bfs/live/9260c680959428c45b3a2742e42ea7ae75e457ef.png","award_big_pic":"https://i0.hdslb.com/bfs/live/fc69ce781aae94ef0629b68b1d650a3a837086be.png","award_price":1000},"31215":{"award_type":1,"award_name":"花式夸夸","award_pic":"https://s1.hdslb.com/bfs/live/28186596880db45a7b843f17d6ebb70feeac06f9.png","award_big_pic":"https://i0.hdslb.com/bfs/live/86927942c0c32f49bce65cc98f37fca90a0b2e67.png","award_price":33000},"31278":{"award_type":1,"award_name":"打call","award_pic":"https://s1.hdslb.com/bfs/live/b1be22bf5843b6d1164683233bf35947714118bb.png","award_big_pic":"https://i0.hdslb.com/bfs/live/d31a129b858c1853f0bc588096d1ed313293c30a.png","award_price":500}},"version":1}}
 //                        {"cmd":"POPULARITY_RED_POCKET_WINNER_LIST","data":{"lot_id":10483521,"total_num":8,"winner_info":[[592298660,"200虫",5547731,31212],[555871534,"以己之心待他人",5500791,31212],[26563730,"慈母手中剑游子身上扎",5547732,31214],[2994493,"年年の柴宝",5549205,31214],[87577734,"华樱白猫",5504005,31214],[1233162176,"月影入画vci",5570145,31216],[26631012,"乃琳喵提不起劲_",5554045,31216],[403319092,"ZHJ赵浙",5554046,31216]],"awards":{"31212":{"award_type":1,"award_name":"打call","award_pic":"https://s1.hdslb.com/bfs/live/461be640f60788c1d159ec8d6c5d5cf1ef3d1830.png","award_big_pic":"https://i0.hdslb.com/bfs/live/9e6521c57f24c7149c054d265818d4b82059f2ef.png","award_price":500},"31214":{"award_type":1,"award_name":"牛哇","award_pic":"https://s1.hdslb.com/bfs/live/91ac8e35dd93a7196325f1e2052356e71d135afb.png","award_big_pic":"https://i0.hdslb.com/bfs/live/3b74c117b4f265edcea261bc5608a58d3a7c300a.png","award_price":100},"31216":{"award_type":1,"award_name":"小花花","award_pic":"https://s1.hdslb.com/bfs/live/5126973892625f3a43a8290be6b625b5e54261a5.png","award_big_pic":"https://i0.hdslb.com/bfs/live/cf90eac49ac0df5c26312f457e92edfff266f3f1.png","award_price":100}},"version":1}}
                             break;
@@ -1346,7 +1346,8 @@ public class ParseMessageThread extends Thread {
                             //					LOGGER.info("粉丝勋章消息盒子推送:::" + message);
                             break;
                         case "POPULARITY_RED_POCKET_START":
-                            log.info("礼物推送:::" + message);
+//                            log.info("礼物推送:::" + message);
+//                        {"cmd":"POPULARITY_RED_POCKET_START","data":{"lot_id":11498667,"sender_uid":1407831746,"sender_name":"直播小电视","sender_face":"http://i2.hdslb.com/bfs/face/72c99193ee2c32f14b7b60711ec4c2ce2eced60c.jpg","join_requirement":1,"danmu":"老板大气！点点红包抽礼物！","current_time":1684595079,"start_time":1684595078,"end_time":1684595258,"last_time":180,"remove_time":1684595273,"replace_time":1684595268,"lot_status":1,"h5_url":"https://live.bilibili.com/p/html/live-app-red-envelope/popularity.html?is_live_half_webview=1\u0026hybrid_half_ui=1,5,100p,100p,000000,0,50,0,0,1;2,5,100p,100p,000000,0,50,0,0,1;3,5,100p,100p,000000,0,50,0,0,1;4,5,100p,100p,000000,0,50,0,0,1;5,5,100p,100p,000000,0,50,0,0,1;6,5,100p,100p,000000,0,50,0,0,1;7,5,100p,100p,000000,0,50,0,0,1;8,5,100p,100p,000000,0,50,0,0,1\u0026hybrid_rotate_d=1\u0026hybrid_biz=popularityRedPacket\u0026lotteryId=11498667","user_status":2,"awards":[{"gift_id":30971,"gift_name":"这个好诶","gift_pic":"https://s1.hdslb.com/bfs/live/9260c680959428c45b3a2742e42ea7ae75e457ef.png","num":2},{"gift_id":31278,"gift_name":"打call","gift_pic":"https://s1.hdslb.com/bfs/live/b1be22bf5843b6d1164683233bf35947714118bb.png","num":1},{"gift_id":31225,"gift_name":"牛哇牛哇","gift_pic":"https://s1.hdslb.com/bfs/live/91ac8e35dd93a7196325f1e2052356e71d135afb.png","num":5}],"lot_config_id":-1,"total_price":3000,"wait_num":0}}
                             // todp待抓
                             break;
                         case "LITTLE_MESSAGE_BOX":
@@ -1365,7 +1366,8 @@ public class ParseMessageThread extends Thread {
                             //					LOGGER.info("千舰推送:::" + message);
                             break;
                         case "FULL_SCREEN_SPECIAL_EFFECT":
-                            log.info("FULL_SCREEN_SPECIAL_EFFECT:::" + message);
+//                            log.info("FULL_SCREEN_SPECIAL_EFFECT:::" + message);
+//                            FULL_SCREEN_SPECIAL_EFFECT:::{"cmd":"FULL_SCREEN_SPECIAL_EFFECT","data":{"type":2,"ids":[1045],"queue":2,"platform_in":[1,2]}}
                             break;
                         case "CARD_MSG":
                             //					LOGGER.info("CARD_MSG:::" + message);

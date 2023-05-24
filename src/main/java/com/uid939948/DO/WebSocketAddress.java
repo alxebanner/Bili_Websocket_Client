@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.List;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,10 +24,4 @@ public class WebSocketAddress implements Serializable{
 	private String token;
 
 	private List<HostServer> host_list;
-
-
-
-
-	
-	
 }

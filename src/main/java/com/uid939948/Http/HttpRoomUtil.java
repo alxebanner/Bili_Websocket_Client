@@ -3,7 +3,11 @@ package com.uid939948.Http;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.uid939948.Conf.MainConf;
 import com.uid939948.DO.Emoji.EmojiInfo;
+import com.uid939948.DO.Face.Card;
+import com.uid939948.DO.Face.RoomInfo;
+import com.uid939948.DO.FansMember.FansMemberInfo;
 import com.uid939948.DO.Room;
 import com.uid939948.DO.RoomInit;
 import com.uid939948.DO.UserInfoData.UserInfo;
@@ -26,12 +30,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class HttpRoomUtil {
     private static Logger LOGGER = LogManager.getLogger(HttpRoomUtil.class);
+
+    private static String NO_FACE_URL = "https://s1.ax1x.com/2023/05/20/p95e0Ig.png";
 
     /**
      * 获取房间信息
@@ -43,8 +50,7 @@ public class HttpRoomUtil {
         RoomInit roomInit = null;
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
-        headers.put("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
         String url = "https://api.live.bilibili.com/room/v1/Room/room_init?id=" + roomId;
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
@@ -67,8 +73,7 @@ public class HttpRoomUtil {
         WebSocketAddress webSocketAddress = null;
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
-        headers.put("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
         if (!StringUtils.isBlank(userCookie)) {
             headers.put("cookie", userCookie);
@@ -100,8 +105,7 @@ public class HttpRoomUtil {
         Map<String, String> headers = null;
         headers = new HashMap<>(3);
         headers.put("referer", "https://live.bilibili.com/" + roomId);
-        headers.put("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
         String url = "https://api.live.bilibili.com/room_ex/v1/RoomNews/get?roomid=" + roomId;
         String result = HttpUtil.doGetWithHeader(url, headers);
         jsonObject = JSONObject.parseObject(result);
@@ -113,6 +117,61 @@ public class HttpRoomUtil {
         }
         return room;
     }
+
+//    https://api.bilibili.com/x/web-interface/card?mid=${uid}
+
+    /**
+     * 另外一个接口获取头像
+     *
+     * @param uid
+     * @return
+     */
+    public static String httpGetFaceUrl_V2(long uid) {
+
+        Map<String, String> headers = new HashMap<>(3);
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
+        headers.put("referer", "https://space.bilibili.com/" + uid);
+
+        String url = "https://api.bilibili.com/x/web-interface/card?mid=" + uid;
+//        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token&platform=web";
+        String result = HttpUtil.doGetWithHeader(url, headers);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject = JSONObject.parseObject(result);
+
+        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+
+//        roomInit = jsonObject.getObject("data", RoomInit.class);
+
+        Card card = jsonObject1.getObject("card", Card.class);
+
+
+//        jsonObject.getJSONObject("data").getJSONObject("card").getJSONObject("face");
+
+
+        return card.getFace();
+    }
+
+    /**
+     * 根据房间号获取 房间信息 (包含直播封面)
+     *
+     * @param roomId
+     * @return
+     */
+    public static RoomInfo httpGetRoomBaseInfo(long roomId) {
+
+        Map<String, String> headers = new HashMap<>(3);
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
+//        headers.put("referer", "https://space.bilibili.com/" + uid);
+
+        String url = " https://api.live.bilibili.com/xlive/web-room/v1/index/getRoomBaseInfo?room_ids=" + roomId + "&req_biz=video";
+        String result = HttpUtil.doGetWithHeader(url, headers);
+        JSONObject jsonObject = JSONObject.parseObject(result);
+        JSONObject jsonObject1 = jsonObject.getJSONObject("data").getJSONObject("by_room_ids");
+        RoomInfo roomInfo = jsonObject1.getObject(roomId + "", RoomInfo.class);
+        return roomInfo;
+    }
+
 
     /**
      * 通过UID获取头像
@@ -153,7 +212,10 @@ public class HttpRoomUtil {
         } catch (JSONException e) {
             String[] s111 = result.split("}");
             String s11111 = s111[0] + "}";
-//            System.out.println("请求过于频繁，请稍后再试");
+            System.out.println("请求过于频繁，请稍后再试");
+
+            System.out.println(result);
+
             String newResult = result.replace(s11111, "");
             jsonObject = JSONObject.parseObject(newResult);
             String data = jsonObject.getString("data");
@@ -164,11 +226,15 @@ public class HttpRoomUtil {
         if (ObjectUtils.isEmpty(jsonObject)) {
             System.out.println("请求过于频繁，已关闭显示");
             System.out.println(result);
-            return "";
+            return NO_FACE_URL;
         }
 
-        if (!jsonObject.getString("code") .equals("0") ) {
-            return "";
+        if (!jsonObject.getString("code").equals("0")) {
+
+            System.out.println("code不为0");
+            System.out.println(result);
+
+            return NO_FACE_URL;
         }
 
 
@@ -182,8 +248,7 @@ public class HttpRoomUtil {
         String url = "https://tenapi.cn/bilibili/?uid=" + uid;
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
-        headers.put("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
 //        headers.put("cookie", token);
         String result = HttpUtil.doGetWithHeader(url, headers);
@@ -209,8 +274,7 @@ public class HttpRoomUtil {
                 InputStream inStream = entity.getContent();
 //                C:\Users\Administrator\Desktop\交付
 
-                path = path + File.separator + "src" + File.separator + "main" + File.separator
-                        + "resources" + File.separator + "static" + File.separator + "face" + File.separator;
+                path = path + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "face" + File.separator;
                 System.out.println(" 文件路径 " + path);
                 path = path + uid + ".jpg";
                 FileOutputStream fw = new FileOutputStream(path, false);
@@ -264,6 +328,29 @@ public class HttpRoomUtil {
 
     }
 
+
+    /**
+     * 通过uid获取 用户基本信息第二种方式
+     *
+     * @param roomId 房间号
+     * @return 用户基本信息
+     */
+    public static UserInfo httpGetUserInfoV2(long roomId) {
+        Room room = HttpRoomUtil.httpGetRoomData(roomId);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUid(Long.valueOf(room.getUid()));
+        userInfo.setName(room.getUname());
+        userInfo.setRoomId(Long.valueOf(room.getRoomId()));
+        userInfo.setFace(HttpRoomUtil.httpGetFaceUrl_V2(Long.parseLong(room.getUid())));
+        RoomInfo roomInfo = HttpRoomUtil.httpGetRoomBaseInfo(MainConf.ROOMID);
+        userInfo.setCover(roomInfo.getCover());
+        userInfo.setTitle(roomInfo.getTitle());
+        userInfo.setLiveStatus(LiveStateEnum.getCountryValue(roomInfo.getLive_status()));
+
+        return userInfo;
+    }
+
+
     /**
      * 通过uid获取 用户基本信息
      *
@@ -275,12 +362,44 @@ public class HttpRoomUtil {
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
         headers.put("referer", "https://space.bilibili.com/" + uid);
 
-        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token&platform=web";
+        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token=&platform=web";
+
+
+//        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid;
+//        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token&platform=web";
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
         String data = jsonObject.getString("data");
         UserInfo userInfo = new UserInfo();
         userInfo.setUid(uid);
+
+        try {
+            jsonObject = JSONObject.parseObject(result);
+
+            String code = jsonObject.getString("code");
+            if (!"0".equals(code)) {
+                System.out.println("httpGetUserInfo :" + result);
+                return null;
+            }
+
+        } catch (JSONException e) {
+            String[] s111 = result.split("}");
+            String s11111 = s111[0] + "}";
+            String newResult = result.replace(s11111, "");
+            jsonObject = JSONObject.parseObject(newResult);
+            String data1 = jsonObject.getString("data");
+            String faceUrl = JSONObject.parseObject(data1).getString("face");
+            System.out.println("请求过于频繁，已关闭显示");
+            System.out.println(result);
+            return null;
+        }
+
+        if (ObjectUtils.isEmpty(jsonObject)) {
+            System.out.println("请求过于频繁，已关闭显示");
+            System.out.println(result);
+            return null;
+        }
+
         userInfo.setFace(JSONObject.parseObject(data).getString("face"));
         userInfo.setName(JSONObject.parseObject(data).getString("name"));
         userInfo.setSign(JSONObject.parseObject(data).getString("sign"));
@@ -318,8 +437,7 @@ public class HttpRoomUtil {
 //        String url = "https://api.live.bilibili.com/xlive/web-ucenter/v2/emoticon/GetEmoticons?platform=pc&room_id=24673446";
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
-        headers.put("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
         if (StringUtils.isEmpty(token)) {
             token = "buvid3=08D352DC-DC35-6D0B-D7A6-F4580C59984D09585infoc; i-wanna-go-back=-1; _uuid=7CAC75C3-27A2-ADD7-CB54-F10B5242310A3609137infoc; FEED_LIVE_VERSION=V8; SESSDATA=a8aa63df%2C1696936030%2C488e4%2A42; bili_jct=d776d147a5bf13b53bb79c13dd62520e; DedeUserID=939948; DedeUserID__ckMd5=9518835468e33460; sid=8a5pl4lu; b_ut=5; header_theme_version=CLOSE; CURRENT_FNVAL=4048; CURRENT_PID=23923600-d9eb-11ed-be23-97bcf7bbe66b; rpdid=|(um|JR))J~k0J'uY)uJ)R|R~; LIVE_BUVID=AUTO8716813855968636; Hm_lvt_8a6e55dbd2870f0f5bc9194cddf32a02=1681425952; nostalgia_conf=-1; bsource=search_baidu; buvid_fp_plain=undefined; b_nut=1681448088; home_feed_column=5; hit-new-style-dyn=1; hit-dyn-v2=1; fingerprint=1866c61b561bad20f46ded607d8975aa; _dfcaptcha=6e8e8c9b9b8001ae78749167e55b1dac; bp_video_offset_939948=784782373085511700; bp_article_offset_939948=784737280223871000; buvid_fp=44b6fa13d9548059aabf9a59543f7da9; b_lsid=7EFA41610_18784EAA15C; innersign=0; buvid4=F30C274A-BA93-645C-4AB3-CC0E267F768B71380-023041521-WEPh3cauru/S2ihNzsVNARaXWfUg45pw4+AvxkahliBqCuL2gzeF7A%3D%3D; Hm_lpvt_8a6e55dbd2870f0f5bc9194cddf32a02=1681565951; PVID=94";
 
@@ -334,4 +452,52 @@ public class HttpRoomUtil {
         List<EmojiInfo> list = JSONObject.parseArray(jsonArray.toJSONString(), EmojiInfo.class);
         return list;
     }
+
+
+    /**
+     * 通过房间号获取粉色勋章
+     *
+     * @param uid 房间号
+     * @return 勋章实体
+     */
+    public static List<FansMemberInfo> getFansMembersRank(long uid) {
+
+        String url = "https://api.live.bilibili.com/xlive/general-interface/v1/rank/getFansMembersRank?ruid=" + uid + "&page=1&page_size=30";
+
+        String result = HttpUtil.doGet(url);
+
+
+        JSONObject jsonObject = JSONObject.parseObject(result);
+
+        JSONObject data = jsonObject.getJSONObject("data");
+
+        List<FansMemberInfo> memberInfoArrayList = new ArrayList<>();
+
+        int num = data.getInteger("num");
+        int count = 1;
+
+        if (ObjectUtils.isNotEmpty(num)) {
+            count = num / 30 + 1;
+            // 页数为count
+
+
+            for (int i = 1; i <= count; i++) {
+
+                String url1 = "https://api.live.bilibili.com/xlive/general-interface/v1/rank/getFansMembersRank?ruid=" + uid +
+                        "&page=" + i +
+                        "&page_size=30";
+                String resultTemp = HttpUtil.doGet(url1);
+
+                JSONObject jsonObject1 = JSONObject.parseObject(resultTemp);
+
+                JSONArray jsonArray = jsonObject1.getJSONObject("data").getJSONArray("item");
+
+                List<FansMemberInfo> list = JSONObject.parseArray(jsonArray.toJSONString(), FansMemberInfo.class);
+                memberInfoArrayList.addAll(list);
+            }
+        }
+        return memberInfoArrayList;
+    }
+
+
 }

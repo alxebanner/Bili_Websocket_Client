@@ -4,6 +4,7 @@ import com.uid939948.DO.UserCookie;
 import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.danmu.ANCHOR_LOT_START.Anchor_lot;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
+import com.uid939948.DO.dianGe.MusicInfo;
 import com.uid939948.DO.temp.FacePicture;
 import com.uid939948.WebSocketClient.WebSocketProxy;
 import com.uid939948.thread.core.HeartByteThread;
@@ -130,5 +131,7 @@ public class MainConf {
 
     // 测试弹幕集合
     public static List<String> testDanmuMessageList;
+
+    public static List<MusicInfo> musicInfoList;
 
 }

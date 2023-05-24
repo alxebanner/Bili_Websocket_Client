@@ -19,7 +19,7 @@ public class UserInfo {
     private Long uid;
 
     /**
-     * z直播标题
+     * 直播标题
      */
     private String title;
 
