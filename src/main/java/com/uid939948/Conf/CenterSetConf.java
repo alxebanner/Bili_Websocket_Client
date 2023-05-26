@@ -85,11 +85,68 @@ public class CenterSetConf implements Serializable {
      */
     private String userNameColor = "#D2B48C";
 
+    // 普通用户头像
     /**
-     * 头像框背景图片地址
+     * 普通用户头像框背景图片地址
      */
     private String face_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cTod0.png";
     // 纪录默认位置   private String face_backgroundUrl = "../../danmuCss/top/舰长头像框.png";
+
+    /**
+     * 普通用户头像框背景图片宽度
+     */
+    private String face_common_Width;
+
+    /**
+     * 普通用户头像框背景图片高度
+     */
+    private String face_common_Height;
+
+    /**
+     * 普通用户 头像 弯曲弧度 0px到50px
+     */
+    private String face_common_border_radius;
+
+    /**
+     * 普通用户 竖直头像偏移量
+     */
+    private String face_common_top;
+
+    /**
+     * 普通用户 水平向左头像偏移量
+     */
+    private String face_common_left;
+
+    // 舰队头像
+    /**
+     * 舰队头像框背景图片地址
+     */
+    private String face_Top_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cTod0.png";
+
+    /**
+     * 舰队用户头像框背景图片宽度
+     */
+    private String face_top_Width;
+
+    /**
+     * 舰队用户 头像框背景图片高度
+     */
+    private String face_top_Height;
+
+    /**
+     * 舰队用户 头像 弯曲弧度 0px到50px
+     */
+    private String face_top_border_radius;
+
+    /**
+     * 舰队用户 竖直头像偏移量
+     */
+    private String face_top_top;
+
+    /**
+     * 舰队用户 水平向左头像偏移量
+     */
+    private String face_top_left;
 
 
     /**
@@ -98,15 +155,11 @@ public class CenterSetConf implements Serializable {
     private String username_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cHAhT.png";
 //    private String username_backgroundUrl = "../../danmuCss/top/观众用户名称.png";
 
-
-
     /**
      * 普通观众 背景图片地址
      */
     private String commonDanmu_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cHdHI.png";
 //    private String commonDanmu_backgroundUrl = "../../danmuCss/fans/底板-粉丝.png";
-
-
 
     /**
      * 舰队人员 背景图片地址

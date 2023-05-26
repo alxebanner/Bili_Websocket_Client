@@ -198,7 +198,7 @@ public class ClientServiceImpl implements ClientService {
      * 获取用户信息
      *
      * @param roomId 房间号
-     * @return
+     * @return 用户数据
      */
     private UserInfo httpGetUserInfo_V2(long roomId) {
         if (ObjectUtils.isEmpty(MainConf.userInfo)) {
@@ -209,7 +209,9 @@ public class ClientServiceImpl implements ClientService {
             // 不为null时 说明已经登录过一次了，如果两次相等，则不需要重新获取
             if (MainConf.userInfo.getUid().equals(MainConf.UID)) {
                 log.info("uid相同 UserInfo不需要重新获取 " + roomId);
-                return MainConf.userInfo;
+
+                // todo 这里可能会很频繁
+                return HttpRoomUtil.httpGetUserInfoV2(roomId);
             } else {
                 log.info("uid不相同 UserInfo需要重新获取 " + roomId);
                 return HttpRoomUtil.httpGetUserInfoV2(roomId);

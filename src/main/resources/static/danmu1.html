@@ -15,21 +15,21 @@
 .now1 {
     height: 125px;
     width: 125px;
-    background-size: 125px 125px;
-    background-image: url(../../danmuCss/top/舰长头像框.png);
-    background-repeat: no-repeat;
+<!--    background-size: 125px 125px;-->
+<!--    background-image: url(../../danmuCss/top/舰长头像框.png);-->
+<!--    background-repeat: no-repeat;-->
 }
 
 .d3 {
     height: 100px;
     width: 100px;
 }
-.d3>img {
-    width: 100%;
-    border-radius: 50px;
-    margin-top: 20px;
-    margin-left: 10px;
-}
+<!--.d3>img {-->
+<!--    width: 100%;-->
+<!--    border-radius: 50px;-->
+<!--    margin-top: 20px;-->
+<!--    margin-left: 10px;-->
+<!--}-->
 
 .face {
     width: 40px;
@@ -229,6 +229,30 @@ opacity: 1;
 
 
 
+.test1 {
+    position: relative;
+    border-radius: 75px;
+    width: 100px;
+    height: 100px;
+    top: 20px;
+}
+
+.test2 {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    top: -100px;
+    left: -18px;
+}
+
+.test3 {
+    position: relative;
+    width: 150px;
+    height: 129px;
+    top: -96px;
+    left: -17px;
+}
+
 
 
     </style>
@@ -400,6 +424,15 @@ opacity: 1;
     <input type="text" id='pendant_backgroundUrl' style='display:none' placeholder="弹幕高度">
 
 </div>
+
+
+<!--<div>-->
+<!--    <img class="test1" src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" />-->
+
+<!--    <img class="test2" src="https://s1.ax1x.com/2023/05/26/p9bdynA.png" />-->
+
+<!--</div>-->
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -568,7 +601,7 @@ function onMessage(evt) {
 <!--    '    </div>'+-->
 <!--    '</div>'+-->
 
-    showHead(data.faceUrl) +
+    showHead(data.faceUrl, data.danmuColor) +
 
     '<div class="content">'+
 <!--     '   <div class="danmu_name_border">'+-->
@@ -657,12 +690,21 @@ function giftMessage(data) {
 }
 
 <!--显示头像-->
-function showHead(faceUrl) {
+function showHead(faceUrl, danmuColor) {
+    var face_border = "https://s1.ax1x.com/2023/05/26/p9bdynA.png";
+    var class_border = "test2";
+    console.log("danmuColor");
+    console.log(danmuColor);
+    if(danmuColor !="") {
+        face_border = "https://s1.ax1x.com/2023/05/26/p9qEDud.png";
+        class_border = "test3";
+    }
     var faceDiv =
     '<div class="face">'+
     '    <div class="now1">'+
     '        <div class="d3">'+
-    '            <img src='+ faceUrl +' alt="">'+
+    '            <img class = "test1" src='+ faceUrl +' alt="">'+
+    '            <img class ="' + class_border + '" src='+ face_border +' alt="">'+
     '        </div>'+
     '    </div>'+
     '</div>';
@@ -756,9 +798,12 @@ function writeToScreen1(message) {
                 });
 
                 <!--            设置用户头像框->
-               $(".now1").css({
-                "background-image": "url( "+  face_backgroundUrl  +" )",
-                });
+<!--               $(".now1").css({-->
+<!--                "background-image": "url( "+  face_backgroundUrl  +" )",-->
+<!--                });-->
+
+
+
                 <!--            设置非舰队聊天框->
                 $(".danmu_wenzi_border1").css({
                 "background-image": "url( "+  commonDanmu_backgroundUrl  +" )",
@@ -772,16 +817,17 @@ function writeToScreen1(message) {
                 <!--            设置弹幕右下角图片挂件->
                 $(".danmu_xingxing").attr("src", pendant_backgroundUrl)
 
-                console.log("d.scrollTop")
-                console.log(d.scrollTop)
-                console.log("d.scrollHeight")
-                console.log(d.scrollHeight)
-                console.log("chat-window height()")
-                console.log( $(".chat-window").height() )
+<!--                console.log("d.scrollTop")-->
+<!--                console.log(d.scrollTop)-->
+<!--                console.log("d.scrollHeight")-->
+<!--                console.log(d.scrollHeight)-->
+<!--                console.log("chat-window height()")-->
+<!--                console.log( $(".chat-window").height())-->
 
                 chatWindow.scrollTop=d.scrollHeight
 
 }
+
 
 
 

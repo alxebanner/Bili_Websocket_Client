@@ -124,23 +124,13 @@ public class FleetListController {
         return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
     }
 
-
-//    @ResponseBody
-//    @PostMapping(value = "/sendSet")
-//    public Result get1() {
-//        return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
-//    }
-
-
-    //    @RequestParam("set") String set
     @ResponseBody
     @PostMapping(value = "/sendSet")
     public Result sendSet(@RequestParam("set") String set) {
         CenterSetConf centerSetConf = JSONObject.parseObject(set, CenterSetConf.class);
+        centerSetConf.setRoomid(MainConf.ROOMID);
         setService.changeSet(centerSetConf);
-
         MainConf.centerSetConf = centerSetConf;
         return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
     }
-
 }

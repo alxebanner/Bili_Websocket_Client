@@ -32,9 +32,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.IOException;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -544,9 +541,22 @@ public class DanmuServiceImpl implements DanmuService {
      * @return 头像地址
      */
     private String getFaceUrlByCache(Long uid) {
+        // 先判断是否有
+        String face;
+
+//
+//        if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
+//            // 说明没有粉丝团 或者接口获取勋章头像失败
+//            // todo 查询头像
+//
+//        } else {
+//
+//        }
+
+
         String nowFaceUrl;
         if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
-            String faceUrl = NO_FACE_URL;
+            String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
 //                    HttpRoomUtil.httpGetFaceUrl_V2(uid);
             nowFaceUrl = faceUrl;
             FacePicture facePicture = new FacePicture(uid,
@@ -579,7 +589,7 @@ public class DanmuServiceImpl implements DanmuService {
 //                    log.info("替换失败");
 //                }
             } else {
-                String faceUrl = NO_FACE_URL;
+                String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
 //                        HttpRoomUtil.httpGetFaceUrl_V2(uid);
                 nowFaceUrl = faceUrl;
                 FacePicture facePicture = new FacePicture(uid,
@@ -589,6 +599,43 @@ public class DanmuServiceImpl implements DanmuService {
         }
         return nowFaceUrl;
     }
+
+    /**
+     * 通过获取线程
+     *
+     * @param uid
+     * @return
+     */
+    private String getFaceInThread(String uid) {
+        // 先看最近查询时间和 待查询的列表
+        long nowTime = System.currentTimeMillis();
+        if (ObjectUtils.isEmpty(MainConf.noFaceUidList) || MainConf.noFaceUidList.size() == 0) {
+
+            // todo 获取头像
+            MainConf.lastTimeFace = nowTime;
+        } else {
+            List<FacePicture> list = MainConf.noFaceUidList;
+
+//            List<String> list1 = list.stream().map(FacePicture::getUid).map(Long::longValue).collect(Collectors.toList());
+
+
+            if (list.stream().allMatch(mo -> (mo.getUid() + "").equals(uid + ""))) {
+                // 如果是重复的无头像的，只需要counts+1
+                //
+            } else {
+                FacePicture facePicture = new FacePicture();
+                facePicture.setCount(1);
+                facePicture.setUid(Long.valueOf(uid));
+                facePicture.setTimestamp(nowTime);
+                MainConf.noFaceUidList.add(facePicture);
+            }
+
+
+        }
+
+        return "";
+    }
+
 
     public static String timestamp2Date(String str_num, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);

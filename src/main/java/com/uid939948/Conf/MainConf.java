@@ -110,6 +110,17 @@ public class MainConf {
     public static List<FacePicture> facePictureList = new ArrayList<>();
 
     /**
+     * 无表情的用户uid
+     * 用于线程定期获取
+     */
+    public static List<FacePicture> noFaceUidList = new ArrayList<>();
+
+    /**
+     * 最近一次查询用户头像时间
+     */
+    public static long lastTimeFace = 0;
+
+    /**
      * 用户信息
      */
     public static UserInfo userInfo;

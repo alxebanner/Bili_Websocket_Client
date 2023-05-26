@@ -1410,6 +1410,7 @@ public class ParseMessageThread extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            log.error(e);
             log.error(e.getMessage());
         }
 

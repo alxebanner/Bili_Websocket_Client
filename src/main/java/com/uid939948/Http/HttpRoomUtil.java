@@ -118,16 +118,14 @@ public class HttpRoomUtil {
         return room;
     }
 
-//    https://api.bilibili.com/x/web-interface/card?mid=${uid}
-
     /**
      * 另外一个接口获取头像
+     * 官方接口
      *
-     * @param uid
-     * @return
+     * @param uid 用戶uid
+     * @return 消息
      */
     public static String httpGetFaceUrl_V2(long uid) {
-
         Map<String, String> headers = new HashMap<>(3);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
         headers.put("referer", "https://space.bilibili.com/" + uid);
@@ -135,21 +133,24 @@ public class HttpRoomUtil {
         String url = "https://api.bilibili.com/x/web-interface/card?mid=" + uid;
 //        String url = "https://api.bilibili.com/x/space/wbi/acc/info?mid=" + uid + "&token&platform=web";
         String result = HttpUtil.doGetWithHeader(url, headers);
+        JSONObject jsonObject = JSONObject.parseObject(result);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject = JSONObject.parseObject(result);
-
-        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-
+        if (ObjectUtils.isEmpty(result) || ObjectUtils.isEmpty(jsonObject) || StringUtils.isEmpty(jsonObject.getString("code"))) {
+            return NO_FACE_URL;
+        }
+        if ("0".equals(jsonObject.getString("code"))) {
+            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
 //        roomInit = jsonObject.getObject("data", RoomInit.class);
 
-        Card card = jsonObject1.getObject("card", Card.class);
-
-
+            Card card = jsonObject1.getObject("card", Card.class);
 //        jsonObject.getJSONObject("data").getJSONObject("card").getJSONObject("face");
+            return card.getFace();
+        } else {
+            LOGGER.error("httpGetFaceUrl_V2 获取头像失败" + result);
+            return NO_FACE_URL;
+        }
 
 
-        return card.getFace();
     }
 
     /**
@@ -297,11 +298,11 @@ public class HttpRoomUtil {
     /**
      * 获取礼物列表
      *
-     * @param uid 用户uid
-     * @return
+     * @param roomId 房间号
+     * @return 礼物列表
      */
-    public static List<GiftConfigData> getGiftData(long uid) {
-        String url = "https://api.live.bilibili.com/xlive/web-room/v1/giftPanel/giftConfig?platform=pc&room_id=" + uid;
+    public static List<GiftConfigData> getGiftData(long roomId) {
+        String url = "https://api.live.bilibili.com/xlive/web-room/v1/giftPanel/giftConfig?platform=pc&room_id=" + roomId;
         String result = HttpUtil.doGet(url);
         JSONObject jsonObject = JSONObject.parseObject(result);
         String data = jsonObject.getString("data");
@@ -309,25 +310,7 @@ public class HttpRoomUtil {
         JSONArray j1 = JSONObject.parseObject(data).getJSONArray("list");
         List<GiftConfigData> list = JSONObject.parseArray(j1.toJSONString(), GiftConfigData.class);
         return list;
-
-//
-//        Map<String, String> headers = new HashMap<>(3);
-//        headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
-//        headers.put("referer", "https://space.bilibili.com/" + uid);
-//
-//
-//
-//        String url = "https://api.bilibili.com/x/space/acc/info?mid=" + uid;
-//        String result = HttpUtil.doGetWithHeader(url,headers);
-//
-//        JSONObject jsonObject = JSONObject.parseObject(result);
-//        String data = jsonObject.getString("data");
-//        String faceUrl = JSONObject.parseObject(data).getString("face");
-//
-//        return faceUrl;
-
     }
-
 
     /**
      * 通过uid获取 用户基本信息第二种方式
@@ -346,7 +329,6 @@ public class HttpRoomUtil {
         userInfo.setCover(roomInfo.getCover());
         userInfo.setTitle(roomInfo.getTitle());
         userInfo.setLiveStatus(LiveStateEnum.getCountryValue(roomInfo.getLive_status()));
-
         return userInfo;
     }
 
@@ -461,37 +443,23 @@ public class HttpRoomUtil {
      * @return 勋章实体
      */
     public static List<FansMemberInfo> getFansMembersRank(long uid) {
-
         String url = "https://api.live.bilibili.com/xlive/general-interface/v1/rank/getFansMembersRank?ruid=" + uid + "&page=1&page_size=30";
-
         String result = HttpUtil.doGet(url);
-
-
         JSONObject jsonObject = JSONObject.parseObject(result);
-
         JSONObject data = jsonObject.getJSONObject("data");
-
         List<FansMemberInfo> memberInfoArrayList = new ArrayList<>();
-
         int num = data.getInteger("num");
         int count = 1;
-
         if (ObjectUtils.isNotEmpty(num)) {
             count = num / 30 + 1;
             // 页数为count
-
-
             for (int i = 1; i <= count; i++) {
-
                 String url1 = "https://api.live.bilibili.com/xlive/general-interface/v1/rank/getFansMembersRank?ruid=" + uid +
                         "&page=" + i +
                         "&page_size=30";
                 String resultTemp = HttpUtil.doGet(url1);
-
                 JSONObject jsonObject1 = JSONObject.parseObject(resultTemp);
-
                 JSONArray jsonArray = jsonObject1.getJSONObject("data").getJSONArray("item");
-
                 List<FansMemberInfo> list = JSONObject.parseArray(jsonArray.toJSONString(), FansMemberInfo.class);
                 memberInfoArrayList.addAll(list);
             }
@@ -499,5 +467,30 @@ public class HttpRoomUtil {
         return memberInfoArrayList;
     }
 
+    /**
+     * 通过uid获取 用户头像
+     *
+     * @param uid 用户uid
+     * @return 头像
+     */
+    public static String httpGetFaceV2(long uid) {
+        String url = "https://api.obfs.dev/api/bilibili/v3/user_info?uid=" + uid + "&size=1";
+        Map<String, String> headers = null;
+        headers = new HashMap<>(2);
+        String result = HttpUtil.doGetWithHeader(url, headers);
+        JSONObject jsonObject = JSONObject.parseObject(result);
 
+        if (ObjectUtils.isEmpty(result) || ObjectUtils.isEmpty(jsonObject) || ObjectUtils.isEmpty(jsonObject.getString("code"))) {
+            LOGGER.error("httpGetFaceV2 获取头像失败,被拉黑 " + result);
+            return HttpRoomUtil.httpGetFaceUrl_V2(uid);
+        }
+        if ("0".equals(jsonObject.getString("code"))) {
+            String face = jsonObject.getJSONObject("data").getJSONObject("card").getString("face");
+            return face;
+        } else {
+            LOGGER.error("httpGetFaceV2 获取头像失败 " + result);
+            return HttpRoomUtil.httpGetFaceUrl_V2(uid);
+        }
+//        return NO_FACE_URL;
+    }
 }
