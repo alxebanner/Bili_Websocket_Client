@@ -411,12 +411,10 @@ public class HttpRoomUtil {
      *
      * @param roomId 房间号
      * @param token  token
-     * @return
+     * @return 表情列表
      */
     public static List<EmojiInfo> getEmojiInfoByToken(Long roomId, String token) {
-
         String url = "https://api.live.bilibili.com/xlive/web-ucenter/v2/emoticon/GetEmoticons?platform=pc&room_id=" + roomId;
-//        String url = "https://api.live.bilibili.com/xlive/web-ucenter/v2/emoticon/GetEmoticons?platform=pc&room_id=24673446";
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");

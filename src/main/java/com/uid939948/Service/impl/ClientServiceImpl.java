@@ -183,15 +183,9 @@ public class ClientServiceImpl implements ClientService {
 //            List<FacePicture> FacePictureTemp = MainConf.facePictureList;
 //            for (FacePicture facePicture : FacePictureTemp) {
 //                FacePicture f1 = facePictureList.stream().filter(mo -> mo.getUid().equals(facePicture.getUid())).findAny().get();
-
             //
-
-
 //            }
-
         }
-
-
     }
 
     /**

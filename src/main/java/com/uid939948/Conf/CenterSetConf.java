@@ -92,61 +92,66 @@ public class CenterSetConf implements Serializable {
     private String face_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cTod0.png";
     // 纪录默认位置   private String face_backgroundUrl = "../../danmuCss/top/舰长头像框.png";
 
+
+//    width: 130px;
+//    height: 130px;
+//    top: -106px;
+//    left: -15px;
     /**
-     * 普通用户头像框背景图片宽度
+     * 普通用户 头像框背景图片宽度
      */
-    private String face_common_Width;
+    private String face_common_Width = "130";
 
     /**
      * 普通用户头像框背景图片高度
      */
-    private String face_common_Height;
+    private String face_common_Height = "130";
 
     /**
-     * 普通用户 头像 弯曲弧度 0px到50px
+     * 普通用户 头像弯曲弧度 0px到50px 暂时无用
      */
-    private String face_common_border_radius;
+    private String face_common_border_radius = "50";
 
     /**
      * 普通用户 竖直头像偏移量
      */
-    private String face_common_top;
+    private String face_common_top = "-106";
 
     /**
      * 普通用户 水平向左头像偏移量
      */
-    private String face_common_left;
+    private String face_common_left = "-15";
 
     // 舰队头像
     /**
      * 舰队头像框背景图片地址
      */
-    private String face_Top_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cTod0.png";
+    private String face_Top_backgroundUrl = "https://s1.ax1x.com/2023/05/26/p9qEDud.png";
+
+//    width: 150px;
+//    height: 129px;
+//    top: -96px;
+//    left: -17px;
 
     /**
      * 舰队用户头像框背景图片宽度
      */
-    private String face_top_Width;
+    private String face_top_Width = "150";
 
     /**
      * 舰队用户 头像框背景图片高度
      */
-    private String face_top_Height;
-
-    /**
-     * 舰队用户 头像 弯曲弧度 0px到50px
-     */
-    private String face_top_border_radius;
+    private String face_top_Height = "129";
 
     /**
      * 舰队用户 竖直头像偏移量
      */
-    private String face_top_top;
+    private String face_top_top = "-96";
 
     /**
      * 舰队用户 水平向左头像偏移量
      */
-    private String face_top_left;
+    private String face_top_left = "-17";
 
 
     /**
