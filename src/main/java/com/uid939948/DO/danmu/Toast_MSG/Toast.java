@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 上舰后消息推送实体类
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -15,21 +15,21 @@
 .now1 {
     height: 125px;
     width: 125px;
-<!--    background-size: 125px 125px;-->
-<!--    background-image: url(../../danmuCss/top/舰长头像框.png);-->
-<!--    background-repeat: no-repeat;-->
+    background-size: 125px 125px;
+    background-image: url(../../danmuCss/top/舰长头像框.png);
+    background-repeat: no-repeat;
 }
 
 .d3 {
     height: 100px;
     width: 100px;
 }
-<!--.d3>img {-->
-<!--    width: 100%;-->
-<!--    border-radius: 50px;-->
-<!--    margin-top: 20px;-->
-<!--    margin-left: 10px;-->
-<!--}-->
+.d3>img {
+    width: 100%;
+    border-radius: 50px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
 
 .face {
     width: 40px;
@@ -225,27 +225,9 @@ opacity: 1;
   }
 }
 
-.userFace {
-    position: relative;
-    border-radius: 75px;
-    width: 100px;
-    height: 100px;
-    top: 20px;
-}
-.face_common {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    top: -106px;
-    left: -15px;
-}
-.face_top {
-    position: relative;
-    width: 150px;
-    height: 129px;
-    top: -96px;
-    left: -17px;
-}
+
+
+
 
 
 
@@ -405,28 +387,19 @@ opacity: 1;
 <!--    <div id="output" style=" overflow:hidden; height: 500px;margin: 20px 0;"></div>-->
 <!--</div>-->
 <div id="now">
-    <input type="text" id='danmuHeight' style='display:none'>
-    <input type="text" id='danmuFont' style='display:none'>
-    <input type="text" id='danmuColor' style='display:none'>
-    <input type="text" id='userNameFont' style='display:none'>
-    <input type="text" id='userNameColor' style='display:none'>
-    <input type="text" id='face_backgroundUrl' style='display:none'>
-    <input type="text" id='username_backgroundUrl' style='display:none'>
-    <input type="text" id='commonDanmu_backgroundUrl' style='display:none'>
-    <input type="text" id='fleetDanmu_backgroundUrl' style='display:none'>
-    <input type="text" id='pendant_backgroundUrl' style='display:none'>
-    <input type="text" id='face_Top_backgroundUrl' style='display:none'>
-    <input type="text" id='face_top_Width' style='display:none'>
-    <input type="text" id='face_top_Height' style='display:none'>
-    <input type="text" id='face_top_top' style='display:none'>
-    <input type="text" id='face_top_left' style='display:none'>
+    <input type="text" id='danmuHeight' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='danmuFont' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='danmuColor' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='userNameFont' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='userNameColor' style='display:none' placeholder="弹幕高度">
 
-    <input type="text" id='face_common_Width' style='display:none'>
-    <input type="text" id='face_common_Height' style='display:none'>
-    <input type="text" id='face_common_top' style='display:none'>
-    <input type="text" id='face_common_left' style='display:none'>
+    <input type="text" id='face_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='username_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='commonDanmu_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='fleetDanmu_backgroundUrl' style='display:none' placeholder="弹幕高度">
+    <input type="text" id='pendant_backgroundUrl' style='display:none' placeholder="弹幕高度">
+
 </div>
-
 </body>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -466,42 +439,25 @@ $.ajax({
         var danmuColor = data.data.danmuColor;
         var userNameFont = data.data.userNameFont;
         var userNameColor = data.data.userNameColor;
+
+
         var face_backgroundUrl = data.data.face_backgroundUrl;
         var username_backgroundUrl = data.data.username_backgroundUrl;
         var commonDanmu_backgroundUrl = data.data.commonDanmu_backgroundUrl;
         var fleetDanmu_backgroundUrl = data.data.fleetDanmu_backgroundUrl;
         var pendant_backgroundUrl = data.data.pendant_backgroundUrl;
-        var face_Top_backgroundUrl = data.data.face_Top_backgroundUrl;
-        var face_top_Width = data.data.face_top_Width;
-        var face_top_Height = data.data.face_top_Height;
-        var face_top_top = data.data.face_top_top;
-        var face_top_left = data.data.face_top_left;
-
-        var face_common_Width = data.data.face_common_Width;
-        var face_common_Height = data.data.face_common_Height;
-        var face_common_top = data.data.face_common_top;
-        var face_common_left = data.data.face_common_left;
 
         $("#danmuHeight").val(danmuHeight);
         $("#danmuFont").val(danmuFont);
         $("#danmuColor").val(danmuColor);
         $("#userNameFont").val(userNameFont);
         $("#userNameColor").val(userNameColor);
+
         $("#face_backgroundUrl").val(face_backgroundUrl);
         $("#username_backgroundUrl").val(username_backgroundUrl);
         $("#commonDanmu_backgroundUrl").val(commonDanmu_backgroundUrl);
         $("#fleetDanmu_backgroundUrl").val(fleetDanmu_backgroundUrl);
         $("#pendant_backgroundUrl").val(pendant_backgroundUrl);
-        $("#face_Top_backgroundUrl").val(face_Top_backgroundUrl);
-        $("#face_top_Width").val(face_top_Width);
-        $("#face_top_Height").val(face_top_Height);
-        $("#face_top_top").val(face_top_top);
-        $("#face_top_left").val(face_top_left);
-
-        $("#face_common_Width").val(face_common_Width);
-        $("#face_common_Height").val(face_common_Height);
-        $("#face_common_top").val(face_common_top);
-        $("#face_common_left").val(face_common_left);
 
 
 <!--            设置弹幕-->
@@ -612,7 +568,7 @@ function onMessage(evt) {
 <!--    '    </div>'+-->
 <!--    '</div>'+-->
 
-    showHead(data.faceUrl, data.danmuColor) +
+    showHead(data.faceUrl) +
 
     '<div class="content">'+
 <!--     '   <div class="danmu_name_border">'+-->
@@ -701,21 +657,12 @@ function giftMessage(data) {
 }
 
 <!--显示头像-->
-function showHead(faceUrl, danmuColor) {
-    var face_border = "https://s1.ax1x.com/2023/05/26/p9bdynA.png";
-    var class_border = "face_common";
-<!--    console.log("danmuColor");-->
-<!--    console.log(danmuColor);-->
-    if(danmuColor !="") {
-        face_border = "https://s1.ax1x.com/2023/05/26/p9qEDud.png";
-        class_border = "face_top";
-    }
+function showHead(faceUrl) {
     var faceDiv =
     '<div class="face">'+
     '    <div class="now1">'+
     '        <div class="d3">'+
-    '            <img class = "userFace" src='+ faceUrl +' alt="">'+
-    '            <img class ="' + class_border + '" src='+ face_border +' alt="">'+
+    '            <img src='+ faceUrl +' alt="">'+
     '        </div>'+
     '    </div>'+
     '</div>';
@@ -790,22 +737,13 @@ function writeToScreen1(message) {
     var danmuColor = $("#danmuColor").val();
     var userNameFont = $("#userNameFont").val();
     var userNameColor = $("#userNameColor").val();
+
     var face_backgroundUrl = $("#face_backgroundUrl").val();
     var username_backgroundUrl = $("#username_backgroundUrl").val();
     var commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
     var fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
     var pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
 
-    var face_Top_backgroundUrl = $("#face_Top_backgroundUrl").val();
-    var face_top_Width = $("#face_top_Width").val();
-    var face_top_Height = $("#face_top_Height").val();
-    var face_top_top = $("#face_top_top").val();
-    var face_top_left = $("#face_top_left").val();
-
-    var face_common_Width = $("#face_common_Width").val();
-    var face_common_Height = $("#face_common_Height").val();
-    var face_common_top = $("#face_common_top").val();
-    var face_common_left = $("#face_common_left").val();
 
     <!--            设置弹幕样式-->
                 $(".danmu_wenzi>span").css({
@@ -818,39 +756,9 @@ function writeToScreen1(message) {
                 });
 
                 <!--            设置用户头像框->
-<!--               $(".now1").css({-->
-<!--                "background-image": "url( "+  face_backgroundUrl  +" )",-->
-<!--                });-->
-
-
-                <!--设置普通用户头像框->
-                $(".face_common").attr("src", face_backgroundUrl);
-
-                $(".face_common").css({
-                "width": face_common_Width + "px",
-                "height": face_common_Height + "px",
-                "top": face_common_top + "px",
-                "left": face_common_left + "px",
+               $(".now1").css({
+                "background-image": "url( "+  face_backgroundUrl  +" )",
                 });
-
-                <!--设置舰长用户头像框->
-                $(".face_top").attr("src", face_Top_backgroundUrl)
-
-                $(".face_top").css({
-                "width": face_top_Width + "px",
-                "height": face_top_Height + "px",
-                "top": face_top_top + "px",
-                "left": face_top_left + "px",
-                });
-
-
-
-
-
-
-
-
-
                 <!--            设置非舰队聊天框->
                 $(".danmu_wenzi_border1").css({
                 "background-image": "url( "+  commonDanmu_backgroundUrl  +" )",
@@ -864,17 +772,16 @@ function writeToScreen1(message) {
                 <!--            设置弹幕右下角图片挂件->
                 $(".danmu_xingxing").attr("src", pendant_backgroundUrl)
 
-<!--                console.log("d.scrollTop")-->
-<!--                console.log(d.scrollTop)-->
-<!--                console.log("d.scrollHeight")-->
-<!--                console.log(d.scrollHeight)-->
-<!--                console.log("chat-window height()")-->
-<!--                console.log( $(".chat-window").height())-->
+                console.log("d.scrollTop")
+                console.log(d.scrollTop)
+                console.log("d.scrollHeight")
+                console.log(d.scrollHeight)
+                console.log("chat-window height()")
+                console.log( $(".chat-window").height() )
 
                 chatWindow.scrollTop=d.scrollHeight
 
 }
-
 
 
 

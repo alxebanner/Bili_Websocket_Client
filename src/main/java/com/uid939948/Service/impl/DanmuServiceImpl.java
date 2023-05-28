@@ -263,11 +263,9 @@ public class DanmuServiceImpl implements DanmuService {
         JSONObject jsonObject = jsonObject_data.getJSONObject("data");
         Toast toast = JSONObject.toJavaObject(jsonObject, Toast.class);
 
-
-        //
         danmuWebsocket_sendMessage(toast, "Toast");
 
-        log.info("上船消息推送" + String.valueOf(toast));
+        log.info("上船消息推送" + toast);
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
 
@@ -305,7 +303,7 @@ public class DanmuServiceImpl implements DanmuService {
 
     @Override
     public void specialGiftFunction(String message) {
-
+        // todo 需要抓节奏风暴
     }
 
     @Override
@@ -327,27 +325,28 @@ public class DanmuServiceImpl implements DanmuService {
                 interactWord.getUname()
         );
 
-        log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
 
-//        log.info("interactWord.getMsg_type() is " + interactWord.getMsg_type());
         switch (interactWord.getMsg_type()) {
             case 1:
                 if (MainConf.centerSetConf.getIsEnterMessage()) {
-                    log.info("推送 进入 房间信息");
+                    // log.info("推送 进入 房间信息");
+                    log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
                 }
                 break;
             case 2:
                 if (MainConf.centerSetConf.getIsAttentionMessage()) {
-                    log.info("推送 关注 房间信息");
+                    // log.info("推送 关注 房间信息");
+                    log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
                 }
                 break;
             case 3:
                 if (MainConf.centerSetConf.getIsShareMessage()) {
-                    log.info("推送 分享 房间信息");
+                    //  log.info("推送 分享 房间信息");
+                    log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
                 }
@@ -356,7 +355,7 @@ public class DanmuServiceImpl implements DanmuService {
                 log.warn("未知推送interact 消息， 请联系管理员 " + interactWord);
                 return;
         }
-        //  interactWord推送前端
+        // interactWord推送前端
         danmuWebsocket_sendMessage(interactWord, "interactWord");
     }
 
@@ -370,7 +369,7 @@ public class DanmuServiceImpl implements DanmuService {
         MainConf.anchorLot = anchorLot;
         MainConf.anchorLot_endTime = anchorLot.getCurrent_time() + anchorLot.getMax_time();
 
-        log.info("发现天选，发送弹幕" + anchorLot.toString());
+        log.info("发现天选，发送弹幕" + anchorLot);
         System.out.println(timestamp2Date(String.valueOf(anchorLot.getCurrent_time()), "yyyy-MM-dd HH:mm:ss"));
         System.out.println(timestamp2Date(String.valueOf(anchorLot.getCurrent_time() + anchorLot.getMax_time()), "yyyy-MM-dd HH:mm:ss"));
         // todo 天选中奖推送 前端
@@ -403,16 +402,12 @@ public class DanmuServiceImpl implements DanmuService {
                 }
             }
         }
-
-
     }
 
     @Override
     public void danmu_aggregation_Function(String message) {
-
         JSONObject jsonObject_data3 = JSONObject.parseObject(message);
         JSONObject array3 = jsonObject_data3.getJSONObject("data");
-
         if (MainConf.centerSetConf.getIsAnchorLot()) {
             if (ObjectUtils.isEmpty(MainConf.anchorLot) || ObjectUtils.isEmpty(MainConf.anchorLot_endTime)) {
                 // 天选为空，则说明   因为未获取天选的开始的推送， 所以通过 堆叠弹幕抓取天选弹幕
@@ -421,10 +416,7 @@ public class DanmuServiceImpl implements DanmuService {
                 anchorLot.setCurrent_time(array3.getLong("timestamp"));
                 MainConf.anchorLot_endTime = 0L;
             }
-
         }
-
-
     }
 
     /**
@@ -450,17 +442,15 @@ public class DanmuServiceImpl implements DanmuService {
         MedalInfo medalInfo = jsonObject_gift.getObject("medal_info", MedalInfo.class);
         String faceUrl = jsonObject_gift.getString("face");
         SimpleGift simpleGift = new SimpleGift(uid, giftId, giftName, num, uname, guard_level, price, gift_timestamp, action, coin_type, medalInfo, "", faceUrl);
-
         GiftConfigData giftConfigData = MainConf.giftMap.get(simpleGift.getGiftId());
-
 
         if (ObjectUtils.isEmpty(giftConfigData)) {
             log.info("找不到礼物图片");
+            // 可能中途新增的礼物 todo 新增查询礼物列表
             log.info("" + simpleGift.getGiftId());
             log.info("" + MainConf.giftMap);
             return simpleGift;
         }
-
 
         if (StringUtils.isNotEmpty(giftConfigData.getImg_basic())) {
             simpleGift.setImg_basic(giftConfigData.getImg_basic());
@@ -521,8 +511,7 @@ public class DanmuServiceImpl implements DanmuService {
 
         danMuMsgInfo.setDanmuColor(j2.get(7).toString());
 
-//        log.info("弹幕颜色为: " + danMuMsgInfo.getDanmuColor());
-
+        // log.info("弹幕颜色为: " + danMuMsgInfo.getDanmuColor());
 
         danMuMsgInfo.setMessage(array.get(1).toString());
         danMuMsgInfo.setIsEmoticon(isEmoticon);
@@ -545,7 +534,6 @@ public class DanmuServiceImpl implements DanmuService {
             // 为1 是用户表情  为0 是系统表情
             danMuMsgInfo.setBulge_display("1".equals(bulge_display));
         }
-
         return danMuMsgInfo;
     }
 
@@ -556,10 +544,10 @@ public class DanmuServiceImpl implements DanmuService {
      * @param level       舰队等级
      * @param medal_name  勋章名称
      * @param Medal_level 勋章等级
-     * @param Uname       用户名称
+     * @param uname       用户名称
      * @return 优化后的数据
      */
-    private String addFull(int level, String medal_name, String Medal_level, String Uname) {
+    private String addFull(int level, String medal_name, String Medal_level, String uname) {
         // 级别
         String s1 = GuardLevelEnum.getCountryValue(level);
         // 等级
@@ -572,7 +560,7 @@ public class DanmuServiceImpl implements DanmuService {
         String s12 = StringUtils.isEmpty(s2) ? "" : "[" + s2 + "]";
         String s13 = "0".equals(s3) ? "" : "[" + s3 + "]";
 
-        return s11 + s12 + s13 + Uname + " ";
+        return s11 + s12 + s13 + uname + " ";
     }
 
     /**
@@ -583,22 +571,10 @@ public class DanmuServiceImpl implements DanmuService {
      */
     private String getFaceUrlByCache(Long uid) {
         // 先判断是否有
-        String face;
-
-//
-//        if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
-//            // 说明没有粉丝团 或者接口获取勋章头像失败
-//            // todo 查询头像
-//
-//        } else {
-//
-//        }
-
-
         String nowFaceUrl;
         if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
             String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
-//                    HttpRoomUtil.httpGetFaceUrl_V2(uid);
+            // HttpRoomUtil.httpGetFaceUrl_V2(uid);备用接口
             nowFaceUrl = faceUrl;
             FacePicture facePicture = new FacePicture(uid,
                     faceUrl, 1, System.currentTimeMillis());
@@ -609,29 +585,31 @@ public class DanmuServiceImpl implements DanmuService {
                     .collect(Collectors.toMap(FacePicture::getUid, v -> v, (p1, p2) -> p1));
             if (map.containsKey(uid)) {
                 nowFaceUrl = map.get(uid).getFaceUrl();
-//                log.info("使用历史头像");
+                // log.info("使用历史头像");
 
                 FacePicture new_facePicture = map.get(uid);
                 new_facePicture.setCount(new_facePicture.getCount() + 1);
 
                 // 判断是否使用历史头像
-//                FacePicture old_facePicture = map.get(uid);
-//                if (Collections.replaceAll(MainConf.facePictureList, old_facePicture, new_facePicture)) {
-//                    log.info("替换成功");
-//                    Map<Long, FacePicture> map1 = MainConf.facePictureList.stream()
-//                            .collect(Collectors.toMap(FacePicture::getUid, v -> v, (p1, p2) -> p1));
-//
-//                    if (map1.containsKey(uid)) {
-//                        int count = map.get(uid).getCount();
-//                        log.info("新次数为 " + count);
-//                    }
-//
-//                } else {
-//                    log.info("替换失败");
-//                }
+                /*
+                FacePicture old_facePicture = map.get(uid);
+                if (Collections.replaceAll(MainConf.facePictureList, old_facePicture, new_facePicture)) {
+                    log.info("替换成功");
+                    Map<Long, FacePicture> map1 = MainConf.facePictureList.stream()
+                            .collect(Collectors.toMap(FacePicture::getUid, v -> v, (p1, p2) -> p1));
+
+                    if (map1.containsKey(uid)) {
+                        int count = map.get(uid).getCount();
+                        log.info("新次数为 " + count);
+                    }
+
+                } else {
+                    log.info("替换失败");
+                }
+                */
             } else {
                 String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
-//                        HttpRoomUtil.httpGetFaceUrl_V2(uid);
+                // HttpRoomUtil.httpGetFaceUrl_V2(uid);
                 nowFaceUrl = faceUrl;
                 FacePicture facePicture = new FacePicture(uid,
                         faceUrl, 1, System.currentTimeMillis());
@@ -641,12 +619,6 @@ public class DanmuServiceImpl implements DanmuService {
         return nowFaceUrl;
     }
 
-    /**
-     * 通过获取线程
-     *
-     * @param uid
-     * @return
-     */
     private String getFaceInThread(String uid) {
         // 先看最近查询时间和 待查询的列表
         long nowTime = System.currentTimeMillis();
@@ -656,10 +628,6 @@ public class DanmuServiceImpl implements DanmuService {
             MainConf.lastTimeFace = nowTime;
         } else {
             List<FacePicture> list = MainConf.noFaceUidList;
-
-//            List<String> list1 = list.stream().map(FacePicture::getUid).map(Long::longValue).collect(Collectors.toList());
-
-
             if (list.stream().allMatch(mo -> (mo.getUid() + "").equals(uid + ""))) {
                 // 如果是重复的无头像的，只需要counts+1
                 //
@@ -670,23 +638,28 @@ public class DanmuServiceImpl implements DanmuService {
                 facePicture.setTimestamp(nowTime);
                 MainConf.noFaceUidList.add(facePicture);
             }
-
-
         }
-
         return "";
     }
 
-
-    public static String timestamp2Date(String str_num, String format) {
+    /**
+     * 将10 or 13 位时间戳转为时间字符串
+     * convert the number 1407449951 1407499055617 to date/time format timestamp
+     * format = "yyyy-MM-dd HH:mm:ss"
+     *
+     * @param str_num 时间
+     * @param format  格式
+     * @return 转换后时间
+     */
+    private static String timestamp2Date(String str_num, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         if (str_num.length() == 13) {
             String date = sdf.format(new Date(Long.parseLong(str_num)));
-//            log.debug("timestamp2Date" + "将13位时间戳:" + str_num + "转化为字符串:", date);
+            log.debug("timestamp2Date" + "将13位时间戳:" + str_num + "转化为字符串:", date);
             return date;
         } else {
             String date = sdf.format(new Date(Integer.parseInt(str_num) * 1000L));
-//            log.debug("timestamp2Date" + "将10位时间戳:" + str_num + "转化为字符串:", date);
+            log.debug("timestamp2Date" + "将10位时间戳:" + str_num + "转化为字符串:", date);
             return date;
         }
     }
