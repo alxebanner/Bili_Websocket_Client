@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>弹幕姬主页</title>
@@ -135,6 +135,7 @@ float: left
     right: 0px;
 
 
+
     </style>
 </head>
 <body>
@@ -258,22 +259,53 @@ float: left
     </div>
     <br>
 
-    <!--    <div class="Setting_block" >-->
-    <!--        <div class="mySwitchName">-->
-    <!--            <span>自定义表情</span>-->
-    <!--        </div>-->
-    <!--        <div class="mySwitch">-->
-    <!--            <div class="testswitch">-->
-    <!--                <input class="testswitch-checkbox" id="onoffswitch4" checked="checked" type="checkbox"/>-->
-    <!--                <label class="testswitch-label" for="onoffswitch4">-->
-    <!--                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>-->
-    <!--                    <span class="testswitch-switch"></span>-->
-    <!--                </label>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>进房 消息推送(只推送不显示)</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch4" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch4">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
 
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>关注 消息推送(只推送不显示)</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch5" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch5">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
 
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>分享 消息推送(只推送不显示)</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch6" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch6">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
 </div>
 
 <table>
@@ -306,21 +338,75 @@ float: left
 
 
     <tr>
-        <td>头像框 背景图片：</td>
+        <td>普通用户 头像框 背景图片：</td>
         <td><input type="text" id='face_backgroundUrl' class="form-control" style='width:600px'
-                   placeholder="头像框 背景图片"></td>
+                   placeholder="普通用户 头像框 背景图片"></td>
+    </tr>
+
+    <tr>
+        <td>普通用户 头像框 图片宽度：</td>
+        <td><input type="text" id='face_common_Width' class="form-control" style='width:600px'
+                   placeholder="普通用户 头像框 图片宽度"></td>
+    </tr>
+
+    <tr>
+        <td>普通用户 头像框 图片高度：</td>
+        <td><input type="text" id='face_common_Height' class="form-control" style='width:600px'
+                   placeholder="普通用户 头像框 图片高度"></td>
+    </tr>
+
+    <tr>
+        <td>普通用户 头像框 垂直偏移量：</td>
+        <td><input type="text" id='face_common_top' class="form-control" style='width:600px'
+                   placeholder="普通用户 头像框 垂直偏移量"></td>
+    </tr>
+
+    <tr>
+        <td>普通用户 头像框 水平偏移量：</td>
+        <td><input type="text" id='face_common_left' class="form-control" style='width:600px'
+                   placeholder="普通用户 头像框 水平偏移量"></td>
+    </tr>
+
+    <tr>
+        <td>舰队用户 头像框 背景图片：</td>
+        <td><input type="text" id='face_Top_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="舰队用户头像框 背景图片"></td>
+    </tr>
+
+    <tr>
+        <td>舰队用户 头像框 宽度：</td>
+        <td><input type="text" id='face_top_Width' class="form-control" style='width:600px'
+                   placeholder="舰队用户头像框 宽度"></td>
+    </tr>
+
+    <tr>
+        <td>舰队用户 头像框 高度：</td>
+        <td><input type="text" id='face_top_Height' class="form-control" style='width:600px'
+                   placeholder="舰队用户头像框 高度"></td>
+    </tr>
+
+    <tr>
+        <td>舰队用户 头像框 垂直偏移量：</td>
+        <td><input type="text" id='face_top_top' class="form-control" style='width:600px'
+                   placeholder="舰队用户头像框 垂直偏移量"></td>
+    </tr>
+
+    <tr>
+        <td>舰队用户 头像框 水平偏移量：</td>
+        <td><input type="text" id='face_top_left' class="form-control" style='width:600px'
+                   placeholder="舰队用户头像框 水平偏移量"></td>
     </tr>
 
     <tr>
         <td>用户名背景图片：</td>
-        <td> <input type="text" id='username_backgroundUrl' class="form-control" style='width:600px'
-                    placeholder="用户名背景图片"></td>
+        <td><input type="text" id='username_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="用户名背景图片"></td>
     </tr>
 
     <tr>
         <td>观众弹幕 背景图片：</td>
-        <td> <input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px'
-                    placeholder="弹幕 背景图片"></td>
+        <td><input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px'
+                   placeholder="弹幕 背景图片"></td>
     </tr>
 
     <tr>
@@ -347,8 +433,6 @@ float: left
 <div>
     <input type="button" id="closeTestSet" value="关闭测试"/>
 </div>
-
-
 
 
 <!--<div>-->
@@ -572,34 +656,61 @@ $.ajax({
                 var isAnchorLot = data.data.isAnchorLot;
                 var isSilverGift = data.data.isSilverGift;
                 var isSystemEmoji = data.data.isSystemEmoji;
-                var isUserEmoji = data.data.isUserEmoji;
+<!--                var isUserEmoji = data.data.isUserEmoji;-->
+
+                var isEnterMessage = data.data.isEnterMessage;
+                var isAttentionMessage = data.data.isAttentionMessage;
+                var isShareMessage = data.data.isShareMessage;
+
                 var danmuHeight = data.data.danmuHeight;
                 var danmuFont = data.data.danmuFont;
                 var danmuColor = data.data.danmuColor;
                 var userNameFont = data.data.userNameFont;
                 var userNameColor = data.data.userNameColor;
-
                 var face_backgroundUrl = data.data.face_backgroundUrl;
                 var username_backgroundUrl = data.data.username_backgroundUrl;
                 var commonDanmu_backgroundUrl = data.data.commonDanmu_backgroundUrl;
                 var fleetDanmu_backgroundUrl = data.data.fleetDanmu_backgroundUrl;
                 var pendant_backgroundUrl = data.data.pendant_backgroundUrl;
+                var face_Top_backgroundUrl = data.data.face_Top_backgroundUrl;
+                var face_top_Width = data.data.face_top_Width;
+                var face_top_Height = data.data.face_top_Height;
+                var face_top_top = data.data.face_top_top;
+                var face_top_left = data.data.face_top_left;
+
+                var face_common_Width = data.data.face_common_Width;
+                var face_common_Height = data.data.face_common_Height;
+                var face_common_top = data.data.face_common_top;
+                var face_common_left = data.data.face_common_left;
 
                 $("#onoffswitch1").prop("checked",isAnchorLot);
                 $("#onoffswitch2").prop("checked",isSilverGift);
                 $("#onoffswitch3").prop("checked",isSystemEmoji);
+
+                $("#onoffswitch4").prop("checked",isEnterMessage);
+                $("#onoffswitch5").prop("checked",isAttentionMessage);
+                $("#onoffswitch6").prop("checked",isShareMessage);
+
                 $("#danmuHeight").val(danmuHeight);
                 $("#danmuFont").val(danmuFont);
                 $("#danmuColor").val(danmuColor);
                 $("#userNameFont").val(userNameFont);
                 $("#userNameColor").val(userNameColor);
-
                 $("#face_backgroundUrl").val(face_backgroundUrl);
                 $("#username_backgroundUrl").val(username_backgroundUrl);
                 $("#commonDanmu_backgroundUrl").val(commonDanmu_backgroundUrl);
                 $("#fleetDanmu_backgroundUrl").val(fleetDanmu_backgroundUrl);
                 $("#pendant_backgroundUrl").val(pendant_backgroundUrl);
+                $("#face_Top_backgroundUrl").val(face_Top_backgroundUrl);
+                $("#face_top_Width").val(face_top_Width);
+                $("#face_top_Height").val(face_top_Height);
+                $("#face_top_top").val(face_top_top);
+                $("#face_top_left").val(face_top_left);
 
+                $("#face_common_Width").val(face_common_Width);
+                $("#face_common_Height").val(face_common_Height);
+                $("#face_common_top").val(face_common_top);
+                $("#face_common_left").val(face_common_left);
              }
         })
 }
@@ -661,54 +772,6 @@ $(document).ready(function() {
 <!--	};-->
 });
 
-
-$("#saveSet").click(function(){
-<!--    var isGift;-->
-    var isAnchorLot = $("#onoffswitch1").is(':checked');
-    var isSilverGift = $("#onoffswitch2").is(':checked');
-    var isSystemEmoji = $("#onoffswitch3").is(':checked');
-    var isUserEmoji = $("#onoffswitch4").is(':checked');
-    var danmuHeight = $("#danmuHeight").val();
-    var danmuFont = $("#danmuFont").val();
-    var danmuColor = $("#danmuColor").val();
-    var userNameFont = $("#userNameFont").val();
-    var userNameColor = $("#userNameColor").val();
-
-    var face_backgroundUrl = $("#face_backgroundUrl").val();
-    var username_backgroundUrl = $("#username_backgroundUrl").val();
-    var commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
-    var fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
-    var pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
-
-            $.ajax({
-            url: '../saveSet',
-            data: {
-                isAnchorLot: isAnchorLot,
-                isSilverGift: isSilverGift,
-                isSystemEmoji, isSystemEmoji,
-                isUserEmoji: isUserEmoji,
-                danmuHeight: danmuHeight,
-                danmuFont: danmuFont,
-                danmuColor: danmuColor,
-                userNameFont: userNameFont,
-                userNameColor: userNameColor,
-
-                face_backgroundUrl: face_backgroundUrl,
-                username_backgroundUrl: username_backgroundUrl,
-                commonDanmu_backgroundUrl: commonDanmu_backgroundUrl,
-                fleetDanmu_backgroundUrl: fleetDanmu_backgroundUrl,
-                pendant_backgroundUrl: pendant_backgroundUrl
-            },
-            async: false,
-            cache: false,
-            type: 'POST',
-            dataType: 'json',
-            success: function (data) {
-            alert('保存成功');
-            }
-            });
-});
-
 $("#startTestSet").click(function(){
             $.ajax({
             url: '../startTestSet',
@@ -745,7 +808,11 @@ $("#sendSet").click(function(){
             set.isAnchorLot  = $("#onoffswitch1").is(':checked');
             set.isSilverGift = $("#onoffswitch2").is(':checked');
             set.isSystemEmoji = $("#onoffswitch3").is(':checked');
-            set.isUserEmoji = $("#onoffswitch4").is(':checked');
+
+            set.isEnterMessage = $("#onoffswitch4").is(':checked');
+            set.isAttentionMessage = $("#onoffswitch5").is(':checked');
+            set.isShareMessage = $("#onoffswitch6").is(':checked');
+
             set.danmuHeight = $("#danmuHeight").val();
             set.danmuFont = $("#danmuFont").val();
             set.danmuColor = $("#danmuColor").val();
@@ -756,6 +823,16 @@ $("#sendSet").click(function(){
             set.commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
             set.fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
             set.pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
+            set.face_Top_backgroundUrl = $("#face_Top_backgroundUrl").val();
+            set.face_top_Width = $("#face_top_Width").val();
+            set.face_top_Height = $("#face_top_Height").val();
+            set.face_top_top = $("#face_top_top").val();
+            set.face_top_left = $("#face_top_left").val();
+
+            set.face_common_Width = $("#face_common_Width").val();
+            set.face_common_Height = $("#face_common_Height").val();
+            set.face_common_top = $("#face_common_top").val();
+            set.face_common_left = $("#face_common_left").val();
 
             $.ajax({
             url: '../sendSet',
@@ -770,6 +847,7 @@ $("#sendSet").click(function(){
             }
             });
 });
+
 
 
 </script>
