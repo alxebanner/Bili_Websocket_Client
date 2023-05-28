@@ -45,6 +45,11 @@ public class CenterSetConf implements Serializable {
     private Boolean isSilverGift = true;
 
     /**
+     * 显示最低金瓜子金额
+     */
+    private String minGoldPrice = "0.1";
+
+    /**
      * 是否屏蔽天选消息
      */
     private Boolean isAnchorLot = true;
@@ -58,6 +63,20 @@ public class CenterSetConf implements Serializable {
      * 是否开启不掉线线程
      */
     private Boolean isOnLine = true;
+
+    /**
+     * 进房 消息推送
+     */
+    private Boolean isEnterMessage = false;
+
+    /**
+     * 关注 消息推送
+     */
+    private Boolean isAttentionMessage = false;
+    /**
+     * 分享 消息推送
+     */
+    private Boolean isShareMessage = false;
 
     /**
      * 弹幕高度

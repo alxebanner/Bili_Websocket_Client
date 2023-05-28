@@ -46,7 +46,6 @@ public interface DanmuService {
      */
     void superChatFunction(String message);
 
-
     /**
      * 节奏风暴消息推送 SPECIAL_GIFT
      *

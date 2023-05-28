@@ -394,7 +394,6 @@ public class HttpUtil {
                     e.printStackTrace();
                 }
             }
-
             connection.disconnect();// 关闭远程链接
         }
         return result;

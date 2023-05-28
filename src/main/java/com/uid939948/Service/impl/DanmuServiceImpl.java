@@ -42,8 +42,6 @@ public class DanmuServiceImpl implements DanmuService {
     @Resource
     DanmuWebsocket danmuWebsocket;
 
-    private static String NO_FACE_URL = "https://s1.ax1x.com/2023/05/20/p95e0Ig.png";
-
     @Override
     public void danmuFunction(String message) {
         // 1、转换实体
@@ -56,7 +54,6 @@ public class DanmuServiceImpl implements DanmuService {
         // 2、2 自定义表情
 
         // 2、3 天选屏蔽 抽奖弹幕
-        //todo 天选屏蔽开关
         if (MainConf.centerSetConf.getIsAnchorLot()) {
             // 如果存在天选，和天选过期时间， 这里在天选推送结束的地方也要过一遍，防止意外
             if (ObjectUtils.isNotEmpty(MainConf.anchorLot) && ObjectUtils.isNotEmpty(MainConf.anchorLot_endTime)) {
@@ -97,6 +94,7 @@ public class DanmuServiceImpl implements DanmuService {
                     musicInfo.setNum(1);
                     // todo 搜索网易云 歌曲黑名单判断
                     MainConf.musicInfoList.add(musicInfo);
+                    log.info("点歌成功 + danMuMsgInfo.getMessage() ");
                 } else if (MainConf.musicInfoList.stream().map(MusicInfo::getMusicName).anyMatch(a -> a.equals(musicName))) {
                     // 存在重复歌曲，不上榜单
                     log.info(danMuMsgInfo.getUname() + "  存在重复名称，不上点歌榜单");
@@ -108,6 +106,7 @@ public class DanmuServiceImpl implements DanmuService {
                     musicInfo.setNum(MainConf.musicInfoList.size() + 1);
                     // todo 搜索网易云 歌曲黑名单判断。，、
                     MainConf.musicInfoList.add(musicInfo);
+                    log.info("点歌成功 + danMuMsgInfo.getMessage() ");
                 }
             }
         }
@@ -136,20 +135,10 @@ public class DanmuServiceImpl implements DanmuService {
         String str_fangguan = danMuMsgInfo.getIsManager() ? "[房管]" : "";
         if (danMuMsgInfo.getIsEmoticon()) {
             log.info("表情 " + str_fangguan + str_xun_zhang + " : " + str_danmu);
-            // log.info("表情地址 " + danMuMsgInfo.getEmoticon_url());
-            // log.info(message);
-            try {
-                danmuWebsocket.sendMessage(DanmuDto.toJson("emoticon", danMuMsgInfo));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            danmuWebsocket_sendMessage(danMuMsgInfo, "emoticon");
         } else {
             log.info("弹幕 " + str_fangguan + str_xun_zhang + " : " + str_danmu);
-            try {
-                danmuWebsocket.sendMessage(DanmuDto.toJson("danmu", danMuMsgInfo));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            danmuWebsocket_sendMessage(danMuMsgInfo, "danmu");
         }
     }
 
@@ -179,7 +168,6 @@ public class DanmuServiceImpl implements DanmuService {
 
     @Override
     public void LikeFunction(String message) {
-
         String like_info_data = JSONObject.parseObject(message).getString("data");
         LikeInfo likeInfo = JSONObject.parseObject(like_info_data, LikeInfo.class);
 
@@ -196,36 +184,66 @@ public class DanmuServiceImpl implements DanmuService {
         SimpleGift simpleGift = format_SimpleGift(message);
 
         // 2、礼物过滤（比如屏蔽特定礼物， 辣条 银瓜子礼物）
-        // todo
-        // 2、1 礼物黑名单，比如屏蔽银瓜子的 辣条
+
+        // 2、1 礼物白名单，特殊礼物直接显示。比如银瓜子的粉丝团灯牌 金瓜子的粉丝团灯牌
+
+        // 2、2 礼物黑名单，比如屏蔽银瓜子的 辣条
         if (MainConf.centerSetConf.getIsGift()) {
-            if (!MainConf.centerSetConf.getIsSilverGift()) {
-                return;
-            }
             if ("silver".equals(simpleGift.getCoin_type())) {
-                // todo 不推送眼瓜子礼物 直接return
+                if (!MainConf.centerSetConf.getIsSilverGift()) {
+                    log.info("银瓜礼物显示已关闭");
+                    return;
+                }
                 log.info("收到 银瓜子礼物 " + simpleGift.getUname() + "赠送了 " + simpleGift.getGiftName());
             } else if ("gold".equals(simpleGift.getCoin_type())) {
-                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName());
+                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + simpleGift.getPrice());
+
+                // 金瓜子礼物 过滤
+                // 金瓜子， 低于x元礼物不显示
+                float f1 = strToFloat(MainConf.centerSetConf.getMinGoldPrice());
+                float giftFloat = ((float) simpleGift.getPrice()) / 1000;
+                log.info("最低金额为 " + f1 + "元");
+                log.info("投喂金额金额为 " + giftFloat + "元");
+                if (giftFloat < f1) {
+                    log.info("不需要显示金瓜子礼物");
+                    return;
+                } else {
+                    log.info("需要显示金瓜子礼物");
+                }
             } else {
-                log.info("收到 未知礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName());
+                log.info("收到 未知礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + simpleGift.getPrice());
             }
         } else {
+            log.info("礼物显示已关闭");
             return;
         }
 
-        // todo
         // 2、2 礼物堆叠， 后端实现 比如1秒内重复收到礼物会推迟推送 给 前端，叠加后推送
         //               前端实现 比如1秒内重复收到礼物会由前端实现d叠加
 
-
         // 3、输出到前端 打印日志
-        try {
-            danmuWebsocket.sendMessage(DanmuDto.toJson("gift", simpleGift));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        danmuWebsocket_sendMessage(simpleGift, "gift");
     }
+
+    /**
+     * 把字串转化为Float型数据,若转化失败，则返回0
+     *
+     * @param str 字符串
+     * @return 转换后的float
+     */
+    private float strToFloat(String str) {
+        if (str == null) {
+            return 0;
+        }
+        try {
+            return Float.parseFloat(str);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.err.println(str + "转换成float类型失败，请检查数据来源");
+        }
+        return 0;
+    }
+
 
     @Override
     public void guardBuyFunction(String message) {
@@ -244,6 +262,10 @@ public class DanmuServiceImpl implements DanmuService {
         JSONObject jsonObject_data = JSONObject.parseObject(message);
         JSONObject jsonObject = jsonObject_data.getJSONObject("data");
         Toast toast = JSONObject.toJavaObject(jsonObject, Toast.class);
+
+
+        //
+        danmuWebsocket_sendMessage(toast, "Toast");
 
         log.info("上船消息推送" + String.valueOf(toast));
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
@@ -277,11 +299,8 @@ public class DanmuServiceImpl implements DanmuService {
         danMuMsgInfo.setUname(superChatMessage.getUser_info().getUname());
         danMuMsgInfo.setFaceUrl(superChatMessage.getUser_info().getFace());
         danMuMsgInfo.setIsHaveSystemEmoji(false);
-        try {
-            danmuWebsocket.sendMessage(DanmuDto.toJson("emoticon", danMuMsgInfo));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        danmuWebsocket_sendMessage(danMuMsgInfo, "emoticon");
     }
 
     @Override
@@ -307,16 +326,38 @@ public class DanmuServiceImpl implements DanmuService {
                 String.valueOf(interactWord.getFans_medal().getMedal_level()),
                 interactWord.getUname()
         );
+
         log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
 
-        // todo interactWord推送前端
-
-//        try {
-//            danmuWebsocket.sendMessage(DanmuDto.toJson("interactWord", interactWord));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-
+//        log.info("interactWord.getMsg_type() is " + interactWord.getMsg_type());
+        switch (interactWord.getMsg_type()) {
+            case 1:
+                if (MainConf.centerSetConf.getIsEnterMessage()) {
+                    log.info("推送 进入 房间信息");
+                } else {
+                    return;
+                }
+                break;
+            case 2:
+                if (MainConf.centerSetConf.getIsAttentionMessage()) {
+                    log.info("推送 关注 房间信息");
+                } else {
+                    return;
+                }
+                break;
+            case 3:
+                if (MainConf.centerSetConf.getIsShareMessage()) {
+                    log.info("推送 分享 房间信息");
+                } else {
+                    return;
+                }
+                break;
+            default:
+                log.warn("未知推送interact 消息， 请联系管理员 " + interactWord);
+                return;
+        }
+        //  interactWord推送前端
+        danmuWebsocket_sendMessage(interactWord, "interactWord");
     }
 
     @Override
@@ -647,6 +688,20 @@ public class DanmuServiceImpl implements DanmuService {
             String date = sdf.format(new Date(Integer.parseInt(str_num) * 1000L));
 //            log.debug("timestamp2Date" + "将10位时间戳:" + str_num + "转化为字符串:", date);
             return date;
+        }
+    }
+
+    /**
+     * 输出弹幕
+     *
+     * @param object 弹幕诶人
+     * @param type   类型
+     */
+    private void danmuWebsocket_sendMessage(Object object, String type) {
+        try {
+            danmuWebsocket.sendMessage(DanmuDto.toJson(type, object));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
