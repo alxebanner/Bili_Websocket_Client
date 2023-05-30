@@ -126,6 +126,8 @@ public class ParseMessageThread extends Thread {
                             // log.info(message);
 
                             danmuService.giftFunction(message);
+
+
 //                            action: "投喂"
 //                            coin_type: "silver"
 //                            giftId: 1
@@ -1295,46 +1297,10 @@ public class ParseMessageThread extends Thread {
 //                        {"cmd":"POPULARITY_RED_POCKET_WINNER_LIST","data":{"lot_id":10483521,"total_num":8,"winner_info":[[592298660,"200虫",5547731,31212],[555871534,"以己之心待他人",5500791,31212],[26563730,"慈母手中剑游子身上扎",5547732,31214],[2994493,"年年の柴宝",5549205,31214],[87577734,"华樱白猫",5504005,31214],[1233162176,"月影入画vci",5570145,31216],[26631012,"乃琳喵提不起劲_",5554045,31216],[403319092,"ZHJ赵浙",5554046,31216]],"awards":{"31212":{"award_type":1,"award_name":"打call","award_pic":"https://s1.hdslb.com/bfs/live/461be640f60788c1d159ec8d6c5d5cf1ef3d1830.png","award_big_pic":"https://i0.hdslb.com/bfs/live/9e6521c57f24c7149c054d265818d4b82059f2ef.png","award_price":500},"31214":{"award_type":1,"award_name":"牛哇","award_pic":"https://s1.hdslb.com/bfs/live/91ac8e35dd93a7196325f1e2052356e71d135afb.png","award_big_pic":"https://i0.hdslb.com/bfs/live/3b74c117b4f265edcea261bc5608a58d3a7c300a.png","award_price":100},"31216":{"award_type":1,"award_name":"小花花","award_pic":"https://s1.hdslb.com/bfs/live/5126973892625f3a43a8290be6b625b5e54261a5.png","award_big_pic":"https://i0.hdslb.com/bfs/live/cf90eac49ac0df5c26312f457e92edfff266f3f1.png","award_price":100}},"version":1}}
                             break;
                         case "LIKE_INFO_V3_UPDATE":
-//                            					LOGGER.info("点赞信息v3推送:::" + message);
-                            //{"cmd":"LIKE_INFO_V3_UPDATE","data":{"click_count":371578}}
-//                            MainConf.ROOM_LIKE = JSONObject.parseObject(jsonObject.getString("data")).getLong("click_count");
-//
-//                            log.info("点赞消息LIKE_INFO_V3_UPDATE推送");
-//                            log.info(message);
-
-                            // 推送 总点赞次数
-//                        {"cmd":"LIKE_INFO_V3_UPDATE","data":{"click_count":13}}
-
-                            MainConf.ROOM_CLICK = JSONObject.parseObject(jsonObject.getString("data")).getLong("click_count");
-
-
+                            danmuService.LikeNumFunction(message);
                             break;
                         case "LIKE_INFO_V3_CLICK":
                             danmuService.LikeFunction(message);
-//
-////                            log.info("点赞消息LIKE_INFO_V3_CLICK推送");
-////                            log.info(message);
-//                            String like_info_data = JSONObject.parseObject(message).getString("data");
-//                            LikeInfo likeInfo = JSONObject.parseObject(like_info_data, LikeInfo.class);
-////
-////                            log.info(likeInfo.getUname() + "点赞了");
-////                            log.info("勋章级别" + GuardLevelEnum.getCountryValue(likeInfo.getFans_medal().getGuard_level())
-////                                    + "勋章牌子名称" + likeInfo.getFans_medal().getMedal_name()
-////                                    + " 勋章等级" + likeInfo.getFans_medal().getMedal_level()
-////
-////                            );
-//
-//                            String temp_stt = addFull(likeInfo.getFans_medal().getGuard_level(), likeInfo.getFans_medal().getMedal_name(), String.valueOf(likeInfo.getFans_medal().getMedal_level()),
-//                                    likeInfo.getUname());
-//                            log.info(temp_stt + "点赞了");
-//
-//                            // 点赞推送
-////                            danmuWebsocket.sendMessage(DanmuDto.toJson("emoticon", likeInfo));
-//
-////                        {"cmd":"LIKE_INFO_V3_CLICK","data":{"show_area":1,"msg_type":6,"like_icon":"https://i0.hdslb.com/bfs/live/23678e3d90402bea6a65251b3e728044c21b1f0f.png","uid":939948,"like_text":"为主播点赞了","uname":"春风十里不如一路有语","uname_color":"","identities":[3,1],"fans_medal":{"target_id":3295,"medal_level":28,"medal_name":"大冰棒","medal_color":398668,"medal_color_start":398668,"medal_color_end":6850801,"medal_color_border":6809855,"is_lighted":1,"guard_level":3,"special":"","icon_id":0,"anchor_roomid":0,"score":50272228},"contribution_info":{"grade":0},"dmscore":20}}
-//
-
-                            //					LOGGER.info("点赞信息v3推送:::" + message);
                             break;
                         case "CORE_USER_ATTENTION":
                             //					LOGGER.info("中心用户推送:::" + message);
@@ -1653,7 +1619,7 @@ public class ParseMessageThread extends Thread {
      * format = "yyyy-MM-dd HH:mm:ss"
      *
      * @param str_num 时间
-     * @param format 格式
+     * @param format  格式
      * @return 转换后时间
      */
     public static String timestamp2Date(String str_num, String format) {

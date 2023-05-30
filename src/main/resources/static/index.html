@@ -133,21 +133,32 @@ float: left
 
 .testswitch-checkbox:checked + .testswitch-label .testswitch-switch {
     right: 0px;
+    }
 
+.currentColor {
+    border: 1px solid;
+    height: 25px;
+    width: 100px;
+    cursor: pointer;
+    cursor: hand;
+    background-color: #FFFFFF;
+}
 
-
+.table_tr_control {
+    width:400px
+}
     </style>
 </head>
 <body>
 <br>
 <div>
-    <input type="text" id='room' class="form-control" style='width:600px' placeholder="房间号">
+    <input type="text" id='room' style='width:500px' placeholder="房间号">
     <input type="button" id="set" value="连接房间"/>
 </div>
 <br>
 <div>
     <span>显示弹幕: </span>
-    <input type="text" id='url1' class="form-control" style='width:600px' placeholder="链接">
+    <input type="text" id='url1' style='width:500px' placeholder="链接">
     <input type="button" id="url1_button" value="进入"/>
 </div>
 
@@ -306,118 +317,171 @@ float: left
         </div>
     </div>
     <br>
+
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>手机双击点赞 消息推送(只推送不显示)</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch7" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch7">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="Setting_block">
+        <div class="mySwitchName">
+            <span>手机双击点赞数量 消息推送(只推送不显示)</span>
+        </div>
+        <div class="mySwitch">
+            <div class="testswitch">
+                <input class="testswitch-checkbox" id="onoffswitch8" type="checkbox"/>
+                <label class="testswitch-label" for="onoffswitch8">
+                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                    <span class="testswitch-switch"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <br>
+
 </div>
+
 
 <table>
     <tr>
-        <td>弹幕体高度：</td>
-        <td><input type="text" id='danmuHeight' class="form-control" style='width:600px' placeholder="弹幕体高度"></td>
+
     </tr>
+</table>
+
+
+
+<table>
     <tr>
-        <td>弹幕字体大小：</td>
-        <td><input type="text" id='danmuFont' class="form-control" style='width:600px' placeholder="弹幕字体大小"></td>
+        <td>最小电池礼物价值(元)：</td>
+        <td><input type="text" id='minGoldPrice' class="table_tr_control"
+                   placeholder="电池最小礼物价值(元)"></td>
     </tr>
 
+    <tr>
+        <td>弹幕体高度：</td>
+        <td><input type="text" id='danmuHeight' class="table_tr_control" placeholder="弹幕体高度"></td>
+    </tr>
+
+    <tr>
+        <td>弹幕字体大小：</td>
+        <td><input type="text" id='danmuFont' class="table_tr_control" placeholder="弹幕字体大小"></td>
+    </tr>
 
     <tr>
         <td>弹幕颜色：</td>
-        <td><input type="text" id='danmuColor' class="form-control" style='width:600px' placeholder="弹幕颜色"></td>
+        <td><input type="text" id='danmuColor' class="table_tr_control" placeholder="弹幕颜色"></td>
+        <td>
+            <div class="currentColor" id="danmuCurrentColor"></div>
+        </td>
     </tr>
 
     <tr>
         <td>用户名字体大小：</td>
-        <td><input type="text" id='userNameFont' class="form-control" style='width:600px' placeholder="用户名字体大小">
+        <td><input type="text" id='userNameFont' class="table_tr_control" placeholder="用户名字体大小">
         </td>
     </tr>
 
     <tr>
         <td>用户名颜色：</td>
-        <td><input type="text" id='userNameColor' class="form-control" style='width:600px' placeholder="用户名颜色">
+        <td><input type="text" id='userNameColor' class="table_tr_control" placeholder="用户名颜色">
+        </td>
+        <td>
+            <div class="currentColor" id="userNameCurrentColor"></div>
         </td>
     </tr>
 
-
     <tr>
         <td>普通用户 头像框 背景图片：</td>
-        <td><input type="text" id='face_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='face_backgroundUrl' class="table_tr_control"
                    placeholder="普通用户 头像框 背景图片"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 图片宽度：</td>
-        <td><input type="text" id='face_common_Width' class="form-control" style='width:600px'
+        <td><input type="text" id='face_common_Width' class="table_tr_control"
                    placeholder="普通用户 头像框 图片宽度"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 图片高度：</td>
-        <td><input type="text" id='face_common_Height' class="form-control" style='width:600px'
+        <td><input type="text" id='face_common_Height' class="table_tr_control"
                    placeholder="普通用户 头像框 图片高度"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 垂直偏移量：</td>
-        <td><input type="text" id='face_common_top' class="form-control" style='width:600px'
+        <td><input type="text" id='face_common_top' class="table_tr_control"
                    placeholder="普通用户 头像框 垂直偏移量"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 水平偏移量：</td>
-        <td><input type="text" id='face_common_left' class="form-control" style='width:600px'
+        <td><input type="text" id='face_common_left' class="table_tr_control"
                    placeholder="普通用户 头像框 水平偏移量"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 背景图片：</td>
-        <td><input type="text" id='face_Top_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='face_Top_backgroundUrl' class="table_tr_control"
                    placeholder="舰队用户头像框 背景图片"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 宽度：</td>
-        <td><input type="text" id='face_top_Width' class="form-control" style='width:600px'
+        <td><input type="text" id='face_top_Width' class="table_tr_control"
                    placeholder="舰队用户头像框 宽度"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 高度：</td>
-        <td><input type="text" id='face_top_Height' class="form-control" style='width:600px'
+        <td><input type="text" id='face_top_Height' class="table_tr_control"
                    placeholder="舰队用户头像框 高度"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 垂直偏移量：</td>
-        <td><input type="text" id='face_top_top' class="form-control" style='width:600px'
+        <td><input type="text" id='face_top_top' class="table_tr_control"
                    placeholder="舰队用户头像框 垂直偏移量"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 水平偏移量：</td>
-        <td><input type="text" id='face_top_left' class="form-control" style='width:600px'
+        <td><input type="text" id='face_top_left' class="table_tr_control"
                    placeholder="舰队用户头像框 水平偏移量"></td>
     </tr>
 
     <tr>
         <td>用户名背景图片：</td>
-        <td><input type="text" id='username_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='username_backgroundUrl' class="table_tr_control"
                    placeholder="用户名背景图片"></td>
     </tr>
 
     <tr>
         <td>观众弹幕 背景图片：</td>
-        <td><input type="text" id='commonDanmu_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='commonDanmu_backgroundUrl' class="table_tr_control"
                    placeholder="弹幕 背景图片"></td>
     </tr>
 
     <tr>
         <td>舰队弹幕 背景图片：</td>
-        <td><input type="text" id='fleetDanmu_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='fleetDanmu_backgroundUrl' class="table_tr_control"
                    placeholder="弹幕 背景图片"></td>
     </tr>
 
     <tr>
         <td>弹幕右下角装饰 背景图片：</td>
-        <td><input type="text" id='pendant_backgroundUrl' class="form-control" style='width:600px'
+        <td><input type="text" id='pendant_backgroundUrl' class="table_tr_control"
                    placeholder="弹幕右下角装饰 背景图片"></td>
     </tr>
 </table>
@@ -661,7 +725,14 @@ $.ajax({
                 var isEnterMessage = data.data.isEnterMessage;
                 var isAttentionMessage = data.data.isAttentionMessage;
                 var isShareMessage = data.data.isShareMessage;
+                var isLikeMessage = data.data.isLikeMessage;
+                var isLikeNumMessage = data.data.isLikeNumMessage;
 
+
+
+
+
+                var minGoldPrice = data.data.minGoldPrice;
                 var danmuHeight = data.data.danmuHeight;
                 var danmuFont = data.data.danmuFont;
                 var danmuColor = data.data.danmuColor;
@@ -690,12 +761,27 @@ $.ajax({
                 $("#onoffswitch4").prop("checked",isEnterMessage);
                 $("#onoffswitch5").prop("checked",isAttentionMessage);
                 $("#onoffswitch6").prop("checked",isShareMessage);
+                $("#onoffswitch7").prop("checked",isLikeMessage);
+                $("#onoffswitch8").prop("checked",isLikeNumMessage);
 
+
+                $("#minGoldPrice").val(minGoldPrice);
                 $("#danmuHeight").val(danmuHeight);
                 $("#danmuFont").val(danmuFont);
                 $("#danmuColor").val(danmuColor);
+
+                $("#danmuCurrentColor").css({
+                    "background": $("#danmuColor").val()
+                });
+
                 $("#userNameFont").val(userNameFont);
                 $("#userNameColor").val(userNameColor);
+
+                $("#userNameCurrentColor").css({
+                    "background": $("#userNameColor").val()
+                });
+
+
                 $("#face_backgroundUrl").val(face_backgroundUrl);
                 $("#username_backgroundUrl").val(username_backgroundUrl);
                 $("#commonDanmu_backgroundUrl").val(commonDanmu_backgroundUrl);
@@ -812,7 +898,11 @@ $("#sendSet").click(function(){
             set.isEnterMessage = $("#onoffswitch4").is(':checked');
             set.isAttentionMessage = $("#onoffswitch5").is(':checked');
             set.isShareMessage = $("#onoffswitch6").is(':checked');
+            set.isLikeMessage = $("#onoffswitch7").is(':checked');
+            set.isLikeNumMessage = $("#onoffswitch8").is(':checked');
 
+
+            set.minGoldPrice = $("#minGoldPrice").val();
             set.danmuHeight = $("#danmuHeight").val();
             set.danmuFont = $("#danmuFont").val();
             set.danmuColor = $("#danmuColor").val();
@@ -847,6 +937,26 @@ $("#sendSet").click(function(){
             }
             });
 });
+
+
+$("#userNameColor").change(function(){
+    $("#userNameCurrentColor").css({
+        "background": $("#userNameColor").val()
+    });
+});
+
+$("#danmuColor").change(function(){
+    $("#danmuCurrentColor").css({
+        "background": $("#danmuColor").val()
+    });
+});
+
+
+
+
+
+
+
 
 
 

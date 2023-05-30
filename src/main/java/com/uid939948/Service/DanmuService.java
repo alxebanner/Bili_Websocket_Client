@@ -12,6 +12,13 @@ public interface DanmuService {
     void LikeFunction(String message);
 
     /**
+     * 双击点赞数量
+     *
+     * @param message 收到消息体
+     */
+    void LikeNumFunction(String message);
+
+    /**
      * 弹幕定制内容
      *
      * @param message 收到消息体

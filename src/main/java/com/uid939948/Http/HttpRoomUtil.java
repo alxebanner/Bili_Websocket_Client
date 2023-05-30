@@ -136,6 +136,7 @@ public class HttpRoomUtil {
         JSONObject jsonObject = JSONObject.parseObject(result);
 
         if (ObjectUtils.isEmpty(result) || ObjectUtils.isEmpty(jsonObject) || StringUtils.isEmpty(jsonObject.getString("code"))) {
+            LOGGER.warn("httpGetFaceUrl_V2 获取头像失败" + result);
             return NO_FACE_URL;
         }
         if ("0".equals(jsonObject.getString("code"))) {
@@ -172,7 +173,6 @@ public class HttpRoomUtil {
         RoomInfo roomInfo = jsonObject1.getObject(roomId + "", RoomInfo.class);
         return roomInfo;
     }
-
 
     /**
      * 通过UID获取头像
@@ -237,11 +237,8 @@ public class HttpRoomUtil {
 
             return NO_FACE_URL;
         }
-
-
         String data = jsonObject.getString("data");
         return JSONObject.parseObject(data).getString("face");
-
     }
 
     public static String getOneFace(Long uid) {
@@ -250,14 +247,12 @@ public class HttpRoomUtil {
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
-
-//        headers.put("cookie", token);
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
 
 
         String s1 = jsonObject.getJSONObject("data").getString("avatar");
-//        System.out.println(s1);
+        System.out.println(s1);
         return s1;
     }
 
@@ -332,7 +327,6 @@ public class HttpRoomUtil {
         return userInfo;
     }
 
-
     /**
      * 通过uid获取 用户基本信息
      *
@@ -404,7 +398,6 @@ public class HttpRoomUtil {
 //        "broadcast_type" -> {Integer@3268} 0
         return userInfo;
     }
-
 
     /**
      * 通过房间号和token获取信息
@@ -479,7 +472,7 @@ public class HttpRoomUtil {
         JSONObject jsonObject = JSONObject.parseObject(result);
 
         if (ObjectUtils.isEmpty(result) || ObjectUtils.isEmpty(jsonObject) || ObjectUtils.isEmpty(jsonObject.getString("code"))) {
-            LOGGER.error("httpGetFaceV2 获取头像失败,被拉黑 " + result);
+            LOGGER.warn("httpGetFaceV2 获取头像失败,被拉黑 " + result);
             return HttpRoomUtil.httpGetFaceUrl_V2(uid);
         }
         if ("0".equals(jsonObject.getString("code"))) {
@@ -489,6 +482,5 @@ public class HttpRoomUtil {
             LOGGER.error("httpGetFaceV2 获取头像失败 " + result);
             return HttpRoomUtil.httpGetFaceUrl_V2(uid);
         }
-//        return NO_FACE_URL;
     }
 }

@@ -13,8 +13,8 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-<!--        <java.version>1.8</java.version>-->
-<!--        <tomcat.version>8.5.37</tomcat.version>-->
+        <!--        <java.version>1.8</java.version>-->
+        <!--        <tomcat.version>8.5.37</tomcat.version>-->
 
 
     </properties>
@@ -111,16 +111,16 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.spring.boot</groupId>-->
-<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--            <version>2.2.2</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.generator</groupId>-->
-<!--            <artifactId>mybatis-generator-core</artifactId>-->
-<!--            <version>1.3.7</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.mybatis.spring.boot</groupId>-->
+        <!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--            <version>2.2.2</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.mybatis.generator</groupId>-->
+        <!--            <artifactId>mybatis-generator-core</artifactId>-->
+        <!--            <version>1.3.7</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -129,19 +129,19 @@
         </dependency>
 
 
-<!--        &lt;!&ndash;去除内嵌tomcat&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket &ndash;&gt;-->
-<!--        &lt;!&ndash;websocket依赖包&ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.tomcat.embed</groupId>-->
-<!--            <artifactId>tomcat-embed-websocket</artifactId>-->
-<!--            <version>8.5.23</version>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash;去除内嵌tomcat&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-tomcat</artifactId>-->
+        <!--            <scope>provided</scope>-->
+        <!--        </dependency>-->
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-websocket &ndash;&gt;-->
+        <!--        &lt;!&ndash;websocket依赖包&ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.tomcat.embed</groupId>-->
+        <!--            <artifactId>tomcat-embed-websocket</artifactId>-->
+        <!--            <version>8.5.23</version>-->
+        <!--        </dependency>-->
 
 
         <!--      lof4j 引用  slf4j-->
@@ -260,6 +260,11 @@
             <version>0.1</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/javastruct-0.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.3</version>
         </dependency>
 
 

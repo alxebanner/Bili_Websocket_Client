@@ -51,6 +51,10 @@ public class ClientServiceImpl implements ClientService {
             MainConf.webSocketProxy.close();
             threadComponent.closeHeartByteThread();
             threadComponent.closeHeartOnlineThread();
+            MainConf.ROOM_CLICK = 0L;
+            MainConf.ROOM_WATCHER = 0L;
+
+
             log.info("关闭webSocketProxy 重新打开");
         }
 

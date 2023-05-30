@@ -79,6 +79,18 @@ public class CenterSetConf implements Serializable {
     private Boolean isShareMessage = false;
 
     /**
+     * 手机双击点赞 消息推送
+     * LIKE_INFO_V3_CLICK
+     */
+    private Boolean isLikeMessage = false;
+
+    /**
+     * 手机双击点赞数量 消息推送
+     * LIKE_INFO_V3_CLICK
+     */
+    private Boolean isLikeNumMessage = false;
+
+    /**
      * 弹幕高度
      * 默认为980px
      */

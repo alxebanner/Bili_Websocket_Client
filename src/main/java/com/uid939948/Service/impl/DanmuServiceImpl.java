@@ -174,7 +174,21 @@ public class DanmuServiceImpl implements DanmuService {
         String temp_stt = addFull(likeInfo.getFans_medal().getGuard_level(), likeInfo.getFans_medal().getMedal_name(), String.valueOf(likeInfo.getFans_medal().getMedal_level()),
                 likeInfo.getUname());
         log.info(temp_stt + "点赞了");
-        // todo 点赞推送
+
+        if (MainConf.centerSetConf.getIsLikeMessage()) {
+            danmuWebsocket_sendMessage(likeInfo, "likeInfo");
+        }
+    }
+
+    @Override
+    public void LikeNumFunction(String message) {
+        //        {"cmd":"LIKE_INFO_V3_UPDATE","data":{"click_count":13}}
+        Long click_count = JSONObject.parseObject(message).getJSONObject("data").getLong("click_count");
+        MainConf.ROOM_CLICK = click_count;
+        log.debug("房间点赞数量为" + click_count);
+        if (MainConf.centerSetConf.getIsLikeNumMessage()) {
+            danmuWebsocket_sendMessage(click_count, "click_count");
+        }
     }
 
     @Override
@@ -186,6 +200,7 @@ public class DanmuServiceImpl implements DanmuService {
         // 2、礼物过滤（比如屏蔽特定礼物， 辣条 银瓜子礼物）
 
         // 2、1 礼物白名单，特殊礼物直接显示。比如银瓜子的粉丝团灯牌 金瓜子的粉丝团灯牌
+        // todo 银瓜子 粉丝牌灯牌 白名单
 
         // 2、2 礼物黑名单，比如屏蔽银瓜子的 辣条
         if (MainConf.centerSetConf.getIsGift()) {
@@ -202,13 +217,13 @@ public class DanmuServiceImpl implements DanmuService {
                 // 金瓜子， 低于x元礼物不显示
                 float f1 = strToFloat(MainConf.centerSetConf.getMinGoldPrice());
                 float giftFloat = ((float) simpleGift.getPrice()) / 1000;
-                log.info("最低金额为 " + f1 + "元");
-                log.info("投喂金额金额为 " + giftFloat + "元");
+                // log.info("最低金额为 " + f1 + "元");
+                // log.info("投喂金额金额为 " + giftFloat + "元");
                 if (giftFloat < f1) {
-                    log.info("不需要显示金瓜子礼物");
+                    log.debug("不需要显示金瓜子礼物");
                     return;
                 } else {
-                    log.info("需要显示金瓜子礼物");
+                    log.debug("需要显示金瓜子礼物");
                 }
             } else {
                 log.info("收到 未知礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + simpleGift.getPrice());
@@ -265,7 +280,7 @@ public class DanmuServiceImpl implements DanmuService {
 
         danmuWebsocket_sendMessage(toast, "Toast");
 
-        log.info("上船消息推送" + toast);
+        log.info("上船消息推送" + toast); // Toast(anchor_show=true, color=#00D1F1, dmscore=90, effect_id=397, end_time=1685328094, face_effect_id=44, gift_id=10003, guard_level=3, is_show=0, num=1, op_type=1, payflow_id=2305291041138892124930450, price=138000, role_name=舰长, room_effect_id=590, start_time=1685328094, svga_block=0, target_guard_count=17, toast_msg=<%毕业留在成都%> 在主播冼知了的直播间开通了舰长，今天是TA陪伴主播的第1天, uid=385372493, unit=月, user_show=true, username=毕业留在成都)
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
 
