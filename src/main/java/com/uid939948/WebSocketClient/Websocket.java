@@ -55,6 +55,7 @@ public class Websocket extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
         LOGGER.info("websocket connect close(连接已经断开)，纠错码:" + code);
 
+        // todo 重连
     }
 
     @Override

@@ -182,13 +182,26 @@ public class DanmuServiceImpl implements DanmuService {
 
     @Override
     public void LikeNumFunction(String message) {
-        //        {"cmd":"LIKE_INFO_V3_UPDATE","data":{"click_count":13}}
+        // {"cmd":"LIKE_INFO_V3_UPDATE","data":{"click_count":13}}
         Long click_count = JSONObject.parseObject(message).getJSONObject("data").getLong("click_count");
         MainConf.ROOM_CLICK = click_count;
         log.debug("房间点赞数量为" + click_count);
         if (MainConf.centerSetConf.getIsLikeNumMessage()) {
             danmuWebsocket_sendMessage(click_count, "click_count");
         }
+    }
+
+    @Override
+    public void watchNumFunction(String message) {
+//        {"cmd":"WATCHED_CHANGE","data":{"num":154,"text_small":"154","text_large":"154人看过"}}
+        Long watchNum = JSONObject.parseObject(message).getJSONObject("data").getLong("text_small");
+        MainConf.ROOM_WATCHER = watchNum;
+        log.debug("房间曾观看数量为" + watchNum);
+        // todo
+        if (false) {
+            danmuWebsocket_sendMessage(watchNum, "watch_count");
+        }
+
     }
 
     @Override

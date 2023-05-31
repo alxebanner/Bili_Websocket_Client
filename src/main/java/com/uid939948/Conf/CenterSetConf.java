@@ -116,6 +116,32 @@ public class CenterSetConf implements Serializable {
      */
     private String userNameColor = "#D2B48C";
 
+    /**
+     * 用户 头像弯曲弧度 0px到50px
+     */
+    private String user_border_radius = "50";
+
+    /**
+     * 用户 头像高度
+     */
+    private String user_height = "100";
+
+    /**
+     * 用户 头像宽度
+     */
+    private String user_width = "100";
+
+    /**
+     * 用户 头像高度
+     */
+    private String user_top = "20";
+
+    /**
+     * 用户 头像宽度
+     */
+    private String user_left = "0";
+
+
     // 普通用户头像
     /**
      * 普通用户头像框背景图片地址
@@ -123,11 +149,6 @@ public class CenterSetConf implements Serializable {
     private String face_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cTod0.png";
     // 纪录默认位置   private String face_backgroundUrl = "../../danmuCss/top/舰长头像框.png";
 
-
-//    width: 130px;
-//    height: 130px;
-//    top: -106px;
-//    left: -15px;
     /**
      * 普通用户 头像框背景图片宽度
      */
@@ -137,11 +158,6 @@ public class CenterSetConf implements Serializable {
      * 普通用户头像框背景图片高度
      */
     private String face_common_Height = "130";
-
-    /**
-     * 普通用户 头像弯曲弧度 0px到50px 暂时无用
-     */
-    private String face_common_border_radius = "50";
 
     /**
      * 普通用户 竖直头像偏移量

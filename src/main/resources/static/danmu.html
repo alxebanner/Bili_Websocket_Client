@@ -249,6 +249,7 @@ opacity: 1;
 
 
 
+
     </style>
 </head>
 <body>
@@ -420,11 +421,17 @@ opacity: 1;
     <input type="text" id='face_top_Height' style='display:none'>
     <input type="text" id='face_top_top' style='display:none'>
     <input type="text" id='face_top_left' style='display:none'>
-
     <input type="text" id='face_common_Width' style='display:none'>
     <input type="text" id='face_common_Height' style='display:none'>
     <input type="text" id='face_common_top' style='display:none'>
     <input type="text" id='face_common_left' style='display:none'>
+    <input type="text" id='user_width' style='display:none'>
+    <input type="text" id='user_height' style='display:none'>
+    <input type="text" id='user_border_radius' style='display:none'>
+
+    <input type="text" id='user_top' style='display:none'>
+    <input type="text" id='user_left' style='display:none'>
+
 </div>
 
 </body>
@@ -476,11 +483,16 @@ $.ajax({
         var face_top_Height = data.data.face_top_Height;
         var face_top_top = data.data.face_top_top;
         var face_top_left = data.data.face_top_left;
-
         var face_common_Width = data.data.face_common_Width;
         var face_common_Height = data.data.face_common_Height;
         var face_common_top = data.data.face_common_top;
         var face_common_left = data.data.face_common_left;
+
+        var user_width = data.data.user_width;
+        var user_height = data.data.user_height;
+        var user_border_radius = data.data.user_border_radius;
+        var user_top = data.data.user_top;
+        var user_left = data.data.user_left;
 
         $("#danmuHeight").val(danmuHeight);
         $("#danmuFont").val(danmuFont);
@@ -497,12 +509,16 @@ $.ajax({
         $("#face_top_Height").val(face_top_Height);
         $("#face_top_top").val(face_top_top);
         $("#face_top_left").val(face_top_left);
-
         $("#face_common_Width").val(face_common_Width);
         $("#face_common_Height").val(face_common_Height);
         $("#face_common_top").val(face_common_top);
         $("#face_common_left").val(face_common_left);
 
+        $("#user_width").val(user_width);
+        $("#user_height").val(user_height);
+        $("#user_border_radius").val(user_border_radius);
+        $("#user_top").val(user_top);
+        $("#user_left").val(user_left);
 
 <!--            设置弹幕-->
             $(".chat-window").css({
@@ -801,11 +817,16 @@ function writeToScreen1(message) {
     var face_top_Height = $("#face_top_Height").val();
     var face_top_top = $("#face_top_top").val();
     var face_top_left = $("#face_top_left").val();
-
     var face_common_Width = $("#face_common_Width").val();
     var face_common_Height = $("#face_common_Height").val();
     var face_common_top = $("#face_common_top").val();
     var face_common_left = $("#face_common_left").val();
+    var user_width = $("#user_width").val();
+    var user_height = $("#user_height").val();
+    var user_border_radius = $("#user_border_radius").val();
+
+    var user_top = $("#user_top").val();
+    var user_left = $("#user_left").val();
 
     <!--            设置弹幕样式-->
                 $(".danmu_wenzi>span").css({
@@ -822,6 +843,13 @@ function writeToScreen1(message) {
 <!--                "background-image": "url( "+  face_backgroundUrl  +" )",-->
 <!--                });-->
 
+                $(".userFace").css({
+                "width": user_width + "px",
+                "height": user_height + "px",
+                "top": user_top + "px",
+                "left": user_left + "px",
+                "border-radius": user_border_radius + "px",
+                });
 
                 <!--设置普通用户头像框->
                 $(".face_common").attr("src", face_backgroundUrl);
@@ -874,13 +902,5 @@ function writeToScreen1(message) {
                 chatWindow.scrollTop=d.scrollHeight
 
 }
-
-
-
-
-
-
-
-
 </script>
 </html>

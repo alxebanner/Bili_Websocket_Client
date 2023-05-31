@@ -53,8 +53,6 @@ public class ClientServiceImpl implements ClientService {
             threadComponent.closeHeartOnlineThread();
             MainConf.ROOM_CLICK = 0L;
             MainConf.ROOM_WATCHER = 0L;
-
-
             log.info("关闭webSocketProxy 重新打开");
         }
 

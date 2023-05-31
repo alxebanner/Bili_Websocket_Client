@@ -93,15 +93,13 @@
 
 
 .mySwitchName{
-    float: left;
+    float: right;
 }
 
 .mySwitchName span{
     font-size: 24px;
 }
-.Setting_block {
-display: flow-root;
-}
+
 
 
 .mySwitch{
@@ -110,7 +108,19 @@ display: flow-root;
     display: inline-block;
     margin-left: 10px;
 }
-float: left
+
+.trSwitch{
+    position: absolute;
+    float: right;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: -15px;
+}
+
+.trSwitchRight{
+    text-align:right
+}
+
 
 .testswitch-switch {
     position: absolute;
@@ -147,6 +157,51 @@ float: left
 .table_tr_control {
     width:400px
 }
+
+
+.face {
+    width: 40px;
+    float:left
+}
+
+.now1 {
+    height: 125px;
+    width: 125px;
+}
+
+.d3 {
+    height: 100px;
+    width: 100px;
+}
+
+.face_common {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    top: -106px;
+    left: -15px;
+}
+
+.userFace {
+    position: relative;
+    border-radius: 75px;
+    width: 100px;
+    height: 100px;
+    top: 20px;
+}
+.face_top {
+    position: relative;
+    width: 150px;
+    height: 129px;
+    top: -96px;
+    left: -17px;
+}
+
+.tr_demo {
+    height: 280px;
+}
+
+
     </style>
 </head>
 <body>
@@ -163,205 +218,173 @@ float: left
 </div>
 
 <div id="UserInfo">
-    <!--        <div class="row">-->
-    <!--            <div class="touxiang">-->
-    <!--&lt;!&ndash;                <img src="https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg">&ndash;&gt;-->
-
-    <!--                <a href="https://space.bilibili.com/939948">-->
-    <!--                    <img src="https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg">-->
-    <!--                </a>-->
-
-    <!--            </div>-->
-    <!--            <div class="row1">-->
-    <!--                <div class="row2">-->
-    <!--                    主播名称 猫小姐77-4月17周年庆-->
-    <!--                </div>-->
-
-
-    <!--                <div class="row2">-->
-    <!--                    开播状态 未开播-->
-    <!--                </div>-->
-    <!--                <div class="row2">-->
-    <!--                    直播标题 猫系女友 你喜欢的我都会-->
-    <!--                </div>-->
-    <!--            </div>-->
-
-    <!--            <div class="fengmian">-->
-    <!--                <a href="https://space.bilibili.com/939948">-->
-    <!--                    <img src="http://i0.hdslb.com/bfs/live/user_cover/2b2e2c8d72aa785d6b53e6885be097c9619ac1f1.jpg">-->
-    <!--                </a>-->
-    <!--            </div>-->
-    <!--        </div>-->
-
-
-    <!--        cover: "http://i0.hdslb.com/bfs/live/user_cover/2b2e2c8d72aa785d6b53e6885be097c9619ac1f1.jpg"-->
-    <!--        face: "https://i1.hdslb.com/bfs/face/8ed6da664167ca07c1660f77f10f938c39c4a8bb.jpg"-->
-    <!--        liveStatus: "未开播"-->
-    <!--        name: "猫小姐77-4月17周年庆"-->
-    <!--        roomId: null-->
-    <!--        sign: "一只可盐可甜  治愈系的猫猫   \n每天的14:00-23:00  我在房间等你喔~\n\n"-->
-    <!--        title: "猫系女友 你喜欢的我都会"-->
-    <!--        uid: 1887537943-->
-
-
 </div>
 <br>
-<div id="Setting">
-    <!--        <div class="Setting_block">-->
-    <!--            <div class="mySwitchName">-->
-    <!--                <span>屏蔽红包</span>-->
-    <!--            </div>-->
-    <!--            <div class="mySwitch">-->
-    <!--                <div class="testswitch">-->
-    <!--                    <input class="testswitch-checkbox" id="onoffswitch" checked="checked" type="checkbox"/>-->
-    <!--                    <label class="testswitch-label" for="onoffswitch">-->
-    <!--                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>-->
-    <!--                        <span class="testswitch-switch"></span>-->
-    <!--                    </label>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-
-    <br>
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>屏蔽天选</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch1" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch1">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>银瓜子礼物</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch2" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch2">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>系统表情</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch3" checked="checked" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch3">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>进房 消息推送(只推送不显示)</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch4" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch4">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>关注 消息推送(只推送不显示)</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch5" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch5">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>分享 消息推送(只推送不显示)</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch6" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch6">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>手机双击点赞 消息推送(只推送不显示)</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch7" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch7">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <div class="Setting_block">
-        <div class="mySwitchName">
-            <span>手机双击点赞数量 消息推送(只推送不显示)</span>
-        </div>
-        <div class="mySwitch">
-            <div class="testswitch">
-                <input class="testswitch-checkbox" id="onoffswitch8" type="checkbox"/>
-                <label class="testswitch-label" for="onoffswitch8">
-                    <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
-                    <span class="testswitch-switch"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <br>
-
-</div>
-
 
 <table>
     <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>屏蔽天选</span>
+            </div>
+        </td>
 
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch1" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch1">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>银瓜子礼物</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch2" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch2">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>系统表情</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch3" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch3">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>进房提示</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch4" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch4">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>关注提示</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch5" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch5">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>分享提示</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch6" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch6">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>手机双击点赞</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch7" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch7">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>手机双击点赞统计</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch8" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch8">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
     </tr>
 </table>
 
 
-
-<table>
+<table id="setup_table">
     <tr>
         <td>最小电池礼物价值(元)：</td>
         <td><input type="text" id='minGoldPrice' class="table_tr_control"
@@ -370,12 +393,12 @@ float: left
 
     <tr>
         <td>弹幕体高度：</td>
-        <td><input type="text" id='danmuHeight' class="table_tr_control" placeholder="弹幕体高度"></td>
+        <td><input type="number" id='danmuHeight' class="table_tr_control" placeholder="弹幕体高度"></td>
     </tr>
 
     <tr>
         <td>弹幕字体大小：</td>
-        <td><input type="text" id='danmuFont' class="table_tr_control" placeholder="弹幕字体大小"></td>
+        <td><input type="number" id='danmuFont' class="table_tr_control" placeholder="弹幕字体大小"></td>
     </tr>
 
     <tr>
@@ -388,7 +411,7 @@ float: left
 
     <tr>
         <td>用户名字体大小：</td>
-        <td><input type="text" id='userNameFont' class="table_tr_control" placeholder="用户名字体大小">
+        <td><input type="number" id='userNameFont' class="table_tr_control" placeholder="用户名字体大小">
         </td>
     </tr>
 
@@ -402,6 +425,36 @@ float: left
     </tr>
 
     <tr>
+        <td>用户头像 宽度：</td>
+        <td><input type="number" id='user_width' class="table_tr_control"
+                   placeholder="用户头像 宽度"></td>
+    </tr>
+
+    <tr>
+        <td>用户头像 高度：</td>
+        <td><input type="number" id='user_height' class="table_tr_control"
+                   placeholder="用户头像 高度"></td>
+    </tr>
+
+    <tr>
+        <td>用户头像 圆角边框弧度：</td>
+        <td><input type="number" id='user_border_radius' class="table_tr_control"
+                   placeholder="用户头像 圆角边框弧度"></td>
+    </tr>
+
+    <tr>
+        <td>用户头像 垂直偏移量：</td>
+        <td><input type="number" id='user_top' class="table_tr_control"
+                   placeholder="用户头像 垂直偏移量"></td>
+    </tr>
+
+    <tr>
+        <td>用户头像 水平偏移量：</td>
+        <td><input type="number" id='user_left' class="table_tr_control"
+                   placeholder="用户头像 水平偏移量"></td>
+    </tr>
+
+    <tr>
         <td>普通用户 头像框 背景图片：</td>
         <td><input type="text" id='face_backgroundUrl' class="table_tr_control"
                    placeholder="普通用户 头像框 背景图片"></td>
@@ -409,25 +462,25 @@ float: left
 
     <tr>
         <td>普通用户 头像框 图片宽度：</td>
-        <td><input type="text" id='face_common_Width' class="table_tr_control"
+        <td><input type="number" id='face_common_Width' class="table_tr_control"
                    placeholder="普通用户 头像框 图片宽度"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 图片高度：</td>
-        <td><input type="text" id='face_common_Height' class="table_tr_control"
+        <td><input type="number" id='face_common_Height' class="table_tr_control"
                    placeholder="普通用户 头像框 图片高度"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 垂直偏移量：</td>
-        <td><input type="text" id='face_common_top' class="table_tr_control"
+        <td><input type="number" id='face_common_top' class="table_tr_control"
                    placeholder="普通用户 头像框 垂直偏移量"></td>
     </tr>
 
     <tr>
         <td>普通用户 头像框 水平偏移量：</td>
-        <td><input type="text" id='face_common_left' class="table_tr_control"
+        <td><input type="number" id='face_common_left' class="table_tr_control"
                    placeholder="普通用户 头像框 水平偏移量"></td>
     </tr>
 
@@ -439,26 +492,52 @@ float: left
 
     <tr>
         <td>舰队用户 头像框 宽度：</td>
-        <td><input type="text" id='face_top_Width' class="table_tr_control"
+        <td><input type="number" id='face_top_Width' class="table_tr_control"
                    placeholder="舰队用户头像框 宽度"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 高度：</td>
-        <td><input type="text" id='face_top_Height' class="table_tr_control"
+        <td><input type="number" id='face_top_Height' class="table_tr_control"
                    placeholder="舰队用户头像框 高度"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 垂直偏移量：</td>
-        <td><input type="text" id='face_top_top' class="table_tr_control"
+        <td><input type="number" id='face_top_top' class="table_tr_control"
                    placeholder="舰队用户头像框 垂直偏移量"></td>
     </tr>
 
     <tr>
         <td>舰队用户 头像框 水平偏移量：</td>
-        <td><input type="text" id='face_top_left' class="table_tr_control"
+        <td><input type="number" id='face_top_left' class="table_tr_control"
                    placeholder="舰队用户头像框 水平偏移量"></td>
+    </tr>
+
+    <tr>
+        <td>演示：</td>
+        <td>
+            <div class="tr_demo">
+                <div class="face">
+                    <div class="now1">
+                        <div class="d3">
+                            <img class="userFace"
+                                 src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"
+                                 alt="">
+                            <img class="face_common" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png" alt=""
+                            ></div>
+                    </div>
+                </div>
+
+                <div class="now1">
+                    <div class="d3"><img class="userFace"
+                                         src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"
+                                         alt="">
+                        <img class="face_top" src="https://s1.ax1x.com/2023/05/26/p9qEDud.png" alt=""></div>
+                </div>
+            </div>
+
+        </td>
     </tr>
 
     <tr>
@@ -669,8 +748,8 @@ var str1 = $('input').val();
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log('getSet');
-                console.log(data.data);
+<!--                console.log('getSet');-->
+<!--                console.log(data.data);-->
                 setUserInfo(data.data);
              }
         })
@@ -708,8 +787,8 @@ $.ajax({
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log('getSet')
-                console.log(data)
+<!--                console.log('getSet')-->
+<!--                console.log(data)-->
                 var roomid = data.data.roomid
                 $("#room").val(roomid)
                 if(roomid === '' || roomid === 0 ) {
@@ -748,11 +827,17 @@ $.ajax({
                 var face_top_Height = data.data.face_top_Height;
                 var face_top_top = data.data.face_top_top;
                 var face_top_left = data.data.face_top_left;
-
                 var face_common_Width = data.data.face_common_Width;
                 var face_common_Height = data.data.face_common_Height;
                 var face_common_top = data.data.face_common_top;
                 var face_common_left = data.data.face_common_left;
+                var user_width = data.data.user_width;
+                var user_height = data.data.user_height;
+                var user_border_radius = data.data.user_border_radius;
+
+                var user_top = data.data.user_top;
+                var user_left = data.data.user_left;
+
 
                 $("#onoffswitch1").prop("checked",isAnchorLot);
                 $("#onoffswitch2").prop("checked",isSilverGift);
@@ -792,16 +877,23 @@ $.ajax({
                 $("#face_top_Height").val(face_top_Height);
                 $("#face_top_top").val(face_top_top);
                 $("#face_top_left").val(face_top_left);
-
                 $("#face_common_Width").val(face_common_Width);
                 $("#face_common_Height").val(face_common_Height);
                 $("#face_common_top").val(face_common_top);
                 $("#face_common_left").val(face_common_left);
+                $("#user_width").val(user_width);
+                $("#user_height").val(user_height);
+                $("#user_border_radius").val(user_border_radius);
+
+                $("#user_top").val(user_top);
+                $("#user_left").val(user_left);
+
+                setDemo(data);
              }
         })
 }
 
-function  setUserInfo(data) {
+function setUserInfo(data) {
     $("#UserInfo").empty()
     var uid = data.uid;
     var roomId = data.roomId;
@@ -918,11 +1010,16 @@ $("#sendSet").click(function(){
             set.face_top_Height = $("#face_top_Height").val();
             set.face_top_top = $("#face_top_top").val();
             set.face_top_left = $("#face_top_left").val();
-
             set.face_common_Width = $("#face_common_Width").val();
             set.face_common_Height = $("#face_common_Height").val();
             set.face_common_top = $("#face_common_top").val();
             set.face_common_left = $("#face_common_left").val();
+            set.user_width = $("#user_width").val();
+            set.user_height = $("#user_height").val();
+            set.user_border_radius = $("#user_border_radius").val();
+
+            set.user_top = $("#user_top").val();
+            set.user_left = $("#user_left").val();
 
             $.ajax({
             url: '../sendSet',
@@ -938,7 +1035,6 @@ $("#sendSet").click(function(){
             });
 });
 
-
 $("#userNameColor").change(function(){
     $("#userNameCurrentColor").css({
         "background": $("#userNameColor").val()
@@ -951,14 +1047,131 @@ $("#danmuColor").change(function(){
     });
 });
 
+function setDemo(data) {
+                var minGoldPrice = data.data.minGoldPrice;
+                var danmuHeight = data.data.danmuHeight;
+                var danmuFont = data.data.danmuFont;
+                var danmuColor = data.data.danmuColor;
+                var userNameFont = data.data.userNameFont;
+                var userNameColor = data.data.userNameColor;
+                var face_backgroundUrl = data.data.face_backgroundUrl;
+                var username_backgroundUrl = data.data.username_backgroundUrl;
+                var commonDanmu_backgroundUrl = data.data.commonDanmu_backgroundUrl;
+                var fleetDanmu_backgroundUrl = data.data.fleetDanmu_backgroundUrl;
+                var pendant_backgroundUrl = data.data.pendant_backgroundUrl;
+                var face_Top_backgroundUrl = data.data.face_Top_backgroundUrl;
+                var face_top_Width = data.data.face_top_Width;
+                var face_top_Height = data.data.face_top_Height;
+                var face_top_top = data.data.face_top_top;
+                var face_top_left = data.data.face_top_left;
+                var face_common_Width = data.data.face_common_Width;
+                var face_common_Height = data.data.face_common_Height;
+                var face_common_top = data.data.face_common_top;
+                var face_common_left = data.data.face_common_left;
+                var user_width = data.data.user_width;
+                var user_height = data.data.user_height;
+                var user_border_radius = data.data.user_border_radius;
+                var user_top = data.data.user_top;
+                var user_left = data.data.user_left;
+
+                 <!--设置用户头像框->
+                $(".userFace").css({
+                "width": user_width + "px",
+                "height": user_height + "px",
+                "top": user_top + "px",
+                "left": user_left + "px",
+                "border-radius": user_border_radius + "px",
+                });
+
+                <!--设置普通用户头像框->
+                $(".face_common").attr("src", face_backgroundUrl);
+
+                $(".face_common").css({
+                "width": face_common_Width + "px",
+                "height": face_common_Height + "px",
+                "top": face_common_top + "px",
+                "left": face_common_left + "px",
+                });
+
+                <!--设置舰长用户头像框->
+                $(".face_top").attr("src", face_Top_backgroundUrl);
+
+                $(".face_top").css({
+                "width": face_top_Width + "px",
+                "height": face_top_Height + "px",
+                "top": face_top_top + "px",
+                "left": face_top_left + "px",
+                });
+}
 
 
+<!--$(function(){ -->
+<!--    $(".field").change(function(){-->
+<!--    $(this).css("background-color","#FFFFCC");-->
+<!--    });-->
+<!--})-->
 
 
+$("#danmuColor").change(function(){
+    $("#danmuCurrentColor").css({
+        "background": $("#danmuColor").val()
+    });
+});
+
+$("#setup_table td").change(function(){
+    var danmuFont = $("#danmuFont").val();
+    var danmuColor = $("#danmuColor").val();
+    var userNameFont = $("#userNameFont").val();
+    var userNameColor = $("#userNameColor").val();
+    var face_backgroundUrl = $("#face_backgroundUrl").val();
+    var username_backgroundUrl = $("#username_backgroundUrl").val();
+    var commonDanmu_backgroundUrl = $("#commonDanmu_backgroundUrl").val();
+    var fleetDanmu_backgroundUrl = $("#fleetDanmu_backgroundUrl").val();
+    var pendant_backgroundUrl = $("#pendant_backgroundUrl").val();
+
+    var face_Top_backgroundUrl = $("#face_Top_backgroundUrl").val();
+    var face_top_Width = $("#face_top_Width").val();
+    var face_top_Height = $("#face_top_Height").val();
+    var face_top_top = $("#face_top_top").val();
+    var face_top_left = $("#face_top_left").val();
+    var face_common_Width = $("#face_common_Width").val();
+    var face_common_Height = $("#face_common_Height").val();
+    var face_common_top = $("#face_common_top").val();
+    var face_common_left = $("#face_common_left").val();
+    var user_width = $("#user_width").val();
+    var user_height = $("#user_height").val();
+    var user_border_radius = $("#user_border_radius").val();
+
+     <!--设置用户头像框->
+                $(".userFace").css({
+                "width": user_width + "px",
+                "height": user_height + "px",
+                "top": user_top + "px",
+                "left": user_left + "px",
+                "border-radius": user_border_radius + "px",
+                });
+
+                <!--设置普通用户头像框->
+                $(".face_common").attr("src", face_backgroundUrl);
+
+                $(".face_common").css({
+                "width": face_common_Width + "px",
+                "height": face_common_Height + "px",
+                "top": face_common_top + "px",
+                "left": face_common_left + "px",
+                });
+
+                <!--设置舰长用户头像框->
+                $(".face_top").attr("src", face_Top_backgroundUrl);
+
+                $(".face_top").css({
+                "width": face_top_Width + "px",
+                "height": face_top_Height + "px",
+                "top": face_top_top + "px",
+                "left": face_top_left + "px",
+                });
 
 
-
-
-
+});
 </script>
 </html>

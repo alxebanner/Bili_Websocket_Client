@@ -18,6 +18,16 @@ public interface DanmuService {
      */
     void LikeNumFunction(String message);
 
+
+    /**
+     * 曾观看人数
+     * WATCHED_CHANGE
+     *
+     * @param message 收到消息体
+     */
+    void watchNumFunction(String message);
+
+
     /**
      * 弹幕定制内容
      *
