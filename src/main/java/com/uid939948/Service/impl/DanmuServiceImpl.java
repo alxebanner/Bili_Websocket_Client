@@ -15,6 +15,7 @@ import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
 import com.uid939948.DO.danmu.Send_Gift.SimpleGift;
 import com.uid939948.DO.danmu.SuperChat_MSG.SuperChatMessage;
 import com.uid939948.DO.danmu.Toast_MSG.Toast;
+import com.uid939948.DO.danmu.interact.Fans_medal;
 import com.uid939948.DO.danmu.interact.InteractWord;
 import com.uid939948.DO.danmu.like.LikeInfo;
 import com.uid939948.DO.dianGe.MusicInfo;
@@ -111,14 +112,11 @@ public class DanmuServiceImpl implements DanmuService {
             }
         }
 
-
         // 2.6 通过缓存获取头像地址 没有就自己获取
         danMuMsgInfo.setFaceUrl(getFaceUrlByCache(danMuMsgInfo.getUid()));
 
-
         // 提督颜色 #E17AFF
         // 舰长颜色 #00D1F1
-
 
         // 3、内容打印 输出弹幕给前端
         print_danmu(danMuMsgInfo);
@@ -224,7 +222,7 @@ public class DanmuServiceImpl implements DanmuService {
                 }
                 log.info("收到 银瓜子礼物 " + simpleGift.getUname() + "赠送了 " + simpleGift.getGiftName());
             } else if ("gold".equals(simpleGift.getCoin_type())) {
-                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + simpleGift.getPrice());
+                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + ((float) simpleGift.getPrice()) / 1000 + "元");
 
                 // 金瓜子礼物 过滤
                 // 金瓜子， 低于x元礼物不显示
@@ -292,7 +290,6 @@ public class DanmuServiceImpl implements DanmuService {
         Toast toast = JSONObject.toJavaObject(jsonObject, Toast.class);
 
         danmuWebsocket_sendMessage(toast, "Toast");
-
         log.info("上船消息推送" + toast); // Toast(anchor_show=true, color=#00D1F1, dmscore=90, effect_id=397, end_time=1685328094, face_effect_id=44, gift_id=10003, guard_level=3, is_show=0, num=1, op_type=1, payflow_id=2305291041138892124930450, price=138000, role_name=舰长, room_effect_id=590, start_time=1685328094, svga_block=0, target_guard_count=17, toast_msg=<%毕业留在成都%> 在主播冼知了的直播间开通了舰长，今天是TA陪伴主播的第1天, uid=385372493, unit=月, user_show=true, username=毕业留在成都)
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
@@ -347,17 +344,15 @@ public class DanmuServiceImpl implements DanmuService {
 //            throw new RuntimeException(e);
 //        }
 //        String d2 = simpleDateFormat.format(d1);
-        String temp_str = addFull(interactWord.getFans_medal().getGuard_level(),
-                interactWord.getFans_medal().getMedal_name(),
-                String.valueOf(interactWord.getFans_medal().getMedal_level()),
-                interactWord.getUname()
-        );
+        String temp_str = addFull(interactWord.getFans_medal().getGuard_level(), interactWord.getFans_medal().getMedal_name(),
+                String.valueOf(interactWord.getFans_medal().getMedal_level()), interactWord.getUname());
 
+        // todo vip用户特殊关注
+        // vipUser(interactWord);
 
         switch (interactWord.getMsg_type()) {
             case 1:
                 if (MainConf.centerSetConf.getIsEnterMessage()) {
-                    // log.info("推送 进入 房间信息");
                     log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
@@ -365,7 +360,6 @@ public class DanmuServiceImpl implements DanmuService {
                 break;
             case 2:
                 if (MainConf.centerSetConf.getIsAttentionMessage()) {
-                    // log.info("推送 关注 房间信息");
                     log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
@@ -373,7 +367,6 @@ public class DanmuServiceImpl implements DanmuService {
                 break;
             case 3:
                 if (MainConf.centerSetConf.getIsShareMessage()) {
-                    //  log.info("推送 分享 房间信息");
                     log.info(temp_str + InteractWordEnum.getCountryValue(interactWord.getMsg_type()) + "了 直播间");
                 } else {
                     return;
@@ -385,6 +378,48 @@ public class DanmuServiceImpl implements DanmuService {
         }
         // interactWord推送前端
         danmuWebsocket_sendMessage(interactWord, "interactWord");
+    }
+
+    /**
+     * 特殊VIP 进房提示
+     * @param interactWord 进房消息推送
+     */
+    private static void vipUser(InteractWord interactWord) {
+        if (true) {
+            if (1 == interactWord.getMsg_type()) {
+                // 1、 白名单
+                // 1.1、 用户uid匹配
+                // 1.2、 高等级勋章 匹配 舰队等级匹配
+                // 1.3、 ul等级匹配
+                // 2、 黑名单
+                // 2、1黑名单uid匹配
+
+                // todo 1.1、用户uid匹配
+                // 1.2、 高等级勋章 匹配
+                if (ObjectUtils.isNotEmpty(interactWord.getFans_medal())) {
+                    Fans_medal fans_medal = interactWord.getFans_medal();
+                    // 高等级勋章 匹配
+                    if (fans_medal.getMedal_level() > 25) {
+                        log.info(interactWord.getUname() + "is vip");
+                        return;
+                    }
+
+                    // 舰队等级匹配
+                    if (fans_medal.getGuard_level() <= 2) {
+                        log.info(interactWord.getUname() + "is vip");
+                        return;
+                    }
+                }
+
+                // 2、1黑名单uid匹配
+                List<String> blackList = new ArrayList<>();
+                blackList.add("939948");
+
+                if (blackList.contains(interactWord.getUid() + "")) {
+                    return;
+                }
+            }
+        }
     }
 
     @Override

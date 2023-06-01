@@ -27,7 +27,6 @@ public interface DanmuService {
      */
     void watchNumFunction(String message);
 
-
     /**
      * 弹幕定制内容
      *
