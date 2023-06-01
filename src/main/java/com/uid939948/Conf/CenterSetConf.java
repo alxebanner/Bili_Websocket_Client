@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.io.Serializable;
 
 /**
@@ -15,7 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CenterSetConf implements Serializable {
-
     /**
      * 房间号
      */
@@ -175,11 +173,6 @@ public class CenterSetConf implements Serializable {
      */
     private String face_Top_backgroundUrl = "https://s1.ax1x.com/2023/05/26/p9qEDud.png";
 
-//    width: 150px;
-//    height: 129px;
-//    top: -96px;
-//    left: -17px;
-
     /**
      * 舰队用户头像框背景图片宽度
      */
@@ -199,7 +192,6 @@ public class CenterSetConf implements Serializable {
      * 舰队用户 水平向左头像偏移量
      */
     private String face_top_left = "-17";
-
 
     /**
      * 用户名背景图片地址
@@ -224,7 +216,6 @@ public class CenterSetConf implements Serializable {
      */
     private String pendant_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cbNGT.png";
 //    private String pendant_backgroundUrl = "../../danmuCss/top/雪花.png";
-
 
     public String toJson() {
         return FastJsonUtils.toJson(this);

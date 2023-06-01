@@ -36,7 +36,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void startConnService(long roomId) throws Exception {
-
         // 第一步 获取房间号，并且获取房间信息
         // 1、 房间号长号  websocket地址 uid 主播名称
         // 2、 如果已经登录 确认是否是房管， 获取最大输入长度（用于弹幕姬输入）
@@ -72,12 +71,14 @@ public class ClientServiceImpl implements ClientService {
         // 2、 获取 websocket地址  使用随机地址
         // todo userCookie 待完成   使用登陆后的toke 会获取更多websocket地址
         WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, "");
-//        log.info("webSocketAddress");
-//        log.info(webSocketAddress + "");
-//        log.info("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
+        log.debug("webSocketAddress");
+        log.debug(webSocketAddress + "");
+        log.debug("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
         webSocketAddress.getHost_list().forEach(mo -> {
-//            log.info(mo.getHost());
+            log.debug(mo.getHost());
         });
+
+        // 随机获取websokct地址
         HostServer hostServer = webSocketAddress.getHost_list()
                 .stream().findAny().orElse(new HostServer("wss://broadcastlv.chat.bilibili.com:2245/sub", 0, 0, 0));
         MainConf.URL = HostServer.getWsUrl(hostServer);
@@ -163,9 +164,7 @@ public class ClientServiceImpl implements ClientService {
             facePicture.setUid(fansMember.getUid());
             facePicture.setCount(1);
             facePicture.setTimestamp(System.currentTimeMillis());
-
             facePictureList.add(facePicture);
-
         }
 
         // 通过勋章获取的头像 uid可能有重合，需要去重 只更新头像 不更新次数
@@ -215,11 +214,9 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-
     @Override
     public void closeConnService() {
     }
-
 
     @Override
     public void starTestService() {

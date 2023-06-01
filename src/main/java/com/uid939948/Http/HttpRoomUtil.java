@@ -150,22 +150,17 @@ public class HttpRoomUtil {
             LOGGER.error("httpGetFaceUrl_V2 获取头像失败" + result);
             return NO_FACE_URL;
         }
-
-
     }
 
     /**
      * 根据房间号获取 房间信息 (包含直播封面)
      *
-     * @param roomId
-     * @return
+     * @param roomId 房间号
+     * @return 房间信息
      */
     public static RoomInfo httpGetRoomBaseInfo(long roomId) {
-
         Map<String, String> headers = new HashMap<>(3);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36");
-//        headers.put("referer", "https://space.bilibili.com/" + uid);
-
         String url = " https://api.live.bilibili.com/xlive/web-room/v1/index/getRoomBaseInfo?room_ids=" + roomId + "&req_biz=video";
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
@@ -241,8 +236,13 @@ public class HttpRoomUtil {
         return JSONObject.parseObject(data).getString("face");
     }
 
+    /**
+     * tenap 根据uid获取头像
+     *
+     * @param uid 用户uid
+     * @return 头像地址
+     */
     public static String getOneFace(Long uid) {
-
         String url = "https://tenapi.cn/bilibili/?uid=" + uid;
         Map<String, String> headers = null;
         headers = new HashMap<>(2);
@@ -250,13 +250,19 @@ public class HttpRoomUtil {
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
 
-
         String s1 = jsonObject.getJSONObject("data").getString("avatar");
         System.out.println(s1);
         return s1;
     }
 
-
+    /**
+     * 获取图片
+     *
+     * @param uid     用户uid
+     * @param faceUrl 头像地址
+     * @return 地址
+     * @throws IOException 异常
+     */
     public static String getPicture(Long uid, String faceUrl) throws IOException {
         String url = faceUrl;
         String path = System.getProperty("user.dir");
@@ -268,8 +274,6 @@ public class HttpRoomUtil {
             try {
                 HttpEntity entity = response.getEntity();
                 InputStream inStream = entity.getContent();
-//                C:\Users\Administrator\Desktop\交付
-
                 path = path + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "face" + File.separator;
                 System.out.println(" 文件路径 " + path);
                 path = path + uid + ".jpg";

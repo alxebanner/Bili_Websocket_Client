@@ -9,9 +9,6 @@ import com.uid939948.thread.core.ParseMessageThread;
 import com.uid939948.thread.core.TestThread;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Iterator;
-
 @Component
 public class ThreadComponentImpl implements ThreadComponent {
     @Override
@@ -80,7 +77,6 @@ public class ThreadComponentImpl implements ThreadComponent {
         return false;
     }
 
-
     @Override
     public void closeHeartByteThread() {
         // TODO 自动生成的方法存根
@@ -119,5 +115,4 @@ public class ThreadComponentImpl implements ThreadComponent {
             MainConf.parseMessageThread = null;
         }
     }
-
 }

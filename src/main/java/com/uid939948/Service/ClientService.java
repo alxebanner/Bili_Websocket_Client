@@ -10,7 +10,6 @@ public interface ClientService {
      * @param roomId 房间号
      * @throws Exception 异常
      */
-
     void startConnService(long roomId) throws Exception;
 
     /**

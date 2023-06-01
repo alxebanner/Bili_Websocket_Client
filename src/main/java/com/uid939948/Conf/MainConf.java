@@ -54,12 +54,12 @@ public class MainConf {
     // 主播uid
     public static Long UID = null;
 
-
     // 处理弹幕包集合
     public final static Vector<String> resultStrs = new Vector<String>(100);
 
-
-    // 直播状态 0不直播 1直播 2轮播
+    /**
+     * 直播状态 0不直播 1直播 2轮播
+     */
     public static Short lIVE_STATUS = 0;
     // cookie String串
     public static String USERCOOKIE = null;
@@ -81,6 +81,9 @@ public class MainConf {
 
     public static Long ROOMID_SAFE = null;
 
+    /**
+     * 用户Cookie 暂时废弃
+     */
     public static UserCookie COOKIE = null;
 
     /**
@@ -140,9 +143,14 @@ public class MainConf {
      */
     public static TestThread testThread;
 
-    // 测试弹幕集合
+    /**
+     * 测试弹幕集合
+     */
     public static List<String> testDanmuMessageList;
 
+    /**
+     * 音乐列表
+     */
     public static List<MusicInfo> musicInfoList;
 
 }

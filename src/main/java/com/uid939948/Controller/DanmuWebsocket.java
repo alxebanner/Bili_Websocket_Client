@@ -1,11 +1,5 @@
 package com.uid939948.Controller;
 
-import cn.hutool.core.util.ObjectUtil;
-import com.uid939948.Conf.MainConf;
-import com.uid939948.DO.UserInfoData.UserInfo;
-import com.uid939948.DO.danmu.DanMu_MSG.DanMu_MSG_Info;
-import com.uid939948.DO.danmu.DanmuVO.DanmuDto;
-import com.uid939948.Http.HttpRoomUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -15,6 +9,9 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * 反向推送弹幕集合
+ */
 @Controller
 @ServerEndpoint("/danmu/sub")
 public class DanmuWebsocket {

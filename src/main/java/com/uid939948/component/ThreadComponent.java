@@ -1,10 +1,11 @@
 package com.uid939948.component;
 
-
 import com.uid939948.Conf.CenterSetConf;
 
+/**
+ * 线程处理集合
+ */
 public interface ThreadComponent {
-
     // 开启处理弹幕包线程 core
     boolean startParseMessageThread(
             CenterSetConf centerSetConf);
@@ -15,7 +16,6 @@ public interface ThreadComponent {
     boolean startHeartOnlineThread();
 
     boolean startTestThread();
-
 
     /**
      *  关闭处理弹幕包线程 core
