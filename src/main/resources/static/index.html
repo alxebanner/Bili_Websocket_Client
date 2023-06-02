@@ -193,8 +193,99 @@
     left: -17px;
 }
 .tr_demo {
-    height: 280px;
+    height: 400px;
 }
+
+.danmu_name_border {
+    margin-top: 0px;
+    background-size:100% 100%;
+    width: fit-content;
+    height: 50px;
+    background-image: url(../../danmuCss/top/观众用户名称.png);
+    background-repeat: no-repeat;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    font-family: myFont;
+    font-weight:bold;
+    color: #D2B48C;
+    font-size: 30px;
+}
+
+.danmu_wenzi_border1 {
+    background-image: url(../../danmuCss/fans/底板-粉丝.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+.danmu_wenzi_border {
+    background-image: url(../../danmuCss/top/底板-舰长用.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+.danmu_xingxing{
+    width: 84px;
+    height: 44px;
+    margin-top: -50px;
+    float: right;
+}
+
+.danmu_picture{
+    width: auto;
+    display: flex;
+}
+
+.danmu_picture>img{
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+    width: 100px;
+    height: 100px
+}
+
+.content {
+    width: 700px;
+    float:right;
+    margin-left: 100px;
+}
+
+.danmu_wenzi {
+    text-align: left;
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+
+
+    font-family: myFont;
+    font-size: 32px;
+    font-weight: bold;
+
+}
+
+.danmu_wenzi_border1 {
+    background-image: url(../../danmuCss/fans/底板-粉丝.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -517,17 +608,47 @@
                             <img class="userFace"
                                  src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"
                                  alt="">
-                            <img class="face_common" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png" alt=""
-                            ></div>
+
+                            <img class="face_top" src="https://s1.ax1x.com/2023/05/26/p9qEDud.png" alt=""></div>
                     </div>
                 </div>
+
+                <div class="content">
+                    <div class="danmu_name_border"
+                         style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(&quot;https://s1.ax1x.com/2023/05/14/p9cHAhT.png&quot;);">
+                        舰队用户
+                    </div>
+                    <div class="danmu_wenzi_border"
+                         style="background-image: url(&quot;https://s1.ax1x.com/2023/05/14/p9cbJI0.png&quot;);">
+                        <div class="danmu_picture"><img class="danmu_picture_img"
+                                                        src="http://i0.hdslb.com/bfs/live/120fad3a0241e6fd3a327054f7f1bee9f9460dc4.png ">
+                        </div>
+                        <div><img class="danmu_xingxing" src="https://s1.ax1x.com/2023/05/14/p9cbNGT.png"></div>
+                    </div>
+                </div>
+
 
                 <div class="now1">
                     <div class="d3"><img class="userFace"
                                          src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"
                                          alt="">
-                        <img class="face_top" src="https://s1.ax1x.com/2023/05/26/p9qEDud.png" alt=""></div>
+                    <img class="face_common" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png" alt=""></div>
+            </div>
+
+            <div class="content">
+                <div class="danmu_name_border"
+                     style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(&quot;https://s1.ax1x.com/2023/05/14/p9cHAhT.png&quot;);">
+                    普通用户
                 </div>
+                <div class=" danmu_wenzi_border1"
+                     style="background-image: url(&quot;https://s1.ax1x.com/2023/05/14/p9cHdHI.png&quot;);">
+                    <div class="danmu_wenzi"><span class="danmu_wenzi1"
+                                                   style="font-size: 32px; color: rgb(255, 96, 175);">早上好  </span>
+                    </div>
+                    <div><img class="danmu_xingxing" src="https://s1.ax1x.com/2023/05/14/p9cbNGT.png"></div>
+                </div>
+            </div>
+
             </div>
         </td>
     </tr>
@@ -559,8 +680,8 @@
 
 <div>
     <input type="button" id="sendSet" value="保存配置"/>
-<!--    <input type="button" id="import" value="导入配置"/>-->
-<!--    <input type="button" id="export" value="导出配置"/>-->
+    <!--    <input type="button" id="import" value="导入配置"/>-->
+    <!--    <input type="button" id="export" value="导出配置"/>-->
 </div>
 
 <br>
@@ -900,6 +1021,13 @@ function setUserInfo(data) {
          '</div>'+
            '</div>'
     $("#UserInfo").append(div);
+
+
+
+<!--    设置演示demo的头像-->
+
+<!--userFace-->
+    $(".userFace").attr("src", data.face);
 }
 
 
@@ -1070,6 +1198,16 @@ function setDemo(data) {
                 "top": face_top_top + "px",
                 "left": face_top_left + "px",
                 });
+
+                <!--            设置用户名文字 大小     背景图片-->
+                $(".danmu_name_border").css({
+                "font-size": userNameFont + "px", "color": userNameColor, "background-image": "url(" +  username_backgroundUrl  +")",
+                });
+
+                $(".danmu_wenzi>span").css({
+                "font-size": danmuFont + "px", "color": danmuColor
+                });
+
 }
 
 <!--$(function(){ -->
@@ -1137,6 +1275,19 @@ $("#setup_table td").change(function(){
                 "top": face_top_top + "px",
                 "left": face_top_left + "px",
                 });
+
+                <!--            设置用户名文字 大小     背景图片-->
+                $(".danmu_name_border").css({
+                "font-size": userNameFont + "px", "color": userNameColor, "background-image": "url(" +  username_backgroundUrl  +")",
+                });
+
+                $(".danmu_wenzi>span").css({
+                "font-size": danmuFont + "px", "color": danmuColor
+                });
 });
+
+
+
+
 </script>
 </html>
