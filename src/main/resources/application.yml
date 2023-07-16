@@ -39,7 +39,7 @@ spring:
 
 server:
 #  port: ${PORT:5000}
-  port: 24335
+  port: 24337
   servlet:
     encoding:
       force: true

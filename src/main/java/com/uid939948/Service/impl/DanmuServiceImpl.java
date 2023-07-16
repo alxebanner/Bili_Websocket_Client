@@ -40,6 +40,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class DanmuServiceImpl implements DanmuService {
+    private static String NO_FACE_URL = "https://s1.ax1x.com/2023/05/20/p95e0Ig.png";
     @Resource
     DanmuWebsocket danmuWebsocket;
 
@@ -113,6 +114,14 @@ public class DanmuServiceImpl implements DanmuService {
         }
 
         // 2.6 通过缓存获取头像地址 没有就自己获取
+
+        if (0d == danMuMsgInfo.getUid()) {
+            log.info("0 message");
+            log.info(message);
+        }
+
+//            log.info("弹幕 uid" + danMuMsgInfo.getUid());
+
         danMuMsgInfo.setFaceUrl(getFaceUrlByCache(danMuMsgInfo.getUid()));
 
         // 提督颜色 #E17AFF
@@ -171,8 +180,10 @@ public class DanmuServiceImpl implements DanmuService {
 
         String temp_stt = addFull(likeInfo.getFans_medal().getGuard_level(), likeInfo.getFans_medal().getMedal_name(), String.valueOf(likeInfo.getFans_medal().getMedal_level()),
                 likeInfo.getUname());
+
         log.info(temp_stt + "点赞了");
 
+        // 点赞推送
         if (MainConf.centerSetConf.getIsLikeMessage()) {
             danmuWebsocket_sendMessage(likeInfo, "likeInfo");
         }
@@ -184,6 +195,8 @@ public class DanmuServiceImpl implements DanmuService {
         Long click_count = JSONObject.parseObject(message).getJSONObject("data").getLong("click_count");
         MainConf.ROOM_CLICK = click_count;
         log.debug("房间点赞数量为" + click_count);
+
+        // 点赞数量推送
         if (MainConf.centerSetConf.getIsLikeNumMessage()) {
             danmuWebsocket_sendMessage(click_count, "click_count");
         }
@@ -195,7 +208,8 @@ public class DanmuServiceImpl implements DanmuService {
         Long watchNum = JSONObject.parseObject(message).getJSONObject("data").getLong("text_small");
         MainConf.ROOM_WATCHER = watchNum;
         log.debug("房间曾观看数量为" + watchNum);
-        // todo
+
+        // todo 观看人数数量推送
         if (false) {
             danmuWebsocket_sendMessage(watchNum, "watch_count");
         }
@@ -270,7 +284,6 @@ public class DanmuServiceImpl implements DanmuService {
         return 0;
     }
 
-
     @Override
     public void guardBuyFunction(String message) {
         JSONObject jsonObject_data = JSONObject.parseObject(message);
@@ -278,9 +291,9 @@ public class DanmuServiceImpl implements DanmuService {
         GuardBuy guardBuy = JSONObject.toJavaObject(array1, GuardBuy.class);
         log.info(guardBuy.getUsername() + "在本房间开通了" + guardBuy.getNum() + "个月 " + GuardLevelEnum.getCountryValue(guardBuy.getGuard_level()));
 
+        //faceUrl
         // 这里不推送，用USER_TOAST_MSG 来推送开通舰长，因为USER_TOAST_MSG里面信息比较多。
         // {"cmd":"USER_TOAST_MSG","data":{"anchor_show":true,"color":"#00D1F1","dmscore":90,"effect_id":397,"end_time":1682179214,"face_effect_id":44,"gift_id":10003,"guard_level":3,"is_show":0,"num":1,"op_type":3,"payflow_id":"2304230000001102550590844","price":138000,"role_name":"舰长","room_effect_id":590,"start_time":1682179214,"svga_block":0,"target_guard_count":132,"toast_msg":"\u003c%水禾禾禾%\u003e 续费了舰长，今天是TA陪伴主播的第1058天","uid":175635059,"unit":"月","user_show":true,"username":"水禾禾禾"}}
-
     }
 
     @Override
@@ -289,7 +302,9 @@ public class DanmuServiceImpl implements DanmuService {
         JSONObject jsonObject = jsonObject_data.getJSONObject("data");
         Toast toast = JSONObject.toJavaObject(jsonObject, Toast.class);
 
-        danmuWebsocket_sendMessage(toast, "Toast");
+        toast.setFaceUrl(getFaceUrlByCache(toast.getUid()));
+
+        danmuWebsocket_sendMessage(toast, "toast");
         log.info("上船消息推送" + toast); // Toast(anchor_show=true, color=#00D1F1, dmscore=90, effect_id=397, end_time=1685328094, face_effect_id=44, gift_id=10003, guard_level=3, is_show=0, num=1, op_type=1, payflow_id=2305291041138892124930450, price=138000, role_name=舰长, room_effect_id=590, start_time=1685328094, svga_block=0, target_guard_count=17, toast_msg=<%毕业留在成都%> 在主播冼知了的直播间开通了舰长，今天是TA陪伴主播的第1天, uid=385372493, unit=月, user_show=true, username=毕业留在成都)
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
@@ -382,6 +397,7 @@ public class DanmuServiceImpl implements DanmuService {
 
     /**
      * 特殊VIP 进房提示
+     *
      * @param interactWord 进房消息推送
      */
     private static void vipUser(InteractWord interactWord) {
@@ -576,6 +592,10 @@ public class DanmuServiceImpl implements DanmuService {
 
         // log.info("弹幕颜色为: " + danMuMsgInfo.getDanmuColor());
 
+        if (StringUtils.isEmpty(danMuMsgInfo.getDanmuColor())) {
+            danMuMsgInfo.setDanmuColor("noColor");
+        }
+
         danMuMsgInfo.setMessage(array.get(1).toString());
         danMuMsgInfo.setIsEmoticon(isEmoticon);
         danMuMsgInfo.setIsFansMedal(isFansMedal);
@@ -636,7 +656,10 @@ public class DanmuServiceImpl implements DanmuService {
         // 先判断是否有
         String nowFaceUrl;
         if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
-            String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
+//            String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
+
+            String faceUrl = HttpRoomUtil.httpGetFaceUrl_V2(uid);
+
             // HttpRoomUtil.httpGetFaceUrl_V2(uid);备用接口
             nowFaceUrl = faceUrl;
             FacePicture facePicture = new FacePicture(uid,
@@ -671,12 +694,24 @@ public class DanmuServiceImpl implements DanmuService {
                 }
                 */
             } else {
-                String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
+//                String faceUrl = HttpRoomUtil.httpGetFaceV2(uid);
                 // HttpRoomUtil.httpGetFaceUrl_V2(uid);
+                String faceUrl = HttpRoomUtil.httpGetFaceUrl_V2(uid);
+
+                // 这里暂时用第三方接口
+//                String faceUrl = HttpRoomUtil.httpGetFaceV3(uid);
+//                String faceUrl = NO_FACE_URL;
                 nowFaceUrl = faceUrl;
                 FacePicture facePicture = new FacePicture(uid,
                         faceUrl, 1, System.currentTimeMillis());
-                MainConf.facePictureList.add(facePicture);
+
+                // 如果是不未查询到头像 可以说暂缓查询 本次不加入已经查到头像里面
+
+                if (NO_FACE_URL.equals(faceUrl)) {
+                    log.info("uid " + uid + " 获取头像失败");
+                } else {
+                    MainConf.facePictureList.add(facePicture);
+                }
             }
         }
         return nowFaceUrl;
@@ -730,7 +765,7 @@ public class DanmuServiceImpl implements DanmuService {
     /**
      * 输出弹幕
      *
-     * @param object 弹幕诶人
+     * @param object 弹幕类型
      * @param type   类型
      */
     private void danmuWebsocket_sendMessage(Object object, String type) {

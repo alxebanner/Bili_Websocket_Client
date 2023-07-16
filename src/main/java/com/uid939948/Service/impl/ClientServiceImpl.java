@@ -11,17 +11,21 @@ import com.uid939948.Enuns.LiveStateEnum;
 import com.uid939948.Http.HttpRoomUtil;
 import com.uid939948.Service.ClientService;
 import com.uid939948.Service.SetService;
+import com.uid939948.Service.TestMessageService;
 import com.uid939948.Tools.HandleWebsocketPackage;
 import com.uid939948.Until.ByteUtils;
+import com.uid939948.Until.SpringUtils;
 import com.uid939948.WebSocketClient.WebSocketProxy;
 import com.uid939948.component.ThreadComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +37,11 @@ public class ClientServiceImpl implements ClientService {
     private ThreadComponent threadComponent;
 
     private SetService setService;
+
+
+    @Resource
+    private TestMessageService testMessageService;
+//    private TestMessageService testMessageService = SpringUtils.getBean(TestMessageService.class);
 
     @Override
     public void startConnService(long roomId) throws Exception {
@@ -68,9 +77,17 @@ public class ClientServiceImpl implements ClientService {
         log.info("房间号" + roomInit.getRoom_id() + " 房间的 uid " + roomInit.getUid() +
                 " 开播状态 " + LiveStateEnum.getCountryValue(roomInit.getLive_status()));
 
+
+        String userCookie = "";
+
         // 2、 获取 websocket地址  使用随机地址
         // todo userCookie 待完成   使用登陆后的toke 会获取更多websocket地址
-        WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, "");
+
+        if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
+
+        }
+
+        WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, MainConf.USERCOOKIE);
         log.debug("webSocketAddress");
         log.debug(webSocketAddress + "");
         log.debug("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
@@ -86,7 +103,15 @@ public class ClientServiceImpl implements ClientService {
         // 3、拼接开始连接的数据
         FristSecurityData fristSecurityData = null;
         // todo 登录的话 需要传UID
-        fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
+
+        if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
+            fristSecurityData = new FristSecurityData(939948L, MainConf.ROOMID,
+                    webSocketAddress.getToken());
+            log.info("已登录");
+        } else {
+            fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
+        }
+//        fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
 
         byte[] byte_1 = HandleWebsocketPackage.BEhandle(BarrageHeadHandle.getBarrageHeadHandle(
                 fristSecurityData.toJson().getBytes().length + MainConf.packageHeadLength,
@@ -204,7 +229,6 @@ public class ClientServiceImpl implements ClientService {
             // 不为null时 说明已经登录过一次了，如果两次相等，则不需要重新获取
             if (MainConf.userInfo.getUid().equals(MainConf.UID)) {
                 log.info("uid相同 UserInfo不需要重新获取 " + roomId);
-
                 // todo 这里可能会很频繁
                 return HttpRoomUtil.httpGetUserInfoV2(roomId);
             } else {
@@ -226,6 +250,16 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void closeTestSet() {
         threadComponent.closeTestThread();
+    }
+
+    @Override
+    public void getOneGift(String name, String num, String giftName) {
+        testMessageService.giftMessage(name, num, "超长的舰队用户弹幕,超长的舰队用户弹幕,超长的舰队用户弹幕,", 3, giftName);
+    }
+
+    @Override
+    public void getOneToast(String name, String faceUrl, String type) {
+        testMessageService.toastMessage(name, faceUrl, "超长的舰队用户弹幕,超长的舰队用户弹幕,超长的舰队用户弹幕,", 3, type);
     }
 
     @Autowired

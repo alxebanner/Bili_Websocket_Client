@@ -89,6 +89,20 @@ public class FleetListController {
     }
 
     @ResponseBody
+    @GetMapping(value = "/getOneGift")
+    public Result getOneGift(String name, String num, String giftName) {
+        clientService.getOneGift(name, num, giftName);
+        return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/getOneToast")
+    public Result getOneToast(String name, String faceUrl, String type) {
+        clientService.getOneToast(name, faceUrl, type);
+        return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
+    }
+
+    @ResponseBody
     @GetMapping(value = "/closeTestSet")
     public Result closeTestSet() {
         clientService.closeTestSet();

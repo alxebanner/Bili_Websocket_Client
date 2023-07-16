@@ -1,0 +1,610 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul {
+    list-style: none;
+    background: black;
+    text-align: left;
+}
+
+ul li {
+    display: inline-block;
+    position: relative;
+}
+
+ul li a {
+    background: black;
+    display: block;
+    padding: 20px 45px;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dropdown {
+    text-align: center;
+    color: white;
+    display: block;
+    width: 230px;
+    padding: 20px;
+    background: black;
+    position: absolute;
+    z-index: 1;
+    border-bottom-left-radius: 10px;
+    top: 74px;
+    right: 0px;
+    display: none;
+}
+
+ul li a:hover {
+    color: lightseagreen;
+}
+
+ul li:hover ul.dropdown {
+    display: block;
+}
+
+#active {
+    color: lightseagreen;
+}
+
+
+
+
+button {
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  color: white;
+  padding: 0.5em 1em;
+  outline: none;
+  border: none;
+  background-color: hsl(236, 32%, 26%);
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+}
+
+button::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #3cefff;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+  color: #161616;
+}
+
+button:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+
+
+.myIndex {
+position: relative;
+    float: left;
+}
+
+
+.myInputText {
+    font-family:Arial,Helvetica,sans-serif;
+    background:none repeat scroll 0 0 #F5F7FD;
+    border:1px solid #B8BFE9;
+    padding:5px 7px;
+    width:300px;
+    vertical-align:middle;
+    height:30px;
+    font-size:12px;
+    margin-left: 33px;
+    margin-right: 33px;
+    margin-top: 33px;
+    margin-bottom: 33px;
+    list-style:none outside none;
+}
+
+.room_label{
+    margin-left: 33px;
+}
+
+.button {
+    width:120px;
+    display: inline;
+}
+
+.touxiang img {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    border-radius: 5%;
+    margin-left: 45px;
+}
+
+.fengmian img{
+    width: 160px;
+    height: 90px;
+    background-size: cover;
+    border-radius: 5%;
+    margin-left: 45px;
+}
+.row{
+    display: inline-flex;
+    margin-top: 60px;
+}
+
+.row1{
+    margin-left: 20px;
+}
+.row2{
+    padding-left: 40px;
+    margin-left: 40px
+}
+
+
+.mySwitchName{
+    float: right;
+}
+
+.mySwitchName span{
+    font-size: 24px;
+}
+
+
+.trSwitch{
+    position: absolute;
+    float: right;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: -15px;
+}
+
+.trSwitchRight{
+    text-align:right
+}
+
+.testswitch-switch {
+    position: absolute;
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 4px;
+    background: #FFFFFF;
+    top: 0;
+    bottom: 0;
+    right: 56px;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-inner {
+    margin-left: 0;
+}
+
+.testswitch-checkbox:checked + .testswitch-label .testswitch-switch {
+    right: 0px;
+    }
+
+.currentColor {
+    border: 1px solid;
+    height: 25px;
+    width: 100px;
+    cursor: pointer;
+    cursor: hand;
+    background-color: #FFFFFF;
+}
+
+.table_tr_control {
+    width:400px
+}
+
+
+.testswitch {
+    position: relative;
+    float: left;
+    width: 90px;
+    margin: 0;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+}
+
+.testswitch-checkbox {
+    display: none;
+}
+
+.testswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
+    border-radius: 20px;
+}
+
+.testswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.testswitch-inner::before, .testswitch-inner::after {
+    display: block;
+    float: right;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family:
+    Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.testswitch-inner::after {
+    content: attr(data-on);
+    padding-left: 10px;
+    background-color: #00e500;
+    color: #FFFFFF;
+}
+
+.testswitch-inner::before {
+    content: attr(data-off);
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #999999;
+    text-align: right;
+}
+
+
+.face {
+    width: 40px;
+    float:left
+}
+
+.now1 {
+    height: 125px;
+    width: 125px;
+}
+
+.d3 {
+    height: 100px;
+    width: 100px;
+}
+
+.face_common {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    top: -106px;
+    left: -15px;
+}
+
+.userFace {
+    position: relative;
+    border-radius: 75px;
+    width: 100px;
+    height: 100px;
+    top: 20px;
+}
+.face_top {
+    position: relative;
+    width: 150px;
+    height: 129px;
+    top: -96px;
+    left: -17px;
+}
+.tr_demo {
+    padding-top: 45px;
+    height: 1500px;
+}
+
+.danmu_name_border {
+    margin-top: -6px;
+    background-size:100% 100%;
+    width: fit-content;
+    height: 30px;
+    background-image: url(../../danmuCss/top/观众用户名称.png);
+    background-repeat: no-repeat;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    font-family: myFont;
+    font-weight:bold;
+    color: #D2B48C;
+    font-size: 20px;
+    position: fixed;
+    top: 72px;
+    left: 186px;
+}
+
+.danmu_name_border1 {
+    margin-top: 0px;
+    background-size:100% 100%;
+    width: fit-content;
+    height: 30px;
+    background-image: url(../../danmuCss/top/观众用户名称.png);
+    background-repeat: no-repeat;
+    padding-top: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;
+    font-family: myFont;
+    font-weight:bold;
+    color: #D2B48C;
+    font-size: 20px;
+    position: fixed;
+    top: 68px;
+    left: 183px;
+}
+
+
+
+.danmu_wenzi_border1 {
+    background-image: url(../../danmuCss/fans/底板-粉丝.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+.danmu_wenzi_border {
+    background-image: url(../../danmuCss/top/底板-舰长用.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+.danmu_xingxing{
+    width: 84px;
+    height: 44px;
+    margin-top: -50px;
+    float: right;
+}
+
+.danmu_picture{
+    width: auto;
+    display: flex;
+}
+
+.danmu_picture_img {
+    width: 50px;
+    height: 50px;
+    padding-top: -20px;
+    position: relative;
+    top: -5px;
+    lef908978t: 82px;
+}
+
+.danmu_wenzi_img {
+    width: 69px;
+    height: 30px;
+    position: fixed;
+    top: 124px;
+    left: 319px;
+}
+
+
+.content {
+    width: 700px;
+    float:right;
+    margin-left: 100px;
+}
+
+.danmu_wenzi {
+    text-align: left;
+    padding-bottom:20px;
+    padding-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+
+    font-family: myFont;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.danmu_wenzi_border1 {
+    background-image: url(../../danmuCss/fans/底板-粉丝.png);
+    background-position: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-left:20px;
+    padding-right:20px;
+    border-radius: 50px;
+}
+
+#danmuDebug {
+    margin-left: 33px;
+    margin-right: 33px;
+    margin-top: 33px;
+    margin-bottom: 33px;
+
+}
+#setup_table {
+    margin-top: 33px;
+}
+
+.newMessage {
+    display: inline-block;
+}
+
+.firstTd {
+    width: 220px;
+}
+
+.isOcean {
+width: 550px;
+height: 220px;
+position: fixed;
+}
+
+.isOcean1 {
+    width: 475px;
+    height: 220px;
+}
+
+.danmuContent {
+    font-size: 18px;
+    color: #3366FF;
+    text-align: left;
+    position: fixed;
+    top: 113px;
+    left: 212px;
+    width: 287px;
+}
+
+.danmu_decoration{
+    width: 84px;
+    height: 85px;
+    position: fixed;
+    top: 98px;
+    left: 489px;
+}
+
+.danmu_decoration1{
+    width: 84px;
+    height: 85px;
+    position: relative;
+    top: -207px;
+    left: 508px;
+}
+
+.isGift {
+    width: 475px;
+    height: 220px;
+    position: fixed;
+    top: 10px;
+    left: 41px;
+}
+
+.giftContent {
+    width: 260px;
+    font-size: 24px;
+    color: red;
+    position: fixed;
+    top: 120px;
+    left: 197px;
+    text-align: center;
+}
+
+.isTop {
+    position: relative;
+    width: 475px;
+    height: 220px;
+    margin-top: -210px;
+    margin-left: 50px;
+}
+
+.topContent {
+    width: 149px;
+    font-size: 20px;
+    color: red;
+    position: fixed;
+    top: 152px;
+    left: 221px;
+    text-align: center;
+}
+
+.topDiv {
+    margin-top: -225px;
+    margin-left: 77px;
+    font-size: 14px;
+    background-size:100% 100%;
+    width: fit-content;
+    background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/c910ef07fcdea4cf.gif);
+    background-repeat: no-repeat;
+    width: 475px;
+    height: 220px;
+}
+
+.topBackground {
+    width: 550px;
+    height: 220px;
+    background-size:100% 100%;
+    background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/0ad3ba66e1a2bc75.png);
+    background-repeat: no-repeat;
+}
+
+.topContent span {
+    width: 550px;
+}
+
+.topImg  {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.gift_top {
+    position: relative;
+    width: 550px;
+    height: 220px;
+    top: -216px;
+    left: 0px;
+}
+
+.giftUserFace {
+    position: fixed;
+    height: 90px;
+    width: 90px;
+    border-radius: 50px;
+    top: 54px;
+    left: 241px;
+}
+
+.systemContent {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 4px;
+}
+
+.danmu_name_border span {
+    position: relative;
+    top: 4px;
+}
+
+.danmu_name_border1 span {
+    position: relative;
+    top: 2px;
+}
+
+.toast {
+    margin-bottom: -119px;
+}
+
+.gift {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    top: -48px;
+}
+.nowPadding {
+    height: 100px;
+}
+.new-message {
+    margin-top: 28px;
+    margin-bottom: 2px;
+    top: -68px;
+}
+
+

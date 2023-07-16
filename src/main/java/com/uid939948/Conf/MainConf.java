@@ -62,7 +62,9 @@ public class MainConf {
      */
     public static Short lIVE_STATUS = 0;
     // cookie String串
-    public static String USERCOOKIE = null;
+    public static String USERCOOKIE = "DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948";
+//    DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
+
 
     /**
      * 真实房间号  长号

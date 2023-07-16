@@ -34,4 +34,9 @@ public class Toast {
     private String unit;
     private boolean user_show;
     private String username;
+
+    /**
+     * 新增的舰长头像
+     */
+    private String faceUrl;
 }

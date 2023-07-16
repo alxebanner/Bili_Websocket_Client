@@ -8,6 +8,7 @@ import com.uid939948.DO.Emoji.EmojiInfo;
 import com.uid939948.DO.Face.Card;
 import com.uid939948.DO.Face.RoomInfo;
 import com.uid939948.DO.FansMember.FansMemberInfo;
+import com.uid939948.DO.Login.LoginUrl;
 import com.uid939948.DO.Room;
 import com.uid939948.DO.RoomInit;
 import com.uid939948.DO.UserInfoData.UserInfo;
@@ -30,10 +31,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HttpRoomUtil {
     private static Logger LOGGER = LogManager.getLogger(HttpRoomUtil.class);
@@ -251,6 +249,8 @@ public class HttpRoomUtil {
         JSONObject jsonObject = JSONObject.parseObject(result);
 
         String s1 = jsonObject.getJSONObject("data").getString("avatar");
+
+        System.out.println("s1");
         System.out.println(s1);
         return s1;
     }
@@ -419,7 +419,6 @@ public class HttpRoomUtil {
             token = "buvid3=08D352DC-DC35-6D0B-D7A6-F4580C59984D09585infoc; i-wanna-go-back=-1; _uuid=7CAC75C3-27A2-ADD7-CB54-F10B5242310A3609137infoc; FEED_LIVE_VERSION=V8; SESSDATA=a8aa63df%2C1696936030%2C488e4%2A42; bili_jct=d776d147a5bf13b53bb79c13dd62520e; DedeUserID=939948; DedeUserID__ckMd5=9518835468e33460; sid=8a5pl4lu; b_ut=5; header_theme_version=CLOSE; CURRENT_FNVAL=4048; CURRENT_PID=23923600-d9eb-11ed-be23-97bcf7bbe66b; rpdid=|(um|JR))J~k0J'uY)uJ)R|R~; LIVE_BUVID=AUTO8716813855968636; Hm_lvt_8a6e55dbd2870f0f5bc9194cddf32a02=1681425952; nostalgia_conf=-1; bsource=search_baidu; buvid_fp_plain=undefined; b_nut=1681448088; home_feed_column=5; hit-new-style-dyn=1; hit-dyn-v2=1; fingerprint=1866c61b561bad20f46ded607d8975aa; _dfcaptcha=6e8e8c9b9b8001ae78749167e55b1dac; bp_video_offset_939948=784782373085511700; bp_article_offset_939948=784737280223871000; buvid_fp=44b6fa13d9548059aabf9a59543f7da9; b_lsid=7EFA41610_18784EAA15C; innersign=0; buvid4=F30C274A-BA93-645C-4AB3-CC0E267F768B71380-023041521-WEPh3cauru/S2ihNzsVNARaXWfUg45pw4+AvxkahliBqCuL2gzeF7A%3D%3D; Hm_lpvt_8a6e55dbd2870f0f5bc9194cddf32a02=1681565951; PVID=94";
 
         }
-
         headers.put("cookie", token);
         String result = HttpUtil.doGetWithHeader(url, headers);
         JSONObject jsonObject = JSONObject.parseObject(result);
@@ -429,7 +428,6 @@ public class HttpRoomUtil {
         List<EmojiInfo> list = JSONObject.parseArray(jsonArray.toJSONString(), EmojiInfo.class);
         return list;
     }
-
 
     /**
      * 通过房间号获取粉色勋章
@@ -463,7 +461,7 @@ public class HttpRoomUtil {
     }
 
     /**
-     * 通过uid获取 用户头像
+     * 通过uid获取 用户头像（ 第三方接口）
      *
      * @param uid 用户uid
      * @return 头像
@@ -486,5 +484,101 @@ public class HttpRoomUtil {
             LOGGER.error("httpGetFaceV2 获取头像失败 " + result);
             return HttpRoomUtil.httpGetFaceUrl_V2(uid);
         }
+    }
+
+    /**
+     * 通过uid获取 用户头像（第三方接口）
+     * 查询不到就返回空
+     *
+     * @param uid 用户uid
+     * @return 头像
+     */
+    public static String httpGetFaceV3(long uid) {
+        String url = "https://api.obfs.dev/api/bilibili/v3/user_info?uid=" + uid + "&size=1";
+        Map<String, String> headers = null;
+        headers = new HashMap<>(2);
+        String result = HttpUtil.doGetWithHeader(url, headers);
+        JSONObject jsonObject = JSONObject.parseObject(result);
+
+        if (ObjectUtils.isEmpty(result) || ObjectUtils.isEmpty(jsonObject) || ObjectUtils.isEmpty(jsonObject.getString("code"))) {
+            LOGGER.warn("httpGetFaceV3 获取头像失败,被拉黑 " + result);
+            return NO_FACE_URL;
+        }
+        if ("0".equals(jsonObject.getString("code"))) {
+            String face = jsonObject.getJSONObject("data").getJSONObject("card").getString("face");
+            return face;
+        } else {
+            LOGGER.error("httpGetFaceV3 获取头像失败 " + result);
+            return NO_FACE_URL;
+        }
+    }
+
+    /**
+     * 获取二维码地址
+     *
+     * @return 二维码扫码地址
+     */
+    public static LoginUrl httpGetQrcode() {
+        String result = null;
+        JSONObject jsonObject = null;
+        LoginUrl loginUrl = null;
+        Map<String, String> headers = null;
+        String url = "https://passport.bilibili.com/qrcode/getLoginUrl";
+
+        headers = new HashMap<>(2);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        try {
+            result = HttpUtil.doGetWithHeader(url, headers);
+        } catch (Exception e) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error(e);
+            result = null;
+        }
+        if (result == null)
+            return loginUrl;
+        jsonObject = JSONObject.parseObject(result);
+        short code = jsonObject.getShort("code");
+        if (code == 0) {
+            loginUrl = JSONObject.parseObject(jsonObject.getString("data"), LoginUrl.class);
+            jsonObject.getString("data");
+        } else {
+            LOGGER.error("获取二维码出错:" + jsonObject);
+        }
+        return loginUrl;
+    }
+
+    /**
+     * 获取二维码登录状态
+     *
+     * @param oauthKey 秘钥
+     * @return
+     */
+    public static String httpGetQrcodeStates(String oauthKey) {
+        if (!StringUtils.isEmpty(MainConf.USERCOOKIE)) {
+            return "";
+        }
+        String data = null;
+        Map<String, String> headers = null;
+        Map<String, String> params = null;
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("referer", "https://passport.bilibili.com/login");
+        params = new HashMap<>(3);
+        params.put("oauthKey", oauthKey);
+        params.put("gourl", "https://www.bilibili.com/");
+//        public static String sendPost(String url, Map<String, String> headerMap, Map<String, String> bodyMap) {
+        String url = "https://passport.bilibili.com/qrcode/getLoginInfo";
+        String result;
+        try {
+             result =  HttpUtil.sendPost(url, headers, params);
+            JSONObject.parseObject(data);
+        }
+        catch (Exception e1) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error("扫码登录失败抛出异常:" + e1);
+        }
+        return data;
     }
 }

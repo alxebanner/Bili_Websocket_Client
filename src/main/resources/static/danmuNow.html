@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer"/>
     <title>Title</title>
+    <link rel="stylesheet" href="css/dropdown.css">
     <style>
     body {
 <!--        /*与边框对其*/-->
@@ -15,9 +16,6 @@
 .now1 {
     height: 125px;
     width: 125px;
-<!--    background-size: 125px 125px;-->
-<!--    background-image: url(../../danmuCss/top/舰长头像框.png);-->
-<!--    background-repeat: no-repeat;-->
 }
 
 .d3 {
@@ -31,123 +29,6 @@
 <!--    margin-left: 10px;-->
 <!--}-->
 
-.face {
-    width: 40px;
-    float:left
-}
-.content {
-    width: 700px;
-    float:left;
-    margin-left: 100px;
-}
-
-.danmu_name_border {
-    margin-top: 0px;
-    background-size:100% 100%;
-    width: fit-content;
-    height: 50px;
-    background-image: url(../../danmuCss/top/观众用户名称.png);
-    background-repeat: no-repeat;
-    padding-top: 5px;
-    padding-left: 30px;
-    padding-right: 100px;
-    padding-bottom: 5px;
-    font-family: myFont;
-    font-weight:bold;
-    color: #D2B48C;
-    font-size: 30px;
-}
-
-.danmu_wenzi_border {
-    background-image: url(../../danmuCss/top/底板-舰长用.png);
-    background-position: center;
-    background-size: auto;
-    background-repeat: no-repeat;
-    padding-left:20px;
-    padding-right:20px;
-    border-radius: 50px;
-}
-
-.danmu_wenzi_border1 {
-    background-image: url(../../danmuCss/fans/底板-粉丝.png);
-    background-position: center;
-    background-size: auto;
-    background-repeat: no-repeat;
-    padding-left:20px;
-    padding-right:20px;
-    border-radius: 50px;
-}
-
-.danmu_picture_img{
-
-}
-
-.danmu_picture{
-    width: auto;
-    display: flex;
-}
-
-.danmu_picture>img{
-    padding-bottom:20px;
-    padding-top:20px;
-    padding-left:20px;
-    padding-right:20px;
-    width: 100px;
-    height: 100px
-}
-
-.danmu_xingxing{
-    width: 84px;
-    height: 44px;
-    margin-top: -50px;
-    float: right;
-}
-.danmu_wenzi {
-    text-align: left;
-    padding-bottom:20px;
-    padding-top:20px;
-    padding-left:20px;
-    padding-right:20px;
-
-
-    font-family: myFont;
-    font-size: 32px;
-    font-weight: bold;
-
-}
-.danmu_wenzi>span {
-
-
-    color: #FF60AF;
-    overflow: hidden;
-    margin: 0px auto;
-}
-
-
-.danmu_gift {
-    text-align: center;
-    padding-bottom:20px;
-    padding-top:20px;
-    padding-left:20px;
-    padding-right:20px;
-
-
-<!--    font-family: myFont;-->
-<!--    font-size: 32px;-->
-<!--    font-weight: bold;-->
-<!--    color: red;-->
-<!--    overflow: hidden;-->
-<!--    margin-left: 5px;-->
-}
-
-.danmu_gift>span {
-    font-family: myFont;
-    font-size: 32px;
-    font-weight: bold;
-    color: red;
-    overflow: hidden;
-    margin: 0px auto;
-}
 
 
 @font-face{
@@ -196,17 +77,19 @@ opacity: 1;
         display: none;
     }
     .message {
-        margin: 0 10px 10px;
+
         border-radius: 10px;
         padding: 5px;
 
-        position: initial;
+        position: relative;
         animation: anim1 500ms;
         animation-fill-mode: both;
         transition-property: height;
         transition-duration: 1s;
         transition-timing-function: ease-in;
         transition-delay: 100ms;
+<!--        margin-top: -20px;-->
+<!--                margin: 0 10px 10px;-->
     }
     .padding{
         flex: 1;
@@ -225,33 +108,17 @@ opacity: 1;
   }
 }
 
-.userFace {
-    position: relative;
-    border-radius: 75px;
-    width: 100px;
-    height: 100px;
-    top: 20px;
-}
-.face_common {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    top: -106px;
-    left: -15px;
-}
-.face_top {
-    position: relative;
-    width: 150px;
-    height: 129px;
-    top: -96px;
-    left: -17px;
-}
-
-
 
     </style>
 </head>
 <body>
+
+
+
+
+
+
+
 
 <!--<div class='newMessage'>-->
 <!--    <div class="face">-->
@@ -395,8 +262,27 @@ opacity: 1;
 <!--</div>-->
 
 
+<!--<div class="message new-message">-->
+<!--    <div><img src="https://s3.bmp.ovh/imgs/2023/06/07/3da024c5007b472a.png" class="isOcean">-->
+<!--        <div class="face">-->
+<!--            <div class="now1">-->
+<!--                <div class="d3"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div><img class="isGift" src="https://s3.bmp.ovh/imgs/2023/06/06/e8248cf923d4b4a8.gif"></div>-->
+<!--        <div class="danmu_name_border1"-->
+<!--             style="font-size: 20px; color: rgb(210, 180, 140); background-image: url(&quot;https://s3.bmp.ovh/imgs/2023/06/06/455494a7fbc1b33e.png&quot;);">-->
+<!--            赠送礼物的用户-->
+<!--        </div>-->
+<!--        <div class="giftContent"> 赠送礼物 小电视飞船</div>-->
+<!--        <div><img class="danmu_decoration1" src="https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png"></div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
 <div class="chat-window">
     <div class="padding"></div>
+    <div class="nowPadding"></div>
     <!--     padding元素消息解决不满一屏时,会靠下排放问题 -->
 </div>
 
@@ -431,11 +317,24 @@ opacity: 1;
     <input type="text" id='user_top'>
     <input type="text" id='user_left'>
 
+    <input type="text" id='gift_picture'>
+    <input type="text" id='gift_top'>
+    <input type="text" id='gift_left'>
+    <input type="text" id='gift_width'>
+    <input type="text" id='gift_height'>
+
+    <input type="text" id='gift_danmu_width'>
+    <input type="text" id='gift_danmu_top'>
+    <input type="text" id='gift_danmu_left'>
+    <input type="text" id='gift_danmu_fontSize'>
+    <input type="text" id='gift_danmu_color'>
 </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/indexPage.js"></script>
 <script language="javascript" type="text/javascript">
+
 
 <!--页面加载后执行-->
 window.onload = function () {
@@ -490,6 +389,18 @@ $.ajax({
         var user_top = data.data.user_top;
         var user_left = data.data.user_left;
 
+        var gift_picture = data.data.gift_picture;
+        var gift_top = data.data.gift_top;
+        var gift_left = data.data.gift_left;
+        var gift_width = data.data.gift_width;
+        var gift_height = data.data.gift_height;
+
+        var gift_danmu_width = data.data.gift_danmu_width;
+        var gift_danmu_top = data.data.gift_danmu_top;
+        var gift_danmu_left = data.data.gift_danmu_left;
+        var gift_danmu_fontSize = data.data.gift_danmu_fontSize;
+        var gift_danmu_color = data.data.gift_danmu_color;
+
         $("#danmuHeight").val(danmuHeight);
         $("#danmuFont").val(danmuFont);
         $("#danmuColor").val(danmuColor);
@@ -516,10 +427,26 @@ $.ajax({
         $("#user_top").val(user_top);
         $("#user_left").val(user_left);
 
+        $("#gift_picture").val(gift_picture);
+        $("#gift_top").val(gift_top);
+        $("#gift_left").val(gift_left);
+        $("#gift_width").val(gift_width);
+        $("#gift_height").val(gift_height);
+
+
+        $("#gift_danmu_width").val(gift_danmu_width);
+        $("#gift_danmu_top").val(gift_danmu_top);
+        $("#gift_danmu_left").val(gift_danmu_left);
+        $("#gift_danmu_fontSize").val(gift_danmu_fontSize);
+        $("#gift_danmu_color").val(gift_danmu_color);
+
+
 <!--            设置弹幕-->
             $(".chat-window").css({
                 height: danmuHeight,
             });
+
+
     }
     })
 }
@@ -558,6 +485,8 @@ function onMessage(evt) {
     var faceUrl = data.faceUrl;
     var message = data.message;
     var lastMessage;
+
+    var messageType = "noMessage";
     switch(type) {
         case "danmu" :
             lastMessage = danmuMessage(data)
@@ -567,7 +496,13 @@ function onMessage(evt) {
         break;
         case "gift" :
             lastMessage = giftMessage(data)
+            messageType = "gift";
         break;
+        case "toast" :
+            lastMessage = toastMessage(data);
+            messageType = "toast";
+        break;
+
         default:
             break;
     }
@@ -576,48 +511,11 @@ function onMessage(evt) {
     if(danmuColor==="") {
         wenzi_border = "danmu_wenzi_border1";
     }
-    var str_danmu =
-<!--    '<div class="newMessage">'+-->
-
-<!--    '<div class="face">'+-->
-<!--    '    <div class="now1">'+-->
-<!--    '        <div class="d3">'+-->
-<!--    '            <img src="http://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg" alt="">'+-->
-<!--    '        </div>'+-->
-<!--    '    </div>'+-->
-<!--    '</div>'+-->
-
-    showHead(data.faceUrl, data.danmuColor) +
-
-    '<div class="content">'+
-<!--     '   <div class="danmu_name_border">'+-->
-<!--     '       name'+-->
-<!--     '   </div>'+-->
-     showName(data.uname) +
-
-      '  <div class=" ' + wenzi_border + '">' +
-<!--     '  <div class="danmu_wenzi_border">'+-->
 
 
-<!--     '       <div class="danmu_picture">'+-->
-<!--     '           <img class="danmu_picture_img"'+-->
-<!--     '                src="https://i0.hdslb.com/bfs/emote/26302b7080569b9370bafd4cbca0d3d2e0a3e1df.png">'+-->
-<!--     '       </div>'+-->
-      lastMessage +
-
-
-     '       <div>'+
-     '           <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">'+
-     '       </div>'+
-     '   </div>'+
-     '</div>'+
-     '</div>';
-     '</div>';
-
-
-    var jsonArray = ["danmu","emoticon", "gift"];
+    var jsonArray = ["danmu","emoticon", "gift" ,"toast"];
     if (jsonArray.includes(type)) {
-        writeToScreen1(str_danmu);
+        writeToScreen1(lastMessage, messageType);
     }
 }
 
@@ -632,46 +530,240 @@ function danmuMessage(data) {
     if (data.isHaveSystemEmoji){
         message = message.toString();
         for (var i = 0; i < emojiList.length; i++) {
-            var newDiv = '<img src="SystemEmoji/'   + emojiList[i].substring(1, emojiList[i].length - 1) +'.png">';
+            var newDiv = '<img class="systemContent" src="SystemEmoji/'   + emojiList[i].substring(1, emojiList[i].length - 1) +'.png">';
             message = message.replaceAll(emojiList[i], newDiv );
         }
     }
-    lastMessage ='<div class="danmu_wenzi">'+
-                    ' <span class="danmu_wenzi1" >'  + message + ' </span>'+
-                 '</div>';
+<!--    头像框显示-->
+    var danmuColor = data.danmuColor;
+    var faceFrame ;
+    if (danmuColor === "noColor")
+    {
+        faceFrame ='<img class="face_common" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"';
+    } else {
+        faceFrame ='<img class="face_top" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"';
+    }
+
+<!--    弹幕样式             -->
+    var lastMessage =
+                           ' <div>'+
+                           '     <img src="https://s3.bmp.ovh/imgs/2023/06/07/3da024c5007b472a.png" class="isOcean"/>'+
+                           '     <div class="face">'+
+                           '         <div class="now1">'+
+                           '             <div class="d3"><img class="userFace"'+
+<!--                           '                                  src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"'+-->
+                           '                                  src="' + faceUrl +'"'+
+                           '                                  alt="">'+
+<!--                           '                 <img class="face_top" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"'+-->
+                           '' + faceFrame +
+                           '                      alt="">'+
+                           '             </div>'+
+                           '         </div>'+
+                           '     </div>'+
+
+                           '     <div class="danmu_name_border"'+
+                           '          style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/1feeede48e6e0280.png);">'+
+                           ' '+ uname +
+                           '     </div>'+
+
+                           '     </div>'+
+                           '     <div><img class="danmu_decoration"'+
+                           '               src="https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png">'+
+                           '     </div> '+
+
+
+
+
+
+<!--                           '     <div class="danmuContent"> 一二三四五六七八大九十一二三四五六七八大九十一二三四五六七八大九十'+-->
+                                     '<div class="danmuContent">' + message +
+
+                           ' </div>';
     return lastMessage;
 }
 <!--显示系统表情表情-->
 function emoticonMessage(data) {
     var emoticon_url = data.emoticon_url;
-    var lastMessage;
+    var emoticonLastMessage;
+    var uname = data.uname;
+
+    <!--    头像框显示-->
+    var danmuColor = data.danmuColor;
+    var faceFrame ;
+    if (danmuColor === "noColor")
+    {
+        faceFrame ='<img class="face_common" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"';
+    } else {
+        faceFrame ='<img class="face_top" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"';
+    }
+
     if (data.bulge_display) {
-    <!--                        用户表情-->
-        lastMessage =
+    <!--用户表情-->
+        emoticonLastMessage =
             '<div class="danmu_picture">' +
                             '<img class="danmu_picture_img" src="' + emoticon_url + ' ">' +
                         '</div>';
 
     } else {
-    <!--                         todo系统表情-->
-                        lastMessage =
-                        '<div class="danmu_wenzi">' +
-                            '<img class="danmu_picture_img" src="' + emoticon_url + ' ">' +
+    <!--系统表情-->
+        emoticonLastMessage =
+              '<div class="danmu_wenzi">' +
+                            '<img class="danmu_wenzi_img" src="' + emoticon_url + ' ">' +
                         '</div>';
     }
+
+
+        var lastMessage =
+                           ' <div>'+
+<!--                           ' <div>'+-->
+                           '     <img src="https://s3.bmp.ovh/imgs/2023/06/07/3da024c5007b472a.png" class="isOcean"/>'+
+                           '     <div class="face">'+
+                           '         <div class="now1">'+
+                           '             <div class="d3"><img class="userFace"'+
+<!--                           '                                  src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"'+-->
+                           '                                  src="' + data.faceUrl +'"'+
+                           '                                  alt="">'+
+<!--                           '                 <img class="face_top" src="https://s1.ax1x.com/2023/05/14/p9cTod0.png"'+-->
+                            '' + faceFrame +
+                           '                      alt="">'+
+                           '             </div>'+
+                           '         </div>'+
+                           '     </div>'+
+
+                           '     <div class="danmu_name_border"'+
+                           '          style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/1feeede48e6e0280.png);">'+
+                           ' '+ uname +
+                           '     </div>'+
+
+
+                               '     </div>'+
+                           '     <div><img class="danmu_decoration"'+
+                           '               src="https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png">'+
+                           '     </div> '+
+
+
+
+<!--                           '     <div class="danmuContent"> 一二三四五六七八大九十一二三四五六七八大九十一二三四五六七八大九十'+-->
+                                     '<div class="danmuContent">' + emoticonLastMessage +
+
+                           ' </div>';
+
+
+
     return lastMessage;
 }
-<!--显示礼物-->
+
 function giftMessage(data) {
     var giftName = data.giftName;
     var num = data.num;
-    var img_basic = data.img_basic;
-    lastMessage =
-    ' <div class="danmu_gift">' +
-              '  <span class="danmu_wenzi1">感谢 赠送的' + num + '个 ' + giftName + ' </span>' +
-    '  </div>';
+    var uname = data.uname;
+    var lastMessage =
+                            '<div>'+
+<!--                            '<div>'+-->
+                                '<img src="https://s3.bmp.ovh/imgs/2023/06/07/3da024c5007b472a.png" class="isOcean"/>'+
+                                '<div class="face">'+
+                                '    <div class="now1">'+
+                                '        <div class="d3">'+
+                                '        </div>'+
+                                '    </div>'+
+                                '</div>'+
+                                '<div>'+
+                                '    <img class="isGift" src="https://s3.bmp.ovh/imgs/2023/06/06/e8248cf923d4b4a8.gif">'+
+                                '</div>'+
+
+                                '<div class="danmu_name_border"'+
+                                '     style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/1feeede48e6e0280.png);">'+
+<!--                                '    赠送礼物的用户'+-->
+                                '<span> '+ uname +'<span>'+
+                                '</div>'+
+<!--                                '<div class="giftContent"> 赠送礼物 小电视飞船'+-->
+ '                                   <div class="giftContent"> 赠送的 ' + num + ' 个 '+ giftName +
+                                '</div>'+
+
+                                '<div><img class="danmu_decoration"'+
+                                '          src="https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png">'+
+                                '</div>'+
+                            '</div>';
     return lastMessage;
 }
+
+
+
+<!--显示礼物-->
+function giftMessage1(data) {
+    var giftName = data.giftName;
+    var num = data.num;
+    var uname = data.uname;
+<!--    var img_basic = data.img_basic;-->
+    lastMessage =
+                            '<div>'+
+                            '    <img src="https://s3.bmp.ovh/imgs/2023/06/07/3da024c5007b472a.png" class="isOcean"/>'+
+                            '    <div class="face">'+
+                            '        <div class="now1">'+
+                            '            <div class="d3">'+
+                            '            </div>'+
+                            '        </div>'+
+                            '    </div>'+
+
+
+                            '    <div>'+
+                            '        <img class="isGift" src="https://s3.bmp.ovh/imgs/2023/06/06/e8248cf923d4b4a8.gif">'+
+                            '    </div>'+
+
+                            '    <div><img class="danmu_decoration1"'+
+                            '              src="https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png">'+
+                            '    </div>'+
+
+                            '    <div class="danmu_name_border1"'+
+                            '         style="font-size: 30px; color: rgb(210, 180, 140); background-image: url(https://s3.bmp.ovh/imgs/2023/06/06/1feeede48e6e0280.png);">'+
+                            '<span> '+ uname +'<span>'+
+
+
+
+
+                            '    </div>'+
+                            '    <div class="giftContent"> 赠送的 ' + num + ' 个 '+ giftName +
+                            '    </div>'+
+
+
+                            '</div>';
+    return lastMessage;
+}
+<!--显示开通舰长-->
+function toastMessage(data) {
+    var faceUrl = data.faceUrl;
+    var username = data.username
+    var lastMessage =
+                            '<div>'+
+                            '    <div class="topBackground">'+
+                            '        <img src="https://s3.bmp.ovh/imgs/2023/06/06/0ad3ba66e1a2bc75.png" class="isOcean"/>'+
+                            '    </div>'+
+
+                            '    <div class="face">'+
+                            '        <div class="now1">'+
+                            '            <div class="d3">'+
+                            '                <img class="giftUserFace"'+
+<!--                            '                     src="https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg"'+-->
+
+                            '                     src="'+ faceUrl +'"'+
+
+                            '                     alt="">'+
+                            '                <img class="gift_top"'+
+                            '                     src="https://s3.bmp.ovh/imgs/2023/06/06/c910ef07fcdea4cf.gif"'+
+                            '                     alt="">'+
+                            '                <div class="topContent">'+
+<!--                            '                    <span class="">赠送送舰长的名字</span>'+-->
+                            '                    <span class="">' + username + '</span>'+
+                            '                </div>'+
+                            '            </div>'+
+                            '        </div>'+
+                            '    </div>'+
+                            '</div>';
+    return lastMessage;
+}
+
+
+
 
 <!--显示头像-->
 function showHead(faceUrl, danmuColor) {
@@ -703,22 +795,6 @@ function showName(name) {
     '   </div>';
     return nameDiv;
 }
-<!--显示表情包消息-->
-function showPictureMessage(picture) {
-    var pictureDiv =
-    '   <div class="danmu_wenzi_border">'+
-    '        <div class="danmu_picture">'+
-    '            <img class="danmu_picture_img"'+
-<!--    '                 src="https://i0.hdslb.com/bfs/emote/26302b7080569b9370bafd4cbca0d3d2e0a3e1df.png">'+-->
-    '                 src="' +  picture+'   ">'+
-
-    '        </div>'+
-    '        <div>'+
-    '            <img class="danmu_xingxing" src="../../danmuCss/top/雪花.png">'+
-    '        </div>'+
-    '    </div>';
-    return pictureDiv;
-}
 
 <!--显示聊天消息-->
 function showMessage(message) {
@@ -740,20 +816,37 @@ function writeToScreen(message) {
 	var d = d[0];
 	$("#output").append(div);
 }
-function writeToScreen1(message) {
+function writeToScreen1(message, messageType) {
     const chatWindow = document.querySelector('.chat-window');
     let msg = document.createElement('div');
     msg.className = 'message';
     msg.innerHTML = message;
 
     const newMessage = document.createElement('div');
-    newMessage.classList.add('message', 'new-message');
+<!--    console.log("messageType")-->
+<!--    console.log(messageType)-->
+
+    switch (messageType) {
+        case "noMessage" :
+            newMessage.classList.add('message', 'new-message');
+        break;
+        case "gift" :
+            newMessage.classList.add('message', 'gift');
+            messageType = "gift";
+        break;
+        case "toast" :
+            newMessage.classList.add('message', 'toast');
+        break;
+        default:
+            break;
+    }
+
     newMessage.innerHTML = message;
     const padding = document.querySelector('.padding')
     var d = $(".chat-window");
 	var d = d[0];
 
-    $(".chat-window").append(newMessage);
+    $(".padding").before(newMessage);
 
     var danmuFont = $("#danmuFont").val();
     var danmuColor = $("#danmuColor").val();
@@ -791,11 +884,19 @@ function writeToScreen1(message) {
                 "font-size": userNameFont + "px", "color": userNameColor, "background-image": "url(" +  username_backgroundUrl  +")",
                 });
 
+                $(".danmu_name_border1").css({
+                "font-size": userNameFont + "px", "color": userNameColor, "background-image": "url(" +  username_backgroundUrl  +")",
+                });
+
+
+<!--                // userFace 在这里增加一下24 px 看不懂bug-->
+                var userFaceTopNum = Math.floor(user_top)  + 24;
+
                 <!--            设置用户头像框->
                 $(".userFace").css({
                 "width": user_width + "px",
                 "height": user_height + "px",
-                "top": user_top + "px",
+                "top": userFaceTopNum + "px",
                 "left": user_left + "px",
                 "border-radius": user_border_radius + "px",
                 });
@@ -803,20 +904,29 @@ function writeToScreen1(message) {
                 <!--设置普通用户头像框->
                 $(".face_common").attr("src", face_backgroundUrl);
 
+
+<!--                // face_common 在这里增加一下53 px 看不懂bug-->
+                var common = Math.floor(face_common_top)  + 53;
+
                 $(".face_common").css({
                 "width": face_common_Width + "px",
                 "height": face_common_Height + "px",
-                "top": face_common_top + "px",
+                "top": common + "px",
                 "left": face_common_left + "px",
                 });
 
                 <!--设置舰长用户头像框->
                 $(".face_top").attr("src", face_Top_backgroundUrl)
 
+
+
+<!--                // face_top 在这里增加一下53 px 看不懂bug-->
+                var topNum = Math.floor(face_top_top)  + 53;
+
                 $(".face_top").css({
                 "width": face_top_Width + "px",
                 "height": face_top_Height + "px",
-                "top": face_top_top + "px",
+                "top": topNum + "px",
                 "left": face_top_left + "px",
                 });
 
@@ -833,8 +943,49 @@ function writeToScreen1(message) {
                 <!--            设置弹幕右下角图片挂件->
                 $(".danmu_xingxing").attr("src", pendant_backgroundUrl);
 
-                chatWindow.scrollTop=d.scrollHeight;
+
+                $(".danmuContent").css({
+                                "font-size": danmuFont + "px", "color": danmuColor
+                });
+
+
+
+
+                <!--            礼物左上角挂件挂件->
+                var gift_picture = $("#gift_picture").val();
+                $(".isGift").attr("src", gift_picture);
+                var gift_width = $("#gift_width").val();
+                var gift_height = $("#gift_height").val();
+                var gift_top = $("#gift_top").val();
+                var gift_left = $("#gift_left").val();
+
+                $(".isGift").css({
+                                "width": gift_width + "px", "height": gift_height + "px"
+                                , "top": gift_top + "px", "left": gift_left + "px"
+                });
+
+                <!--            礼物文字显示->
+                var gift_danmu_width = $("#gift_danmu_width").val();
+                var gift_danmu_top = $("#gift_danmu_top").val();
+                var gift_danmu_left = $("#gift_danmu_left").val();
+                var gift_danmu_fontSize = $("#gift_danmu_fontSize").val();
+                var gift_danmu_color = $("#gift_danmu_color").val();
+                $(".giftContent").css({
+                                "width": gift_danmu_width + "px"
+                                , "top": gift_danmu_top + "px", "left": gift_danmu_left + "px"
+                                , "font-size": gift_danmu_fontSize + "px", "color": gift_danmu_color
+                });
+
+                chatWindow.scrollTop = d.scrollHeight;
+                console.log("chatWindow.scrollTop");
+                console.log(chatWindow.scrollTop);
+<!--                chatWindow.scrollTop = chatWindow.scrollTop + 50-->
+<!--                console.log("chatWindow.scrollTop +50" );-->
+<!--                console.log(chatWindow.scrollTop);-->
+
 }
+
+
 
 </script>
 </html>

@@ -217,6 +217,82 @@ public class CenterSetConf implements Serializable {
     private String pendant_backgroundUrl = "https://s1.ax1x.com/2023/05/14/p9cbNGT.png";
 //    private String pendant_backgroundUrl = "../../danmuCss/top/雪花.png";
 
+
+    /**
+     * 测试礼物名称
+     */
+    private String test_gift_name = "送礼用户";
+
+    /**
+     * 测试礼物数量
+     */
+    private String test_gift_num = "1";
+
+    /**
+     * 测试 礼物名称
+     */
+    private String test_gift_giftName = "小电视飞船";
+
+    /**
+     * 测试 上舰人 名字
+     */
+    private String test_Toast_name = "赠送舰长用户";
+
+    /**
+     * 测试 舰队头像
+     */
+    private String test_Toast_faceUrl = "https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg";
+
+    /**
+     * 测试 舰队等级
+     */
+    private String test_Toast_type = "3";
+
+
+    /**
+     * 测试礼物名称
+     */
+    private String gift_picture = "https://s3.bmp.ovh/imgs/2023/06/06/e8248cf923d4b4a8.gif";
+
+    /**
+     * 测试礼物垂直位移
+     */
+    private String gift_top = "10";
+
+    /**
+     * 测试礼物 水平位移
+     */
+    private String gift_left = "41";
+
+    /**
+     * 测试礼物 宽度
+     */
+    private String gift_width = "475";
+
+    /**
+     * 测试礼物 高度
+     */
+    private String gift_height = "220";
+
+    private String gift_danmu_width = "260";
+
+    private String gift_danmu_top = "120";
+
+    private String gift_danmu_left = "197";
+
+    private String gift_danmu_fontSize = "24";
+
+    private String gift_danmu_color = "red";
+
+
+    private String pendant_width = "84";
+
+    private String pendant_height = "85";
+
+    private String pendant_top = "98";
+
+    private String pendant_left = "489";
+
     public String toJson() {
         return FastJsonUtils.toJson(this);
     }
