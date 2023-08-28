@@ -295,6 +295,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -744,26 +745,32 @@
                    placeholder="礼物 文字 水平偏移量"></td>
     </tr>
 
-    <tr style="display: none;">
+    <tr>
+        <td>小装饰：图片地址</td>
+        <td><input type="text" id='pendant_picture_url' class="table_tr_control"
+                   placeholder="小装饰：宽度"></td>
+    </tr>
+
+    <tr>
         <td>小装饰：宽度</td>
         <td><input type="text" id='pendant_width' class="table_tr_control"
                    placeholder="小装饰：宽度"></td>
 
     </tr>
 
-    <tr style="display: none;">
+    <tr>
         <td>小装饰：高度</td>
         <td><input type="text" id='pendant_height' class="table_tr_control"
                    placeholder="小装饰：高度"></td>
     </tr>
 
-    <tr style="display: none;">
+    <tr>
         <td>小装饰：宽度</td>
         <td><input type="text" id='pendant_top' class="table_tr_control"
                    placeholder="小装饰 垂直偏移量"></td>
     </tr>
 
-    <tr style="display: none;">
+    <tr>
         <td>小装饰：水平偏移量</td>
         <td><input type="text" id='pendant_left' class="table_tr_control"
                    placeholder="小装饰 水平偏移量"></td>
@@ -818,6 +825,35 @@
                                  placeholder="舰长类型 3舰长 2提督 1总督">
 </div>
 
+<br>
+<br>
+<table>
+    <tr>
+        <td>
+            <div class="mySwitchName">
+                <span>开播发送消息(测试中)</span>
+            </div>
+        </td>
+
+        <td>
+            <div class="trSwitch">
+                <div class="testswitch">
+                    <input class="testswitch-checkbox" id="onoffswitch9" type="checkbox"/>
+                    <label class="testswitch-label" for="onoffswitch9">
+                        <span class="testswitch-inner" data-on="ON" data-off="OFF"></span>
+                        <span class="testswitch-switch"></span>
+                    </label>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+</table>
+<br>
+<span>开播后发送的弹幕</span> <input type="text" id='startLiveMessage' class="table_tr_control"
+                                     placeholder="开播后发送的弹幕">
+<br>
+<input type="password" id='userCookie' class="table_tr_control" placeholder="开播后发送的弹幕">
 <!--<div>-->
 <!--    &lt;!&ndash;    自定义表情  左侧显示名字 右侧显示图片 &ndash;&gt;-->
 <!--</div>-->
@@ -856,7 +892,9 @@
 <!--</marquee>-->
 
 </body>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+
+<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
 <script language="javascript" type="text/javascript">
 			function formatDate(now) {
 				var year = now.getFullYear();
@@ -1036,6 +1074,9 @@ $.ajax({
                 var isShareMessage = data.data.isShareMessage;
                 var isLikeMessage = data.data.isLikeMessage;
                 var isLikeNumMessage = data.data.isLikeNumMessage;
+
+                var isStartLiveSendMessage = data.data.isStartLiveSendMessage;
+
                 var minGoldPrice = data.data.minGoldPrice;
                 var danmuHeight = data.data.danmuHeight;
                 var danmuFont = data.data.danmuFont;
@@ -1071,7 +1112,6 @@ $.ajax({
                 var test_Toast_faceUrl = data.data.test_Toast_faceUrl;
                 var test_Toast_type = data.data.test_Toast_type;
 
-
 <!--                礼物-->
                 var gift_picture = data.data.gift_picture;
                 var gift_top = data.data.gift_top;
@@ -1086,14 +1126,17 @@ $.ajax({
                 var gift_danmu_fontSize = data.data.gift_danmu_fontSize;
                 var gift_danmu_color = data.data.gift_danmu_color;
 
+                var pendant_picture_url = data.data.pendant_picture_url;
                 var pendant_width = data.data.pendant_width;
                 var pendant_height = data.data.pendant_height;
                 var pendant_top = data.data.pendant_top;
                 var pendant_left = data.data.pendant_left;
 
 
+                <!--开播后发送的弹幕-->
+                var startLiveMessage = data.data.startLiveMessage;
 
-
+                var userCookie = data.data.userCookie;
 
                 $("#onoffswitch1").prop("checked",isAnchorLot);
                 $("#onoffswitch2").prop("checked",isSilverGift);
@@ -1103,6 +1146,8 @@ $.ajax({
                 $("#onoffswitch6").prop("checked",isShareMessage);
                 $("#onoffswitch7").prop("checked",isLikeMessage);
                 $("#onoffswitch8").prop("checked",isLikeNumMessage);
+                $("#onoffswitch9").prop("checked",isStartLiveSendMessage);
+
                 $("#minGoldPrice").val(minGoldPrice);
                 $("#danmuHeight").val(danmuHeight);
                 $("#danmuFont").val(danmuFont);
@@ -1149,7 +1194,6 @@ $.ajax({
                 $("#test_Toast_faceUrl").val(test_Toast_faceUrl);
                 $("#test_Toast_type").val(test_Toast_type);
 
-
                 <!--                礼物-->
                 $("#gift_picture").val(gift_picture);
                 $("#gift_top").val(gift_top);
@@ -1164,14 +1208,14 @@ $.ajax({
                 $("#gift_danmu_fontSize").val(gift_danmu_fontSize);
                 $("#gift_danmu_color").val(gift_danmu_color);
 
+                $("#pendant_picture_url").val(pendant_picture_url);
                 $("#pendant_width").val(pendant_width);
                 $("#pendant_height").val(pendant_height);
                 $("#pendant_top").val(pendant_top);
                 $("#pendant_left").val(pendant_left);
 
-
-
-
+                $("#startLiveMessage").val(startLiveMessage);
+                $("#userCookie").val(userCookie);
 
                 setDemo(data);
              }
@@ -1307,8 +1351,6 @@ $("#closeTestSet").click(function(){
 
 
 
-
-
 <!--保存配置-->
 $("#sendSet").click(function(){
             let set = {};
@@ -1321,6 +1363,9 @@ $("#sendSet").click(function(){
             set.isShareMessage = $("#onoffswitch6").is(':checked');
             set.isLikeMessage = $("#onoffswitch7").is(':checked');
             set.isLikeNumMessage = $("#onoffswitch8").is(':checked');
+
+            set.isStartLiveSendMessage = $("#onoffswitch9").is(':checked');
+
             set.minGoldPrice = $("#minGoldPrice").val();
             set.danmuHeight = $("#danmuHeight").val();
             set.danmuFont = $("#danmuFont").val();
@@ -1347,6 +1392,8 @@ $("#sendSet").click(function(){
             set.user_top = $("#user_top").val();
             set.user_left = $("#user_left").val();
 
+            set.startLiveMessage = $("#startLiveMessage").val();
+            set.userCookie = $("#userCookie").val();
 
 <!--            测试-->
             set.test_gift_name = $("#test_gift_name").val();
@@ -1372,27 +1419,11 @@ $("#sendSet").click(function(){
             set.gift_danmu_fontSize = $("#gift_danmu_fontSize").val();
             set.gift_danmu_color = $("#gift_danmu_color").val();
 
+            set.pendant_picture_url = $("#pendant_picture_url").val();
             set.pendant_width = $("#pendant_width").val();
             set.pendant_height = $("#pendant_height").val();
             set.pendant_top = $("#pendant_top").val();
             set.pendant_left = $("#pendant_left").val();
-
-<!--<div>-->
-<!--    <input type="button" id="getOneGift" value="测试礼物"/>-->
-<!--    <br>-->
-<!--    <span>用户名</span> <input type="text" id='test_gift_name' class="table_tr_control" placeholder="用户名">-->
-<!--    <span>数量</span> <input type="text" id='test_gift_num' class="table_tr_control" placeholder="数量">-->
-<!--    <span>礼物名称</span> <input type="text" id='test_gift_giftName' class="table_tr_control" placeholder="礼物名称">-->
-<!--</div>-->
-<!--<div>-->
-<!--    <input type="button" id="getOneToast" value="测试舰长"/>-->
-<!--    <br>-->
-<!--    <span>用户名</span> <input type="text" id='test_Toast_name' class="table_tr_control" placeholder="用户名">-->
-<!--    <span>头像</span> <input type="text" id='test_Toast_faceUrl' class="table_tr_control" placeholder="头像">-->
-<!--    <span>舰长类型</span> <input type="text" id='test_Toast_type' class="table_tr_control"-->
-<!--                                 placeholder="舰长类型 3舰长 2提督 1总督">-->
-<!--</div>-->
-
 
             $.ajax({
             url: '../sendSet',
@@ -1549,6 +1580,7 @@ $("#setup_table td").change(function(){
                 "font-size": danmuFont + "px", "color": danmuColor
                 });
 });
+
 
 
 

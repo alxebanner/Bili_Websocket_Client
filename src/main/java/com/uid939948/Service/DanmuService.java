@@ -100,5 +100,38 @@ public interface DanmuService {
      */
     void danmu_aggregation_Function(String message);
 
+    /**
+     * 禁言消息
+     * @param message 收到消息体
+     */
+    void roomBlockFunction(String message);
 
+
+    /**
+     * 新增房管
+     *
+     * @param message 收到消息体
+     */
+    void roomAdminEntranceFunction(String message);
+
+    /**
+     * 撤销房管
+     *
+     * @param message 收到消息体
+     */
+    void roomAdminRevokeFunction(String message);
+
+    /**
+     * 房管列表
+     *
+     * @param message 收到消息体
+     */
+    void roomAdminFunction(String message);
+
+    /**
+     * 开播推送
+     *
+     * @param message 收到消息体
+     */
+    void liveStartFunction(String message);
 }

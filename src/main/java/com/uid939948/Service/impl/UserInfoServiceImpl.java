@@ -83,7 +83,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         System.out.println(newPath);
         System.out.println(list);
 
-
         return list;
     }
 

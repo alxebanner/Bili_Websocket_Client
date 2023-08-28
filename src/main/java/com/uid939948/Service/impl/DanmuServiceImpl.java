@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.uid939948.Conf.MainConf;
 import com.uid939948.Controller.DanmuWebsocket;
 import com.uid939948.DO.MedalInfo;
+import com.uid939948.DO.PinYin.PinYin_barrage;
 import com.uid939948.DO.danmu.ANCHOR_LOT_START.Anchor_lot;
 import com.uid939948.DO.danmu.ANCHOR_LOT_START.Anchor_lot_award;
 import com.uid939948.DO.danmu.ANCHOR_LOT_START.Award_users;
@@ -26,6 +27,12 @@ import com.uid939948.Http.HttpRoomUtil;
 import com.uid939948.Service.DanmuService;
 
 import lombok.extern.slf4j.Slf4j;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -84,6 +91,11 @@ public class DanmuServiceImpl implements DanmuService {
         // 2.5 点歌列表
         if (false) {
             String danmuMessage = danMuMsgInfo.getMessage();
+
+            List<MusicInfo> musicList = demandMusic_string(MainConf.musicInfoList, danMuMsgInfo);
+            MainConf.musicInfoList = musicList;
+
+
             if (danmuMessage.startsWith("点歌 ")) {
                 String musicName = danmuMessage.replace("点歌 ", "");
                 // 如果是点歌， 再判断是否有歌曲重复
@@ -120,16 +132,112 @@ public class DanmuServiceImpl implements DanmuService {
             log.info(message);
         }
 
-//            log.info("弹幕 uid" + danMuMsgInfo.getUid());
+        // 自动回复
+        replyDanmu(danMuMsgInfo);
 
+        // 设置头像
         danMuMsgInfo.setFaceUrl(getFaceUrlByCache(danMuMsgInfo.getUid()));
 
         // 提督颜色 #E17AFF
         // 舰长颜色 #00D1F1
 
+//
+//        log.info(" 待转换拼音的汉字 :" + danMuMsgInfo.getMessage());
+//        String pinyin = toPinyin(danMuMsgInfo.getMessage());
+//
+//
+//        List<PinYin_barrage> list11 = toPinyinList(danMuMsgInfo.getMessage());
+//        log.info(" 转换后的汉字 :" + danMuMsgInfo.getMessage());
+//        danMuMsgInfo.setMessage(pinyin);
+
         // 3、内容打印 输出弹幕给前端
         print_danmu(danMuMsgInfo);
     }
+
+    private static void replyDanmu(DanMu_MSG_Info danMuMsgInfo) {
+        if (false && StringUtils.isNotEmpty(danMuMsgInfo.getMessage())) {
+            // 1、模糊匹配
+            if (danMuMsgInfo.getMessage().contains("测试模糊匹配")) {
+                log.info("模糊匹配成功");
+                // todo 弹幕回复
+
+                // todo 弹幕回复 放在线程上实现
+                String msg = "模糊匹配回复";
+                if (HttpRoomUtil.httpSendBarrage(msg)) {
+                    log.info("模糊匹配回复");
+                }
+            }
+
+            // 2、精确匹配
+            if (danMuMsgInfo.getMessage().equals("测试精确匹配")) {
+                log.info("精确匹配成功");
+                // todo 弹幕回复 放在线程上实现
+                String msg = "精确匹配回复";
+                if (HttpRoomUtil.httpSendBarrage(msg)) {
+                    log.info("精确匹配回复成功");
+                }
+            }
+        }
+    }
+
+    /**
+     * 点歌识别 歌曲
+     *
+     * @param danMuMsgInfo 弹幕消息体
+     * @return 点歌列表
+     */
+    private List<MusicInfo> demandMusic_string(List<MusicInfo> list, DanMu_MSG_Info danMuMsgInfo) {
+        String message = danMuMsgInfo.getMessage();
+        if (StringUtils.isEmpty(message)) {
+            return list;
+        }
+
+        List<MusicInfo> list1 = new ArrayList<>();
+        ;
+        if (CollectionUtils.isEmpty(list)) {
+            log.info("初始化点歌");
+        }
+        // todo 提取歌曲
+        String s1 = "歌曲名";
+//        if (message.startsWith("点歌 ")) {
+//
+//        }
+
+        if (message.startsWith("点歌 ")) {
+            String musicName = message.replace("点歌 ", "");
+            // 如果是点歌， 再判断是否有歌曲重复
+            //
+            if (ObjectUtils.isEmpty(MainConf.musicInfoList)) {
+                MusicInfo musicInfo = new MusicInfo();
+                musicInfo.setMusicName(musicName);
+                musicInfo.setUid(danMuMsgInfo.getUid());
+                musicInfo.setName(danMuMsgInfo.getUname());
+                musicInfo.setNum(1);
+                // todo 搜索网易云 歌曲黑名单判断
+                MainConf.musicInfoList.add(musicInfo);
+                log.info("点歌成功 + danMuMsgInfo.getMessage() ");
+            } else if (MainConf.musicInfoList.stream().map(MusicInfo::getMusicName).anyMatch(a -> a.equals(musicName))) {
+                // 存在重复歌曲，不上榜单
+                log.info(danMuMsgInfo.getUname() + "  存在重复名称，不上点歌榜单");
+            } else {
+                MusicInfo musicInfo = new MusicInfo();
+                musicInfo.setMusicName(musicName);
+                musicInfo.setUid(danMuMsgInfo.getUid());
+                musicInfo.setName(danMuMsgInfo.getUname());
+                musicInfo.setNum(MainConf.musicInfoList.size() + 1);
+                // todo 搜索网易云 歌曲黑名单判断
+                MainConf.musicInfoList.add(musicInfo);
+                log.info("点歌成功 + danMuMsgInfo.getMessage() ");
+            }
+        }
+
+        MusicInfo musicInfo = new MusicInfo();
+        musicInfo.setMusicName(s1);
+        // todo 去重
+        list1.add(musicInfo);
+        return list1;
+    }
+
 
     /**
      * 输出弹幕到前端 并且打印日志
@@ -140,11 +248,14 @@ public class DanmuServiceImpl implements DanmuService {
         String str_xun_zhang = addFull(danMuMsgInfo.getGuard_level(), danMuMsgInfo.getMedal_name(), String.valueOf(danMuMsgInfo.getMedal_level()), danMuMsgInfo.getUname());
         String str_danmu = danMuMsgInfo.getMessage();
         String str_fangguan = danMuMsgInfo.getIsManager() ? "[房管]" : "";
+
+        int honorLevel = danMuMsgInfo.getHonorLevel();
+
         if (danMuMsgInfo.getIsEmoticon()) {
-            log.info("表情 " + str_fangguan + str_xun_zhang + " : " + str_danmu);
+            log.info("表情 " + "荣耀" + honorLevel + " " + str_fangguan + str_xun_zhang + " : " + str_danmu);
             danmuWebsocket_sendMessage(danMuMsgInfo, "emoticon");
         } else {
-            log.info("弹幕 " + str_fangguan + str_xun_zhang + " : " + str_danmu);
+            log.info("弹幕 " + "荣耀" + honorLevel + " " + str_fangguan + str_xun_zhang + " : " + str_danmu);
             danmuWebsocket_sendMessage(danMuMsgInfo, "danmu");
         }
     }
@@ -213,7 +324,6 @@ public class DanmuServiceImpl implements DanmuService {
         if (false) {
             danmuWebsocket_sendMessage(watchNum, "watch_count");
         }
-
     }
 
     @Override
@@ -222,28 +332,47 @@ public class DanmuServiceImpl implements DanmuService {
         // 1、生成实体类
         SimpleGift simpleGift = format_SimpleGift(message);
 
+        if (StringUtils.isEmpty(simpleGift.getGiftName())) {
+            return;
+        }
+
         // 2、礼物过滤（比如屏蔽特定礼物， 辣条 银瓜子礼物）
 
         // 2、1 礼物白名单，特殊礼物直接显示。比如银瓜子的粉丝团灯牌 金瓜子的粉丝团灯牌
         // todo 银瓜子 粉丝牌灯牌 白名单
 
-        // 2、2 礼物黑名单，比如屏蔽银瓜子的 辣条
+        // 2、2 礼物统计
+        if (false) {
+            log.debug("礼物名称" + simpleGift.getGiftName());
+            if (simpleGift.getGiftName().equals("辣条")) {
+                int id = MainConf.overtime;
+                if ("null".equals(String.valueOf(id)) || id <= 0) {
+                    id = 10;
+                } else {
+                    id = id + 10;
+                }
+                log.info("id");
+                log.info(String.valueOf(id));
+            }
+        }
+
+        // 2、3 礼物黑名单，比如屏蔽银瓜子的 辣条
         if (MainConf.centerSetConf.getIsGift()) {
             if ("silver".equals(simpleGift.getCoin_type())) {
                 if (!MainConf.centerSetConf.getIsSilverGift()) {
                     log.info("银瓜礼物显示已关闭");
                     return;
                 }
-                log.info("收到 银瓜子礼物 " + simpleGift.getUname() + "赠送了 " + simpleGift.getGiftName());
+                log.info("收到 银瓜子礼物 " + simpleGift.getUname() + "赠送了 " + simpleGift.getGiftName() + " " + simpleGift.getNum() + "个");
             } else if ("gold".equals(simpleGift.getCoin_type())) {
-                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + ((float) simpleGift.getPrice()) / 1000 + "元");
-
+                log.info("收到 金瓜子礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " " + simpleGift.getNum() + "个" + "" +
+                        " 价值为 " + ((float) simpleGift.getPrice()) / 1000 + "元");
                 // 金瓜子礼物 过滤
                 // 金瓜子， 低于x元礼物不显示
                 float f1 = strToFloat(MainConf.centerSetConf.getMinGoldPrice());
                 float giftFloat = ((float) simpleGift.getPrice()) / 1000;
-                // log.info("最低金额为 " + f1 + "元");
-                // log.info("投喂金额金额为 " + giftFloat + "元");
+                log.debug("最低金额为 " + f1 + "元");
+                log.debug("投喂金额金额为 " + giftFloat + "元");
                 if (giftFloat < f1) {
                     log.debug("不需要显示金瓜子礼物");
                     return;
@@ -254,7 +383,7 @@ public class DanmuServiceImpl implements DanmuService {
                 log.info("收到 未知礼物 " + simpleGift.getUname() + "赠送了" + simpleGift.getGiftName() + " 价值为 " + simpleGift.getPrice());
             }
         } else {
-            log.info("礼物显示已关闭");
+            log.debug("礼物显示已关闭");
             return;
         }
 
@@ -272,13 +401,14 @@ public class DanmuServiceImpl implements DanmuService {
      * @return 转换后的float
      */
     private float strToFloat(String str) {
-        if (str == null) {
+        if (StringUtils.isEmpty(str)) {
             return 0;
         }
+
         try {
             return Float.parseFloat(str);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (NumberFormatException ex) {
+            log.error("字符串转数字 失败,请检查L" + str);
             System.err.println(str + "转换成float类型失败，请检查数据来源");
         }
         return 0;
@@ -305,7 +435,7 @@ public class DanmuServiceImpl implements DanmuService {
         toast.setFaceUrl(getFaceUrlByCache(toast.getUid()));
 
         danmuWebsocket_sendMessage(toast, "toast");
-        log.info("上船消息推送" + toast); // Toast(anchor_show=true, color=#00D1F1, dmscore=90, effect_id=397, end_time=1685328094, face_effect_id=44, gift_id=10003, guard_level=3, is_show=0, num=1, op_type=1, payflow_id=2305291041138892124930450, price=138000, role_name=舰长, room_effect_id=590, start_time=1685328094, svga_block=0, target_guard_count=17, toast_msg=<%毕业留在成都%> 在主播冼知了的直播间开通了舰长，今天是TA陪伴主播的第1天, uid=385372493, unit=月, user_show=true, username=毕业留在成都)
+        log.debug("上船消息推送" + toast); // Toast(anchor_show=true, color=#00D1F1, dmscore=90, effect_id=397, end_time=1685328094, face_effect_id=44, gift_id=10003, guard_level=3, is_show=0, num=1, op_type=1, payflow_id=2305291041138892124930450, price=138000, role_name=舰长, room_effect_id=590, start_time=1685328094, svga_block=0, target_guard_count=17, toast_msg=<%毕业留在成都%> 在主播冼知了的直播间开通了舰长，今天是TA陪伴主播的第1天, uid=385372493, unit=月, user_show=true, username=毕业留在成都)
         // 上船消息推送Toast(anchor_show=true, color=#E17AFF, dmscore=96, effect_id=398, end_time=1684712543, face_effect_id=43, gift_id=10002, guard_level=2, is_show=0, num=1, op_type=1, payflow_id=2305220742069152162161257, price=1998000, role_name=提督, room_effect_id=591, start_time=1684712543, svga_block=0, target_guard_count=58, toast_msg=<%Eden-A%> 开通了提督，今天是TA陪伴主播的第1天, uid=15486216, unit=月, user_show=true, username=Eden-A)
     }
 
@@ -329,7 +459,7 @@ public class DanmuServiceImpl implements DanmuService {
 //        System.out.println("sc 的发送人uid为 :" + superChatMessage.getUid());
 //        System.out.println("sc 的发送人头像地址 :" + superChatMessage.getUser_info().getFace());
 
-        log.info("收到 " + superChatMessage.getUser_info().getUname() + "的 " + superChatMessage.getPrice() + "元 +superChatMessage.getTime()" + "秒 醒目留言" + "并且说 " + superChatMessage.getMessage());
+        log.info("收到 " + superChatMessage.getUser_info().getUname() + "的 " + superChatMessage.getPrice() + "元" + superChatMessage.getTime() + "秒 醒目留言" + "并且说 " + superChatMessage.getMessage());
 
         // todo 暂时伪装成的弹幕发送出去
         DanMu_MSG_Info danMuMsgInfo = new DanMu_MSG_Info();
@@ -449,8 +579,8 @@ public class DanmuServiceImpl implements DanmuService {
         MainConf.anchorLot_endTime = anchorLot.getCurrent_time() + anchorLot.getMax_time();
 
         log.info("发现天选，发送弹幕" + anchorLot);
-        System.out.println(timestamp2Date(String.valueOf(anchorLot.getCurrent_time()), "yyyy-MM-dd HH:mm:ss"));
-        System.out.println(timestamp2Date(String.valueOf(anchorLot.getCurrent_time() + anchorLot.getMax_time()), "yyyy-MM-dd HH:mm:ss"));
+        log.debug(timestamp2Date(String.valueOf(anchorLot.getCurrent_time()), "yyyy-MM-dd HH:mm:ss"));
+        log.debug(timestamp2Date(String.valueOf(anchorLot.getCurrent_time() + anchorLot.getMax_time()), "yyyy-MM-dd HH:mm:ss"));
         // todo 天选中奖推送 前端
     }
 
@@ -494,6 +624,78 @@ public class DanmuServiceImpl implements DanmuService {
                 anchorLot.setDanmu(array3.getString("msg"));
                 anchorLot.setCurrent_time(array3.getLong("timestamp"));
                 MainConf.anchorLot_endTime = 0L;
+                log.info("发现天选");
+                JSONObject jsonObject_data = JSONObject.parseObject(message);
+                String send_time = jsonObject_data.getString("send_time");
+
+                log.info("结束时间");
+                log.info(timestamp2Date(send_time, "yyyy-MM-dd HH:mm:ss"));
+
+            }
+        }
+    }
+
+    @Override
+    public void roomBlockFunction(String message) {
+        JSONObject jsonObject_data = JSONObject.parseObject(message);
+        String uname = jsonObject_data.getString("uname");
+        String uid = jsonObject_data.getString("uid");
+        int type = jsonObject_data.getJSONObject("data").getInteger("operator");
+        switch (type) {
+            case 1:
+                log.info(" 惨!! " + uname + " 已被 管理员 禁言 " + "  用户uid为" + uid);
+                break;
+            case 2:
+                log.info(" 惨!! " + uname + " 已被 主播 禁言" + "  用户uid为" + uid);
+                break;
+            default:
+                log.info(" 惨!! " + uname + " 已被 系统 禁言" + "  用户uid为" + uid);
+                break;
+        }
+    }
+
+    @Override
+    public void roomAdminEntranceFunction(String message) {
+        JSONObject jsonObject_data = JSONObject.parseObject(message);
+        JSONObject array1 = jsonObject_data.getJSONObject("data");
+
+        String send_time = jsonObject_data.getString("send_time");
+        // 1690255427537 这里的时间是十三位，其他地方时十位
+        String uid = jsonObject_data.getString("uid");
+        log.info("用户uid为" + uid + "已被设置为房管");
+    }
+
+    @Override
+    public void roomAdminRevokeFunction(String message) {
+        // 撤销房管不会推送 列表
+        JSONObject jsonObject_data = JSONObject.parseObject(message);
+        String uid = jsonObject_data.getString("uid");
+        log.info("uid " + uid + "" + "被撤销房管了");
+        // {"cmd":"ROOM_ADMIN_REVOKE","is_report":false,"msg":"撤销房管","msg_id":"619298914568704","send_time":1689735098938,"uid":287769888}
+    }
+
+    @Override
+    public void roomAdminFunction(String message) {
+        log.info("更新了房管列表");
+        JSONObject jsonObject_data = JSONObject.parseObject(message);
+        JSONArray jsonArray = jsonObject_data.getJSONArray("uids");
+        List<String> list = jsonArray.toJavaList(String.class);
+        log.info("房管uid列表 更新为 " + list.toString());
+        // {"cmd":"ROOM_ADMINS","is_report":false,"msg_id":"619243972856320","send_time":1689734994145,"uids":[4444605,287769888]}
+    }
+
+    @Override
+    public void liveStartFunction(String message) {
+        if (StringUtils.isEmpty(MainConf.USERCOOKIE)) {
+            log.info("未登录，无法发送 开播消息");
+        }
+
+        String msg = MainConf.centerSetConf.startLiveMessage;
+        if (StringUtils.isEmpty(msg)) {
+            log.info("开播以后要发送弹幕为空，不发送");
+        } else {
+            if (HttpRoomUtil.httpSendBarrage(msg)) {
+                log.info("发送开播消息成功");
             }
         }
     }
@@ -515,11 +717,13 @@ public class DanmuServiceImpl implements DanmuService {
         String uname = jsonObject_gift.getString("uname");
         int guard_level = jsonObject_gift.getInteger("guard_level");
         int price = jsonObject_gift.getInteger("price");
+
         Long gift_timestamp = jsonObject_gift.getLong("timestamp");
         String action = jsonObject_gift.getString("action");
         String coin_type = jsonObject_gift.getString("coin_type");
         MedalInfo medalInfo = jsonObject_gift.getObject("medal_info", MedalInfo.class);
         String faceUrl = jsonObject_gift.getString("face");
+
         SimpleGift simpleGift = new SimpleGift(uid, giftId, giftName, num, uname, guard_level, price, gift_timestamp, action, coin_type, medalInfo, "", faceUrl);
         GiftConfigData giftConfigData = MainConf.giftMap.get(simpleGift.getGiftId());
 
@@ -527,7 +731,7 @@ public class DanmuServiceImpl implements DanmuService {
             log.info("找不到礼物图片");
             // 可能中途新增的礼物 todo 新增查询礼物列表
             log.info("" + simpleGift.getGiftId());
-            log.info("" + MainConf.giftMap);
+//            log.info("" + MainConf.giftMap);
             return simpleGift;
         }
 
@@ -573,13 +777,13 @@ public class DanmuServiceImpl implements DanmuService {
         boolean isEmoticon;
         if (StringUtils.isNotEmpty(b1) && "1".equals(b1)) {
             // 表情处理
-            // log.info("是表情");
+            log.debug("是表情");
             isEmoticon = true;
             // log.info("表情地址" + ((JSONObject) ((JSONArray) array1.get(0)).get(13)).get("url"));
         } else {
             isEmoticon = false;
             // 弹幕处理
-            //  log.info("是弹幕");
+            log.debug("是弹幕");
         }
 
         JSONArray j2 = (JSONArray) array.get(2);
@@ -601,6 +805,12 @@ public class DanmuServiceImpl implements DanmuService {
         danMuMsgInfo.setIsFansMedal(isFansMedal);
         danMuMsgInfo.setUl_level(Long.parseLong(j4.get(0).toString()));
 
+        // 荣耀等级
+        int honorLevel = ((JSONArray) array.get(16)).getInteger(0);
+        log.debug("发送弹幕的用户荣耀等级为 " + honorLevel);
+        danMuMsgInfo.setHonorLevel(honorLevel);
+
+
         // 有勋章时 赋值勋章
         if (isFansMedal) {
             danMuMsgInfo.setMedal_level(Integer.parseInt(j3.get(0).toString()));
@@ -619,7 +829,6 @@ public class DanmuServiceImpl implements DanmuService {
         }
         return danMuMsgInfo;
     }
-
 
     /**
      * 优化显示数据
@@ -775,4 +984,65 @@ public class DanmuServiceImpl implements DanmuService {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * 汉字转为拼音
+     *
+     * @param chinese
+     * @return
+     */
+    public static String toPinyin(String chinese) {
+        String pinyinStr = "";
+        char[] newChar = chinese.toCharArray();
+        HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
+        defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        for (int i = 0; i < newChar.length; i++) {
+            if (newChar[i] > 128) {
+                try {
+                    pinyinStr += PinyinHelper.toHanyuPinyinStringArray(newChar[i], defaultFormat)[0];
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                    e.printStackTrace();
+                }
+            } else {
+                pinyinStr += newChar[i];
+            }
+        }
+        log.info(Arrays.toString(newChar));
+        return pinyinStr;
+    }
+
+
+    public static List<PinYin_barrage> toPinyinList(String chinese) {
+
+        List<PinYin_barrage> list = new ArrayList<>();
+
+        String pinyinStr = "";
+        char[] newChar = chinese.toCharArray();
+        HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
+        defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        for (int i = 0; i < newChar.length; i++) {
+            if (newChar[i] > 128) {
+                try {
+                    PinYin_barrage pinYinBarrage = new PinYin_barrage();
+                    pinYinBarrage.setMessage(newChar[i] + "");
+                    pinYinBarrage.setPinYin(PinyinHelper.toHanyuPinyinStringArray(newChar[i], defaultFormat)[0] + "");
+                    list.add(pinYinBarrage);
+
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                    e.printStackTrace();
+                }
+            } else {
+                pinyinStr += newChar[i];
+                PinYin_barrage pinYinBarrage = new PinYin_barrage();
+                pinYinBarrage.setMessage(newChar[i] + "");
+                pinYinBarrage.setPinYin("");
+                list.add(pinYinBarrage);
+            }
+        }
+        return list;
+    }
+
+
 }

@@ -110,41 +110,133 @@ public class ParseMessageThread extends Thread {
 
                     writeList.add("GIFT_PANEL_PLAN"); // 礼物面板计划（未知） {"cmd":"GIFT_PANEL_PLAN","data":{"gift_list":[{"gift_id":31593,"config":null,"full_sc_effect":null,"float_sc_effect":null,"special_type":6,"show":false},{"gift_id":31595,"config":null,"full_sc_effect":null,"float_sc_effect":null,"special_type":6,"show":false},{"gift_id":31596,"config":null,"full_sc_effect":null,"float_sc_effect":null,"special_type":6,"show":false},{"gift_id":31597,"config":null,"full_sc_effect":null,"float_sc_effect":null,"special_type":6,"show":false},{"gift_id":31594,"config":null,"full_sc_effect":null,"float_sc_effect":null,"special_type":6,"show":false}],"special_type_sort":null,"action":2}}
 
+                    writeList.add("ROOM_REAL_TIME_MESSAGE_UPDATE"); // 粉丝数更新
+
+                    writeList.add("COMBO_SEND"); // 连击
+                    writeList.add("MESSAGEBOX_USER_MEDAL_CHANGE"); //  登录以后  点亮勋章时 首条弹幕 推送
+                    // {"cmd":"MESSAGEBOX_USER_MEDAL_CHANGE","data":{"guard_level":0,"is_lighted":1,"medal_color_border":6067854,"medal_color_end":6067854,"medal_color_start":6067854,"medal_level":3,"medal_name":"少少甜","multi_unlock_level":"","type":2,"uid":939948,"unlock":0,"unlock_level":0,"up_uid":3493290001304295,"upper_bound_content":""},"is_report":false,"msg_id":"853852442069504","send_time":1690182474288}
+
+                    writeList.add("GOTO_BUY_FLOW"); // 正在去购物
+                    writeList.add("RECOMMEND_CARD"); // 推荐广告
+                    writeList.add("LITTLE_MESSAGE_BOX"); // 登陆后 今日首条弹幕发送成功~亲密度+100
+
+                    writeList.add("LIVE_MULTI_VIEW_CHANGE"); // 实时多视图更改 // {"cmd":"LIVE_MULTI_VIEW_CHANGE","data":{"scatter":{"max":120,"min":5}},"is_report":false,"msg_id":"855508549374976","send_time":1690185633062}
+//
+
+                    writeList.add("SUPER_CHAT_MESSAGE_JPN");// 日语翻译SC
+                    // {"cmd":"SUPER_CHAT_MESSAGE_JPN","data":{"background_bottom_color":"#2A60B2","background_color":"#EDF5FF","background_icon":"","background_image":"","background_price_color":"#7497CD","end_time":1690192998,"gift":{"gift_id":12000,"gift_name":"醒目留言","num":1},"id":"7661997","is_ranked":1,"medal_info":{"anchor_roomid":510,"anchor_uname":"阿梓从小就很可爱","icon_id":0,"medal_color":"#6154c","medal_level":27,"medal_name":"小孩梓","special":"","target_id":7706705},"message":"下把给神抢卡莎吧 相信物资卡莎的输出","message_jpn":"次は神にカーサを奪おう物資カーサの輸出を信じて","price":30,"rate":1000,"start_time":1690192938,"time":58,"token":"3872153B","ts":1690192939,"uid":"103941353","user_info":{"face":"https://i2.hdslb.com/bfs/face/1301ab0729a6206ae26e34c463ab638c2f0010f3.webp","face_frame":"https://i0.hdslb.com/bfs/live/80f732943cc3367029df65e267960d56736a82ee.png","guard_level":3,"is_main_vip":0,"is_svip":0,"is_vip":0,"level_color":"#61c05a","manager":0,"title":"0","uname":"寄十五","user_level":20}},"is_report":false,"msg_id":"859339536996353","roomid":"80397","send_time":1690192940091}
+
+                    writeList.add("COMMON_NOTICE_DANMAKU");// 恭喜主播 阿梓从小就很可爱 %\u003e成为 上小时人气榜 第 10 名
+                    // {"cmd":"COMMON_NOTICE_DANMAKU","data":{"biz_id":0,"content_segments":[{"font_color":"#998EFF","font_color_dark":"#998EFF","highlight_font_color":"#998EFF","highlight_font_color_dark":"#998EFF","text":"\u003c%恭喜主播 阿梓从小就很可爱 %\u003e成为 上小时人气榜 第 10 名！","type":1}],"danmaku_style":{"background_color":[],"background_color_dark":[]},"danmaku_uri":"","dmscore":144,"terminals":[4]},"is_report":false,"msg_id":"859269454891537","send_time":1690192806420}
+
+                    writeList.add("WIDGET_GIFT_STAR_PROCESS");// 礼物星球
+                    // {"cmd":"WIDGET_GIFT_STAR_PROCESS","data":{"ddl_timestamp":1690732800,"finished":false,"process_list":[{"completed_num":21,"gift_id":31036,"gift_img":"https://s1.hdslb.com/bfs/live/8b40d0470890e7d573995383af8a8ae074d485d9.png","gift_name":"礼物星球","target_num":200},{"completed_num":8,"gift_id":31037,"gift_img":"https://s1.hdslb.com/bfs/live/461be640f60788c1d159ec8d6c5d5cf1ef3d1830.png","gift_name":"礼物星球","target_num":100},{"completed_num":0,"gift_id":31591,"gift_img":"https://s1.hdslb.com/bfs/live/239c1e0c584b47601347812536422a37a5e3b3b9.png","gift_name":"礼物星球","target_num":1}],"reward_gift":32269,"reward_gift_img":"https://s1.hdslb.com/bfs/live/52edb4ab7377ece34ac15b21154d13d188874b01.png","reward_gift_name":"礼物星球","start_date":20230724,"version":1690192790804},"is_report":false,"msg_id":"859261270765568","send_time":1690192790810}
+
+                    writeList.add("ROOM_ADMINS"); // 房管列表
+                    writeList.add("room_admin_entrance"); // 新增房管
+                    writeList.add("ROOM_ADMIN_REVOKE"); // 撤销房管
+
+                    writeList.add("ROOM_BLOCK_MSG"); // 禁言消息
+
+                    writeList.add("ENTRY_EFFECT_MUST_RECEIVE"); // 登录后 去其他直播间推送
+                    // {"cmd":"ENTRY_EFFECT_MUST_RECEIVE","data":{"basemap_url":"https://i0.hdslb.com/bfs/live/mlive/e2d85de0b44c9201c1cbd0ba4a7c762c58d3472f.png","business":6,"copy_color":"#F7F7F7","copy_writing":"\u003c%春风十里不如一...%\u003e进入直播间","copy_writing_v2":"\u003c%春风十里不如…%\u003e进入直播间","effect_silent_time":0,"effective_time":4,"effective_time_new":0,"face":"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg","highlight_color":"#FFFFFF","icon_list":[],"id":383,"identities":1,"max_delay_time":7,"mobile_dynamic_url_webp":"","mock_effect":0,"new_style":1,"priority":1,"privilege_type":0,"show_avatar":0,"target_id":2125942578,"trigger_time":1690436659631423000,"uid":939948,"wealthy_info":{"cur_score":16996000,"dm_icon_key":"ChronosWealth_4.png","level":46,"level_total_score":30000000,"status":1,"uid":939948,"upgrade_need_score":13004000},"web_basemap_url":"https://i0.hdslb.com/bfs/live/mlive/e2d85de0b44c9201c1cbd0ba4a7c762c58d3472f.png","web_close_time":900,"web_dynamic_url_apng":"","web_dynamic_url_webp":"","web_effect_close":1,"web_effective_time":4},"is_report":false,"msg_id":"987119383222784","send_time":1690436660806}
+
+                    writeList.add("DANMU_AGGREGATION"); // 天选消息 天选堆叠消息
+                    // {"cmd":"DANMU_AGGREGATION","data":{"activity_identity":"4684853","activity_source":1,"aggregation_cycle":1,"aggregation_icon":"https://i0.hdslb.com/bfs/live/c8fbaa863bf9099c26b491d06f9efe0c20777721.png","aggregation_num":18,"broadcast_msg_type":0,"dmscore":144,"msg":"开心第一","show_rows":1,"show_time":2,"timestamp":1690437050},"is_report":false,"msg_id":"987323730767872","send_time":1690437050568}
+                    // msg":"开心第一" 为弹幕消息  aggregation_num 为堆叠的天选数量
+
+
+                    // pk消息
+                    writeList.add("PK_BATTLE_PRE_NEW"); // 新pk新增
+                    // {"cmd":"PK_BATTLE_PRE_NEW","data":{"battle_type":2,"end_win_task":null,"face":"https://i0.hdslb.com/bfs/face/1c0fd0394dfbac069f5edf4317b46e820e01d0fe.jpg","match_type":1,"pk_votes_name":"PK值","pre_timer":10,"room_id":30048933,"season_id":63,"uid":53589402,"uname":"溜溜秋儿"},"is_report":false,"msg_id":"987839380589056","pk_id":328247422,"pk_status":101,"roomid":26090472,"send_time":1690438034092,"timestamp":1690438034}
+
+                    writeList.add("PK_BATTLE_PRE"); // 新pk准备
+                    // {"cmd":"PK_BATTLE_PRE","data":{"battle_type":2,"end_win_task":null,"face":"https://i0.hdslb.com/bfs/face/1c0fd0394dfbac069f5edf4317b46e820e01d0fe.jpg","match_type":1,"pk_votes_name":"PK值","pre_timer":10,"room_id":30048933,"season_id":63,"uid":53589402,"uname":"溜溜秋儿"},"is_report":false,"msg_id":"987839401039872","pk_id":328247422,"pk_status":101,"roomid":26090472,"send_time":1690438034131,"timestamp":1690438034}
+
+                    writeList.add("PK_BATTLE_START_NEW"); // 新pk开始
+                    // {"cmd":"PK_BATTLE_START_NEW","data":{"battle_type":2,"final_conf":{"end_time":1690438224,"start_time":1690438164,"switch":1},"final_hit_votes":0,"init_info":{"date_streak":0,"room_id":30048933},"match_info":{"date_streak":0,"room_id":26090472},"pk_countdown":1690438334,"pk_end_time":1690438354,"pk_frozen_time":1690438344,"pk_start_time":1690438044,"pk_votes_add":0,"pk_votes_name":"PK值","pk_votes_type":0,"star_light_msg":""},"is_report":false,"msg_id":"987844812215296","pk_id":328247422,"pk_status":201,"roomid":"26090472","send_time":1690438044452,"timestamp":1690438044}
+
+                    writeList.add("PK_BATTLE_START"); // 新pk战斗开始
+                    // {"cmd":"PK_BATTLE_START","data":{"battle_type":2,"final_conf":{"end_time":1690438224,"start_time":1690438164,"switch":1},"final_hit_votes":0,"init_info":{"date_streak":0,"room_id":30048933},"match_info":{"date_streak":0,"room_id":26090472},"pk_countdown":1690438334,"pk_end_time":1690438354,"pk_frozen_time":1690438344,"pk_start_time":1690438044,"pk_votes_add":0,"pk_votes_name":"PK值","pk_votes_type":0,"star_light_msg":""},"is_report":false,"msg_id":"987844822702081","pk_id":328247422,"pk_status":201,"roomid":"26090472","send_time":1690438044472,"timestamp":1690438044
+
+                    writeList.add("PK_BATTLE_FINAL_PROCESS"); // pk过程
+                    // {"cmd":"PK_BATTLE_FINAL_PROCESS","data":{"battle_type":2,"pk_frozen_time":1690438344},"is_report":false,"msg_id":"987908065472516","pk_id":328247422,"pk_status":301,"send_time":1690438165098,"timestamp":1690438165}
+
+//                    writeList.add("PK_BATTLE_FINAL_PROCESS"); // pk过程
+                   // {"cmd":"PK_BATTLE_FINAL_PROCESS","data":{"battle_type":2,"pk_frozen_time":1690438344},"is_report":false,"msg_id":"987938960184320","pk_id":328247422,"pk_status":201,"send_time":1690438224025,"timestamp":1690438224}
+
+                    writeList.add("PK_BATTLE_END"); // pk结束
+                    // {"cmd":"PK_BATTLE_END","data":{"battle_type":2,"dm_conf":{"bg_color":"#72C5E2","font_color":"#FFE10B"},"init_info":{"assist_info":[{"face":"https://i0.hdslb.com/bfs/face/member/noface.jpg","rank":1,"score":520,"uid":408293926,"uname":"那这样好不好"},{"face":"https://i0.hdslb.com/bfs/face/d5d4254b45e671ce821b2a9aede68f8b31f0d4af.jpg","rank":2,"score":1,"uid":4139133,"uname":"にゃ゛"}],"best_uname":"那这样好不好","room_id":30048933,"votes":521,"winner_type":-1},"match_info":{"assist_info":[{"face":"https://i0.hdslb.com/bfs/face/member/noface.jpg","rank":1,"score":1788,"uid":3494357135001620,"uname":"叫我小宇就好w"}],"best_uname":"叫我小宇就好w","room_id":26090472,"votes":1788,"winner_type":2},"show_streak":false,"timer":10},"is_report":false,"msg_id":"988002902355968","pk_id":"328247422","pk_status":401,"send_time":1690438345985,"timestamp":1690438345}
+
+                    writeList.add("PK_BATTLE_SETTLE"); // pk 结算
+                    // {"cmd":"PK_BATTLE_SETTLE","data":{"battle_type":2,"result_type":2,"star_light_msg":""},"is_report":false,"msg_id":"988002995673089","pk_id":328247422,"pk_status":401,"roomid":"26090472","send_time":1690438346163,"settle_status":1,"timestamp":1690438346}
+
+                    writeList.add("PK_BATTLE_SETTLE_USER"); // pk结算用户
+                    // {"cmd":"PK_BATTLE_SETTLE_USER","data":{"battle_type":0,"level_info":{"first_rank_img":"https://i0.hdslb.com/bfs/live/ae44e555f005f2e1dd4c6c54efa24aff68607692.png","first_rank_name":"黄金战神","second_rank_icon":"https://i0.hdslb.com/bfs/live/1f8c2a959f92592407514a1afeb705ddc55429cd.png","second_rank_num":2},"my_info":{"best_user":{"award_info":null,"award_info_list":[],"badge":{"desc":"","position":0,"url":""},"end_win_award_info_list":{"list":[]},"exp":{"color":6406234,"level":1},"face":"https://i0.hdslb.com/bfs/face/member/noface.jpg","face_frame":"","pk_votes":1788,"pk_votes_name":"PK值","uid":3494357135001620,"uname":"叫我小宇就好w"},"exp":{"color":5805790,"master_level":{"color":16746162,"level":32},"user_level":22},"face":"https://i2.hdslb.com/bfs/face/f1e7388b6030ee1deab1fa07093cad1618cb2e90.jpg","face_frame":"https://i0.hdslb.com/bfs/live/a9b9816c54cbe953685e50ec7a2b40ba0be14cd7.png","room_id":26090472,"uid":2035273583,"uname":"粥粥一米八"},"pk_id":"328247422","result_info":{"pk_crit_score":-1,"pk_done_times":3,"pk_extra_score":0,"pk_extra_score_slot":"","pk_extra_value":0,"pk_resist_crit_score":-1,"pk_task_score":0,"pk_times_score":0,"pk_total_times":-1,"pk_votes":1788,"pk_votes_name":"PK值","result_type_score":68,"task_score_list":[],"total_score":68,"win_count":1,"win_final_hit":-1,"winner_count_score":0},"result_type":2,"season_id":63,"settle_status":1,"winner":{"best_user":{"award_info":null,"award_info_list":[],"badge":{"desc":"","position":0,"url":""},"end_win_award_info_list":{"list":[]},"exp":{"color":6406234,"level":1},"face":"https://i0.hdslb.com/bfs/face/member/noface.jpg","face_frame":"","pk_votes":1788,"pk_votes_name":"PK值","uid":3494357135001620,"uname":"叫我小宇就好w"},"exp":{"color":5805790,"master_level":{"color":16746162,"level":32},"user_level":22},"face":"https://i2.hdslb.com/bfs/face/f1e7388b6030ee1deab1fa07093cad1618cb2e90.jpg","face_frame":"https://i0.hdslb.com/bfs/live/a9b9816c54cbe953685e50ec7a2b40ba0be14cd7.png","room_id":26090472,"uid":2035273583,"uname":"粥粥一米八"}},"is_report":false,"msg_id":"988003117307904","pk_id":328247422,"pk_status":401,"send_time":1690438346395,"settle_status":1,"timestamp":1690438346}
+
+                    writeList.add("PK_BATTLE_SETTLE_V2"); // pk结算用户 第二版
+                    // {"cmd":"PK_BATTLE_SETTLE_V2","data":{"assist_list":[{"face":"https://i0.hdslb.com/bfs/face/member/noface.jpg","id":3494357135001620,"score":1788,"uname":"叫我小宇就好w"}],"level_info":{"first_rank_img":"https://i0.hdslb.com/bfs/live/ae44e555f005f2e1dd4c6c54efa24aff68607692.png","first_rank_name":"黄金战神","second_rank_icon":"https://i0.hdslb.com/bfs/live/1f8c2a959f92592407514a1afeb705ddc55429cd.png","second_rank_num":2,"uid":"2035273583"},"pk_id":"328247422","pk_type":2,"result_info":{"pk_extra_value":0,"pk_votes":1788,"pk_votes_name":"PK值","total_score":68},"result_type":2,"season_id":63,"star_light_msg":""},"is_report":false,"msg_id":"988003156105217","pk_id":328247422,"pk_status":401,"send_time":1690438346469,"settle_status":1,"timestamp":1690438346}
+
+                    writeList.add("PK_BATTLE_VIDEO_PUNISH_BEGIN"); // pk惩罚时间开始
+                    // {"cmd":"PK_BATTLE_VIDEO_PUNISH_BEGIN","data":{"battle_type":2,"init_info":{"best_uname":"那这样好不好","room_id":30048933,"votes":521,"winner_type":-1},"match_info":{"best_uname":"叫我小宇就好w","room_id":26090472,"votes":1788,"winner_type":2},"video_punish":{"duration":180,"punish_name":"惩罚"}},"is_report":false,"msg_id":"988004216739840","pk_id":"328247422","pk_status":701,"send_time":1690438348492,"timestamp":1690438348}
+
+
+                    writeList.add("PK_BATTLE_VIDEO_PUNISH_END"); // pk惩罚时间结束
+                    // {"cmd":"PK_BATTLE_VIDEO_PUNISH_END","is_report":false,"msg_id":"988098603256320","pk_id":"328247422","pk_status":1001,"send_time":1690438528520,"timestamp":1690438528}
+
+
+                    writeList.add("TRADING_SCORE");// 这个是啥？ 交易得分？
+                    // {"cmd":"TRADING_SCORE","data":{"bubble_show_time":3,"num":10,"score_id":3,"uid":2035273583,"update_time":1690438443,"update_type":1},"is_report":false,"msg_id":"988054273667073","send_time":1690438443968}
+
+                    writeList.add("LIVE_OPEN_PLATFORM_GAME"); // 互动玩法 消息推送
+                    //{"cmd":"LIVE_OPEN_PLATFORM_GAME","data":{"block_uids":[],"game_code":"1659261256750","game_conf":"","game_id":"0c228b1e-9dcc-44c5-ba03-408bb3558504","game_msg":"{\"play_instructions\":\"粉丝占领玩法:\\n抢夺地块,给对方主播添加小石块捣乱\\n礼物说明:\\n在单人模式下,捣乱的礼物都会给自家主播.\\n单人模式下,加入蓝方阵营会给自己的主播捣乱\",\"dm_command\":[{\"dm_text\":\"我要上墙\",\"dm_key\":\"我要上墙\",\"dm_effect\":\"主播的下一个方块由你制造\"}],\"gift_command\":[{\"gift_id\":31594,\"gift_desc\":\"给对手赠送造型怪异的方块；\\n粉丝自己可获得1个分身。\",\"gift_name\":\"异形方块\",\"gift_icon\":\"http://i0.hdslb.com/bfs/open-live/78c3fd1fca033dc16aa1b955a9df87e8b285fcc7.png\",\"gift_price_gold\":6000,\"gift_price_cell\":60},{\"gift_id\":31593,\"gift_desc\":\"生成1个填补空洞的方块。\",\"gift_name\":\"查漏补缺\",\"gift_icon\":\"https://i0.hdslb.com/bfs/live/dfbbe35fe4a2aa4783c90686a438b5d6a05b6c3c.png\",\"gift_price_gold\":1000,\"gift_price_cell\":10},{\"gift_id\":31595,\"gift_desc\":\"给对手赠送数个需要3次消除的冰块；\\n粉丝自己可获得2个分身。\",\"gift_name\":\"坚硬冰块\",\"gift_icon\":\"https://i0.hdslb.com/bfs/live/5f0ee58e871d285e7119ddd5c643de09eadfb663.png\",\"gift_price_gold\":10000,\"gift_price_cell\":100},{\"gift_id\":31597,\"gift_desc\":\"帮助你的主播将所有方块清除并降低方块下落速度；\\n粉丝自己可获得20个分身。\",\"gift_name\":\"召唤神龙\",\"gift_icon\":\"https://i0.hdslb.com/bfs/live/c9bf640549d16530cd0624bf46e998d7a5ece89c.png\",\"gift_price_gold\":100000,\"gift_price_cell\":1000},{\"gift_id\":31596,\"gift_desc\":\"给对手增加40个无法常规消除的方块；\\n粉丝自己可获得10个分身。\",\"gift_name\":\"无敌锁定\",\"gift_icon\":\"https://i0.hdslb.com/bfs/live/1cdd815dae85203254c96eea3154b4e119d167a7.png\",\"gift_price_gold\":60000,\"gift_price_cell\":600}]}","game_name":"欢乐俄罗斯方块","game_status":"","interactive_panel_conf":"{\"dragHeight\":50,\"dragPosition\":[225,0],\"dragWidth\":100,\"dragable\":true,\"general_panel\":true,\"iframeHeight\":316,\"iframeWidth\":375,\"mode\":\"absolute\",\"padding\":30,\"position\":\"RightBottom\",\"url\":\"https://www.bilibili.com/blackboard/live/activity-SF16ybjFny.html\",\"zoomPosition\":[345,0],\"zoomable\":true,\"zoompic\":[\"//i0.hdslb.com/bfs/activity-plat/static/20220526/faba1267af4f618319b80230b8d343e5/g6U9fafjS2.png\",\"//i0.hdslb.com/bfs/activity-plat/static/20220527/faba1267af4f618319b80230b8d343e5/RB5aUlBmxM.png\"]}","msg_sub_type":"game_start","msg_type":"game_start","timestamp":1690442812},"is_report":false,"msg_id":"990344791463937","send_time":1690442812784}
+
+                    writeList.add("LIVE"); // 开播
+                    // {"cmd":"LIVE","is_report":false,"live_key":"391279285990814625","live_model":0,"live_platform":"pc_link","live_time":1691027955,"msg_id":"1297128346368513","roomid":24343457,"send_time":1691027955978,"sub_session_key":"391279285990814625sub_time:1691027955","voice_background":""}
+
+                    writeList.add("SHOPPING_CART_SHOW"); // 开播推送
+                    // {"cmd":"SHOPPING_CART_SHOW","data":{"status":2},"is_report":false,"msg_id":"1302936580798977","send_time":1691039034306}
+
+                    writeList.add("CARD_MSG"); // 登录后 推送的 （进谁房间的推送）
+                    //  消息为{"cmd":"CARD_MSG","data":{"card_data":{"arouse":600,"interval":3,"msg":"快来关注我，下次直播不迷路~","room_id":30167013,"source_event":1,"uid":939948},"card_type":"daily_recommend"},
+
+                    writeList.add("ROOM_CHANGE"); // 切换分区
+                    //{"cmd":"SHOPPING_CART_SHOW","data":{"status":2},"is_report":false,"msg_id":"1302936580798977","send_time":1691039034306}
+
+                    writeList.add("ANCHOR_HELPER_DANMU");
+                    // {"cmd":"ANCHOR_HELPER_DANMU","data":{"button_label":0,"button_name":"去看看","button_platform":3,"button_target":"bililive://blink/open_web?url=https://live.bilibili.com/activity/live-activity-full/task_center/mobile.html?is_live_half_webview=1\u0026no-jump=1\u0026pc_ui=375,626,242635,0\u0026hybrid_rotate_d=1\u0026hybrid_half_ui=1,3,100p,70p,242635,0,0,0,12,0;2,2,375,100p,242635,0,0,0,12,0;3,3,100p,70p,242635,0,0,0,12,0;4,2,375,100p,242635,0,0,0,12,0;5,3,100p,70p,242635,0,0,0,12,0;6,3,100p,70p,242635,0,0,0,12,0;7,3,100p,70p,242635,0,0,0,12,0;8,3,100p,70p,242635,0,0,0,12,0\u0026h5_link_type=2","msg":"本周再开播1有效天，必得1流量包。今天再开播27分钟，即可+1天哦","platform":3,"report":"939948","report_type":"weekly_task","sender":"直播小助手"},"is_report":false,"msg_id":"1316561446523904","send_time":1691065021675}
+
+                    writeList.add("NEW_PK_REJECT"); // 发起PK
+                    // {"cmd":"NEW_PK_REJECT","data":{"attention":1,"current_time":1691065138,"face":"https://i1.hdslb.com/bfs/face/f519452d02b37f12f64a31f188f3132b90920959.jpg","invited_id":13406251,"reject_reason":0,"toast":"","type":4,"uid":3493130210904748,"uname":"卉玲儿","virtual_id":0},"is_report":false,"msg_id":"1316622758860288","room_id":0,"send_time":1691065138619}
+
+                    writeList.add("INTERACT_JOIN_OLD"); // 发起PK (额外）
+                    //{"cmd":"INTERACT_JOIN_OLD","data":{"business_type":3,"buvid":"1CB98901-BF5A-4990-A7E0-EE5495FB7B59138380infoc","cdn":1,"ch_id":"328627511","channel_info":"","exist_uids":null,"initiator":3493130210904748,"inner_extra":"{\"send_uid\":3493130210904748,\"send_room_id\":27028064,\"pk_id\":328627511,\"pk_status\":101,\"status_msg\":\"\",\"is_followed\":1,\"uname\":\"春风十里不如一路有语\",\"face\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"uid\":939948,\"room_id\":3961583,\"season_id\":10000,\"pre_timer\":10,\"pk_votes_name\":\"\",\"end_win_task\":null,\"battle_type\":6,\"match_type\":5}","interact_id":16294102,"invited_uid":939948,"link_id":3360955,"start_at":1691065138},"is_report":false,"msg_id":"1316622749421568","room_id":0,"send_time":1691065138601}
+
+                    writeList.add("LIKE_INFO_V3_NOTICE"); // 点赞多了推送
+                    // {"cmd":"LIKE_INFO_V3_NOTICE","data":{"content_segments":[{"font_color":"#F494AF","text":"本场点赞已累计100，快去号召直播间用户继续为你助力吧~","type":1}],"danmaku_style":{"background_color":null},"terminals":[2,5]},"is_report":false,"msg_id":"1317489033632768","send_time":1691066790907}
+
+                    writeList.add("GIFT_STAR_PROCESS"); // 点亮礼物星球推送
+                    //{"cmd":"GIFT_STAR_PROCESS","data":{"status":1,"tip":"喜鹊已点亮"}}
+
+                    // 开通舰长推送两条消息
+                    writeList.add("USER_TOAST_MSG");
+                    // {"cmd":"USER_TOAST_MSG","data":{"anchor_show":true,"color":"#00D1F1","dmscore":90,"effect_id":397,"end_time":1691116514,"face_effect_id":44,"gift_id":10003,"guard_level":3,"is_show":0,"num":1,"op_type":2,"payflow_id":"2308041034572882120773571","price":138000,"role_name":"舰长","room_effect_id":590,"start_time":1691116514,"svga_block":0,"target_guard_count":82,"toast_msg":"\u003c%与枝今天学人精了吗%\u003e 在主播与枝老师的直播间续费了舰长，今天是TA陪伴主播的第359天","uid":1461372077,"unit":"月","user_show":true,"username":"与枝今天学人精了吗"},"is_report":false,"msg_id":"1343558588060160","send_time":1691116514636}
 
                     if (!writeList.contains(cmd)) {
-//                        log.info("消息类型为" + cmd);
-//                        log.info("消息为" + message);
+                        log.info("消息类型为" + cmd);
+                        log.info("消息为" + message);
                     }
+//                    log.info("消息类型为" + cmd);
+//                        log.info("消息为" + message);
 
                     switch (cmd) {
-                        // 弹幕
                         case "DANMU_MSG":
-                            // log.info("弹幕 message");
-                            // log.info(message);
                             danmuService.danmuFunction(message);
                             break;
 
                         // 送普通礼物
                         case "SEND_GIFT":
-                            // log.info("SEND_GIFT");
-                            // log.info(message);
-
                             danmuService.giftFunction(message);
-
-
-//                            action: "投喂"
-//                            coin_type: "silver"
-//                            giftId: 1
-//                            giftName: "辣条"
-//                            guard_level: 0
-//                            medalInfo: {anchor_roomid: '0', anchor_uname: '', guard_level: 3, icon_id: 0, is_lighted: 1, …}
-//                            num: 1
-//                            price: 100
-//                            timestamp: 1681049747
-//                            uid: 939948
-//                            uname: "春风十里不如一路有语"
-
-
                             //{"cmd":"SEND_GIFT","data":{"action":"投喂","batch_combo_id":"1c8a7b39-af71-4a6b-9aa8-9b8947e5d609","batch_combo_send":{"action":"投喂","batch_combo_id":"1c8a7b39-af71-4a6b-9aa8-9b8947e5d609","batch_combo_num":1,"blind_gift":{"blind_gift_config_id":55,"from":0,"gift_action":"爆出","gift_tip_price":106000,"original_gift_id":32369,"original_gift_name":"至尊盲盒","original_gift_price":100000},"gift_id":32362,"gift_name":"马戏之王","gift_num":1,"send_master":null,"uid":552667853,"uname":"黑听の居居"},"beatId":"0","biz_source":"Live","blind_gift":{"blind_gift_config_id":55,"from":0,"gift_action":"爆出","gift_tip_price":106000,"original_gift_id":32369,"original_gift_name":"至尊盲盒","original_gift_price":100000},"broadcast_id":0,"coin_type":"gold","combo_resources_id":3,"combo_send":{"action":"投喂","combo_id":"7af3862d-8de0-4fcb-b8aa-f18a8cb3138f","combo_num":1,"gift_id":32362,"gift_name":"马戏之王","gift_num":1,"send_master":null,"uid":552667853,"uname":"黑听の居居"},"combo_stay_time":12,"combo_total_coin":106000,"crit_prob":0,"demarcation":3,"discount_price":106000,"dmscore":120,"draw":0,"effect":2,"effect_block":0,"face":"https://i2.hdslb.com/bfs/face/5c8420d2b23ee3223b99b17633cb2966f4f3d228.jpg","face_effect_id":0,"face_effect_type":0,"float_sc_resource_id":2,"giftId":32362,"giftName":"马戏之王","giftType":0,"gold":0,"guard_level":3,"is_first":true,"is_join_receiver":false,"is_naming":false,"is_special_batch":0,"magnification":1,"medal_info":{"anchor_roomid":0,"anchor_uname":"","guard_level":3,"icon_id":0,"is_lighted":1,"medal_color":398668,"medal_color_border":6809855,"medal_color_end":6850801,"medal_color_start":398668,"medal_level":25,"medal_name":"被融化","special":"","target_id":629601798},"name_color":"#00D1F1","num":1,"original_gift_name":"","price":106000,"rcost":4207567,"receive_user_info":{"uid":629601798,"uname":"野比大融official"},"remain":0,"rnd":"1681001819111300001","send_master":null,"silver":0,"super":0,"super_batch_gift_num":1,"super_gift_num":1,"svga_block":0,"switch":true,"tag_image":"","tid":"1681001819111300001","timestamp":1681001819,"top_list":null,"total_coin":100000,"uid":552667853,"uname":"黑听の居居"}}
                             //2023-04-09 08:56:59:收到道具:黑听の居居 投喂的:马戏之王 x 1
 
@@ -228,7 +320,7 @@ public class ParseMessageThread extends Thread {
 //                                    if (gift != null) {
 //                                        if (!StringUtils.isEmpty(MainConf.SHIELDGIFTNAME)) {
 //                                            if (gift.getGiftName().equals(MainConf.SHIELDGIFTNAME)) {
-//                                                gift = null;
+//                                                gift = null;n
 //                                            }
 //                                        }
 //                                    }
@@ -247,12 +339,33 @@ public class ParseMessageThread extends Thread {
                         // 部分金瓜子礼物连击
                         case "COMBO_SEND":
                             //					LOGGER.info("部分金瓜子礼物连击:::" + message);
-                            break;// 练级
+                            break;//
 // {"cmd":"COMBO_SEND","data":{"action":"投喂","batch_combo_id":"batch:gift:combo_id:3493113530157391:477482558:32345:1682377966.6607","batch_combo_num":20,"combo_id":"gift:combo_id:3493113530157391:477482558:32345:1682377966.6573","combo_num":20,"combo_total_coin":2000,"dmscore":120,"gift_id":32345,"gift_name":"人气票","gift_num":0,"is_join_receiver":false,"is_naming":false,"is_show":1,"medal_info":{"anchor_roomid":0,"anchor_uname":"","guard_level":3,"icon_id":0,"is_lighted":1,"medal_color":1725515,"medal_color_border":6809855,"medal_color_end":5414290,"medal_color_start":1725515,"medal_level":21,"medal_name":"逗ni玩","special":"","target_id":477482558},"name_color":"#00D1F1","r_uname":"兔豆ni","receive_user_info":{"uid":477482558,"uname":"兔豆ni"},"ruid":477482558,"send_master":null,"total_num":20,"uid":3493113530157391,"uname":"阿阳摸不着头"}}
                         // 部分金瓜子礼物连击
                         case "COMBO_END":
                             //					LOGGER.info("部分金瓜子礼物连击:::" + message);
                             break;
+
+                        // 购物车消息
+                        case "GOTO_BUY_FLOW":
+//                        {"cmd":"GOTO_BUY_FLOW","data":{"text":"那**正在去买"},"is_report":false,"msg_id":"854671801979904","send_time":1690184037093}
+                            break;
+
+                        // 推荐广告
+                        case "RECOMMEND_CARD":
+//                       {"cmd":"RECOMMEND_CARD","data":{"recommend_list":[],"timestamp":1690184058,"title_icon":"https://i0.hdslb.com/bfs/live/3053f47729c4974b1cfe4cd98482c28d4e23a1c2.png","update_list":[]},"is_report":false,"msg_id":"854683087804416","send_time":1690184058619}
+                            break;
+
+                        case "LIVE_MULTI_VIEW_CHANGE":
+//                            实时多视图更改
+//                        {"cmd":"LIVE_MULTI_VIEW_CHANGE","data":{"scatter":{"max":120,"min":5}},"is_report":false,"msg_id":"855508549374976","send_time":1690185633062}
+                            break;
+
+                        case "WIDGET_GIFT_STAR_PROCESS":
+                            // 礼物星期相关
+                            // {"cmd":"WIDGET_GIFT_STAR_PROCESS","data":{"ddl_timestamp":1690732800,"finished":false,"process_list":[{"completed_num":21,"gift_id":31036,"gift_img":"https://s1.hdslb.com/bfs/live/8b40d0470890e7d573995383af8a8ae074d485d9.png","gift_name":"礼物星球","target_num":200},{"completed_num":8,"gift_id":31037,"gift_img":"https://s1.hdslb.com/bfs/live/461be640f60788c1d159ec8d6c5d5cf1ef3d1830.png","gift_name":"礼物星球","target_num":100},{"completed_num":0,"gift_id":31591,"gift_img":"https://s1.hdslb.com/bfs/live/239c1e0c584b47601347812536422a37a5e3b3b9.png","gift_name":"礼物星球","target_num":1}],"reward_gift":32269,"reward_gift_img":"https://s1.hdslb.com/bfs/live/52edb4ab7377ece34ac15b21154d13d188874b01.png","reward_gift_name":"礼物星球","start_date":20230724,"version":1690192790804},"is_report":false,"msg_id":"859261270765568","send_time":1690192790810}
+                            break;//{"cmd":"GIFT_STAR_PROCESS","data":{"status":1,"tip":"喜鹊已点亮"}}
+
 
                         // 上舰
                         case "GUARD_BUY":
@@ -492,6 +605,8 @@ public class ParseMessageThread extends Thread {
                         // 醒目留言日文翻译
                         case "SUPER_CHAT_MESSAGE_JPN":
                             //					LOGGER.info("醒目留言日文翻译消息推送:::" + message);
+
+                            // {"cmd":"SUPER_CHAT_MESSAGE_JPN","data":{"background_bottom_color":"#2A60B2","background_color":"#EDF5FF","background_icon":"","background_image":"","background_price_color":"#7497CD","end_time":1690192998,"gift":{"gift_id":12000,"gift_name":"醒目留言","num":1},"id":"7661997","is_ranked":1,"medal_info":{"anchor_roomid":510,"anchor_uname":"阿梓从小就很可爱","icon_id":0,"medal_color":"#6154c","medal_level":27,"medal_name":"小孩梓","special":"","target_id":7706705},"message":"下把给神抢卡莎吧 相信物资卡莎的输出","message_jpn":"次は神にカーサを奪おう物資カーサの輸出を信じて","price":30,"rate":1000,"start_time":1690192938,"time":58,"token":"3872153B","ts":1690192939,"uid":"103941353","user_info":{"face":"https://i2.hdslb.com/bfs/face/1301ab0729a6206ae26e34c463ab638c2f0010f3.webp","face_frame":"https://i0.hdslb.com/bfs/live/80f732943cc3367029df65e267960d56736a82ee.png","guard_level":3,"is_main_vip":0,"is_svip":0,"is_vip":0,"level_color":"#61c05a","manager":0,"title":"0","uname":"寄十五","user_level":20}},"is_report":false,"msg_id":"859339536996353","roomid":"80397","send_time":1690192940091}
                             break;
 
                         // 删除醒目留言
@@ -576,7 +691,7 @@ public class ParseMessageThread extends Thread {
 //                                stringBuilder.delete(0, stringBuilder.length());
 //                            }
                             //					LOGGER.info("舰长大大进来直播间了:::" + message);
-                            log.info( "舰长大大进来直播间了:::" + message);
+                            log.info("舰长大大进来直播间了:::" + message);
                             break;
 
                         // 舰长进入直播间消息
@@ -598,38 +713,14 @@ public class ParseMessageThread extends Thread {
 
                         // 禁言消息
                         case "ROOM_BLOCK_MSG":
-//                            if (getCenterSetConf().is_block()) {
-//                                blockMessage = JSONObject.parseObject(jsonObject.getString("data"), BlockMessage.class);
-//                                stringBuilder.append(JodaTimeUtils.getCurrentDateTimeString());
-//                                stringBuilder.append(":禁言消息:");
-//                                stringBuilder.append(blockMessage.getUname());
-//                                if (blockMessage.getOperator() == 2) {
-//                                    stringBuilder.append("已被主播禁言");
-//                                } else if (blockMessage.getOperator() == 1) {
-//                                    stringBuilder.append("已被房管禁言");
-//                                } else {
-//                                    stringBuilder.append("已被管理员禁言");
-//                                }
-//                                //控制台打印
-//                                if (getCenterSetConf().is_cmd()) {
-//                                    System.out.println(stringBuilder.toString());
-//                                }
-//                                try {
-//                                    danmuWebsocket.sendMessage(WsPackage.toJson("block", (short) 0, blockMessage));
-//                                } catch (Exception e) {
-//                                    // TODO 自动生成的 catch 块
-//                                    e.printStackTrace();
-//                                }
-//                                if (MainConf.logThread != null && !MainConf.logThread.FLAG) {
-//                                    MainConf.logString.add(stringBuilder.toString());
-//                                    synchronized (MainConf.logThread) {
-//                                        MainConf.logThread.notify();
-//                                    }
-//                                }
-//                                stringBuilder.delete(0, stringBuilder.length());
-//                            }
-//                            //					LOGGER.info("谁这么惨被禁言了:::" + message);
-//                            break;
+                            // 被禁言有推送 解封无推送
+                            danmuService.roomBlockFunction(message);
+
+                            // 被主播禁言
+                            //  {"cmd":"ROOM_BLOCK_MSG","data":{"dmscore":30,"operator":2,"uid":287769888,"uname":"绊月柒_kissne"},"is_report":false,"msg_id":"619436701134848","send_time":1689735361745,"uid":"287769888","uname":"绊月柒_kissne"}
+                            // 被房管禁言
+                            //    {"cmd":"ROOM_BLOCK_MSG","data":{"dmscore":30,"operator":1,"uid":287769888,"uname":"绊月柒_kissne"},"is_report":false,"msg_id":"620469377567232","send_time":1689737331419,"uid":"287769888","uname":"绊月柒_kissne"}
+                            break;
 
                             // 本主播在本分区小时榜排名更新推送 不会更新页面的排行显示信息
                         case "ACTIVITY_BANNER_UPDATE_V2":
@@ -639,7 +730,7 @@ public class ParseMessageThread extends Thread {
                         // 本房间分区修改
                         case "ROOM_CHANGE":
                             //					LOGGER.info("房间分区已更新:::" + message);
-                            break;
+                            break;// {"cmd":"ROOM_CHANGE","data":{"area_id":746,"area_name":"虚拟声优","live_key":"0","parent_area_id":9,"parent_area_name":"虚拟主播","sub_session_key":"","title":"【3D麦】上！得8件套！"},"is_report":false,"msg_id":"1273498536262656","send_time":1690982885692}
 
                         // 本房间分区排行榜更新 更新页面的排行显示信息
                         case "ROOM_RANK":
@@ -672,6 +763,7 @@ public class ParseMessageThread extends Thread {
 //                            //					LOGGER.info("直播间粉丝数更新消息推送:::" + message);
 //                            break;
 //{"cmd":"ROOM_REAL_TIME_MESSAGE_UPDATE","data":{"roomid":25675792,"fans":3063,"red_notice":-1,"fans_club":107}}
+//{"cmd":"ROOM_REAL_TIME_MESSAGE_UPDATE","data":{"fans":23145,"fans_club":415,"red_notice":-1,"roomid":25259484},"is_report":false,"msg_id":"687066459411503","send_time":1689864355272}
                         // 直播间许愿瓶消息推送更新
                         case "WISH_BOTTLE":
                             //					LOGGER.info("直播间许愿瓶消息推送更新:::" + message);
@@ -772,9 +864,6 @@ public class ParseMessageThread extends Thread {
                             // PK_BATTLE_PRE
                             // PK_BATTLE_START  ---
                             // PK_BATTLE_PROCESS
-                            //
-
-
                             // 送乱斗卡
 //                            2023-04-07 13:42:16.424 | Thread-4raceId | INFO  | 8016 | Thread-4 | com.uid939948.thread.core.ParseMessageThread.run(ParseMessageThread.java:409) : {"cmd":"SEND_GIFT","data":{"action":"投喂","batch_combo_id":"","batch_combo_send":null,"beatId":"0","biz_source":"Live","blind_gift":null,"broadcast_id":0,"coin_type":"silver","combo_resources_id":1,"combo_send":null,"combo_stay_time":5,"combo_total_coin":0,"crit_prob":0,"demarcation":1,"discount_price":0,"dmscore":56,"draw":0,"effect":0,"effect_block":1,"face":"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg","face_effect_id":0,"face_effect_type":0,"float_sc_resource_id":0,"giftId":30768,"giftName":"10乱斗值卡","giftType":5,"gold":0,"guard_level":0,"is_first":true,"is_join_receiver":false,"is_naming":false,"is_special_batch":0,"magnification":1,"medal_info":{"anchor_roomid":0,"anchor_uname":"","guard_level":0,"icon_id":0,"is_lighted":0,"medal_color":0,"medal_color_border":0,"medal_color_end":0,"medal_color_start":0,"medal_level":0,"medal_name":"","special":"","target_id":0},"name_color":"","num":5,"original_gift_name":"","price":0,"rcost":2120673,"receive_user_info":{"uid":1007320348,"uname":"koi绾绾"},"remain":0,"rnd":"1680846239110800001","send_master":null,"silver":0,"super":0,"super_batch_gift_num":0,"super_gift_num":0,"svga_block":0,"switch":true,"tag_image":"","tid":"1680846239110800001","timestamp":1680846239,"top_list":null,"total_coin":0,"uid":939948,"uname":"春风十里不如一路有语"}}
 //                        2023-04-07 13:43:59:收到道具:春风十里不如一路有语 投喂的:10乱斗值卡 x 5
@@ -782,18 +871,14 @@ public class ParseMessageThread extends Thread {
                             // 房间活动pk中 PK_BATTLE_PROCESS_NEW:::{"cmd":"PK_BATTLE_PROCESS_NEW","data":{"battle_type":1,"init_info":{"room_id":425837,"votes":0,"best_uname":"","vision_desc":0},"match_info":{"room_id":25914701,"votes":50,"best_uname":"春风十里不如一路有语","vision_desc":0}},"pk_id":322990390,"pk_status":201,"timestamp":1680846239}
 //                            log.info("房间活动pk中 PK_BATTLE_PROCESS_NEW:::" + message);
                             break;
-
-
                         // 活动pk详细信息
                         case "PK_BATTLE_CRIT":
                             //			        LOGGER.info("房间活动pk详细信息推送:::" + message);
                             break;
-
                         // 活动pk类型推送
                         case "PK_BATTLE_PRO_TYPE":
                             //			        LOGGER.info("房间活动pk类型推送:::" + message);
                             break;
-
                         // 房间活动pk结束
                         case "PK_BATTLE_END":
 //                            log.info("房间pk活动结束::" + message);
@@ -908,16 +993,28 @@ public class ParseMessageThread extends Thread {
                             //					LOGGER.info("收到活动礼物赠送，更新信息:::" + message);
                             break;
 
-                        // 设定房管消息 新房管的诞生
+                        // 设定房管消 息 新房管的诞生
                         case "room_admin_entrance":
                             //					LOGGER.info("有人被设为了房管:::" + message);
+                            log.info("room_admin_entrance");
+                            log.info(message);
+                            log.info("有人被设为房管了");
+
+                            danmuService.roomAdminEntranceFunction(message);
+                            // 新增房管后， 会推送房管列表
                             break;
 
                         // 房管列表更新消息 激活条件为新房管的诞生
-                        case "ROOM_ADMINS":
-                            //					LOGGER.info("房管列表更新推送:::" + message);
-                            break;
 
+
+                        case "ROOM_ADMIN_REVOKE":
+                            danmuService.roomAdminRevokeFunction(message);
+                            break;
+                        case "ROOM_ADMINS":
+                            // 只在新增房管是 推送房管列表，
+                            // 特别注意：删除房管时 不推送
+                            danmuService.roomAdminFunction(message);
+                            break;
                         // 房间护盾 推测推送消息为破站官方屏蔽的关键字 触发条件未知
                         case "ROOM_SHIELD":
                             //					LOGGER.info("房间护盾触发消息:::" + message);
@@ -945,20 +1042,16 @@ public class ParseMessageThread extends Thread {
                         // 直播开启
                         case "LIVE":
                             MainConf.lIVE_STATUS = 1;
-                            //					room_id = jsonObject.getLong("roomid");
-                            //					if (room_id == MainConf.ROOMID) {
-                            // 仅在直播有效 广告线程 改为配置文件
-//                            setService.holdSet(getCenterSetConf());
-//                            MainConf.IS_ROOM_POPULARITY = true;
-                            //					LOGGER.info("直播开启:::" + message);
-
-
-//                        {"cmd":"LIVE","live_key":"364276409968653039","voice_background":"","sub_session_key":"364276409968653039sub_time:1683106692","live_platform":"pc_link","live_model":0,"roomid":3961583}
+                            log.info("直播已开启");
+                            danmuService.liveStartFunction(message);
+                            // {"cmd":"LIVE","live_key":"364276409968653039","voice_background":"","sub_session_key":"364276409968653039sub_time:1683106692","live_platform":"pc_link","live_model":0,"roomid":3961583}
                             break;
 
                         // 直播超管被切断
                         case "CUT_OFF":
-                            //					LOGGER.info("很不幸，本房间直播被切断:::" + message);
+                            log.info("直播间被切断");
+                            log.info("CUT_OFF");
+                            log.info(message);
                             break;
 
                         // 本房间已被封禁
@@ -968,21 +1061,22 @@ public class ParseMessageThread extends Thread {
 
                         // 直播准备中(或者是关闭直播)
                         case "PREPARING":
-//                            MainConf.lIVE_STATUS = 0;
-//                            setService.holdSet(getCenterSetConf());
-//                            MainConf.IS_ROOM_POPULARITY = false;
-//                            //					LOGGER.info("直播准备中(或者是关闭直播):::" + message);
-//                            break;
-
+                            MainConf.lIVE_STATUS = 0;
+                            log.info("直播已关闭");
+                            break;
 //                        {"cmd":"PREPARING","roomid":"3961583"}
-                            // 关闭直播了
-                            // 勋章亲密度达到上每日上限通知
+                        // 关闭直播了
+
+                        // 勋章亲密度达到上每日上限通知
                         case "LITTLE_TIPS":
-                            //					LOGGER.info("勋章亲密度达到上每日上限:::" + message);
+                            log.info("测试 LITTLE_TIPS");
+                            log.info(message);
                             break;
 
                         // msg_type 1 为进入直播间 2 为关注 3为分享直播间
                         case "INTERACT_WORD":
+//                            log.info("INTERACT_WORD");
+//                            log.info(message);
                             danmuService.interactFunction(message);
 //
 //                            // 21级牌子
@@ -1212,7 +1306,7 @@ public class ParseMessageThread extends Thread {
 //                            log.info("警告信息推送（例如任务快完成之类的）:::" + message);
 //消息为{"cmd":"COMMON_NOTICE_DANMAKU","data":{"content_segments":[{"font_color":"#FB7299","text":"我方主播在绝杀时刻领先对手1000乱斗值，触发绝杀！","type":1}],"dmscore":144,"terminals":[1,2,3,4,5]}}
 //                            警告信息推送（例如任务快完成之类的）:::{"cmd":"COMMON_NOTICE_DANMAKU","data":{"content_segments":[{"font_color":"#FB7299","highlight_font_color":"#FCA622","text":"本场PK大乱斗我方获胜！感谢\u003c%\u003c$食不食油餅阿$\u003e%\u003e为胜利做出的贡献","type":1}],"dmscore":144,"terminals":[1,2,3,4,5]}}
-
+// {"cmd":"COMMON_NOTICE_DANMAKU","data":{"content_segments":[{"font_color":"#CCCCCC","font_color_dark":"#CCCCCC","highlight_font_color":"#FFC73E","highlight_font_color_dark":"#FFC73E","text":"恭喜用户 the_w0r1d \u003c%荣耀等级升级至28级%\u003e","type":1}],"dmscore":144,"terminals":[1,4,5]},"is_report":false,"msg_id":"857966224345600","send_time":1690190320705}
 
                             break;
                         case "POPULARITY_RED_POCKET_NEW":
@@ -1319,7 +1413,11 @@ public class ParseMessageThread extends Thread {
                         case "HOT_RANK_SETTLEMENT":
                             //					LOGGER.info("热榜排名推送:::" + message);
                             break;
-                        case "MESSAGEBOX_USER_GAIN_MEDAL":
+
+
+                            //我自己送粉丝团灯牌 推送这个
+                            //{"cmd":"MESSAGEBOX_USER_GAIN_MEDAL","data":{"day_limit":1500,"fan_name":"春风十里不如一路有语","guard_level":0,"highlight_color":16478873,"intimacy":10,"is_lighted":1,"is_received":0,"is_wear":0,"medal_color":6067854,"medal_color_border":6067854,"medal_color_end":6067854,"medal_color_start":6067854,"medal_id":1077239,"medal_level":1,"medal_name":"迷糊啵","msg_content":"获得10点亲密度\n你的粉丝勋章达到1级","msg_title":"恭喜你获得【38岁美少女B...】的粉丝勋章~","next_intimacy":201,"normal_color":7697781,"toast":"成功入团并关注主播，得1级大礼包","today_feed":10,"type":3,"uid":939948,"up_uid":502304428},"is_report":false,"msg_id":"1587976540279808","send_time":1691582704883}
+                        case "MESSAGEBOX_USER_GAIN_MEDAL": // {"cmd":"MESSAGEBOX_USER_GAIN_MEDAL","data":{"day_limit":1500,"fan_name":"春风十里不如一路有语","guard_level":0,"highlight_color":16478873,"intimacy":10,"is_lighted":1,"is_received":0,"is_wear":0,"medal_color":6067854,"medal_color_border":6067854,"medal_color_end":6067854,"medal_color_start":6067854,"medal_id":1077239,"medal_level":1,"medal_name":"迷糊啵","msg_content":"获得10点亲密度\n你的粉丝勋章达到1级","msg_title":"恭喜你获得【38岁美少女B...】的粉丝勋章~","next_intimacy":201,"normal_color":7697781,"toast":"成功入团并关注主播，得1级大礼包","today_feed":10,"type":3,"uid":939948,"up_uid":502304428},"is_report":false,"msg_id":"1587976540279808","send_time":1691582704883}
                             //					LOGGER.info("粉丝勋章消息盒子推送:::" + message);
                             break;
                         case "POPULARITY_RED_POCKET_START":
@@ -1329,13 +1427,21 @@ public class ParseMessageThread extends Thread {
                             break;
                         case "LITTLE_MESSAGE_BOX":
                             //					LOGGER.info("小消息box推送:::" + message);
+                            // todo 这个是啥
+
+//                            消息为{"cmd":"LITTLE_MESSAGE_BOX","data":{"from":"fans_medal","msg":"今日首条弹幕发送成功~亲密度+100","platform":{"android":true,"ios":true,"web":true},"room_id":27163641,"type":1},"is_report":false,"msg_id":"686966388036609","send_time":1689864164401}
+//                                 {"cmd":"LITTLE_MESSAGE_BOX","data":{"from":"fans_medal","msg":"今日首条弹幕发送成功~亲密度+100","platform":{"android":true,"ios":true,"web":true},"room_id":80397,"type":1},"is_report":false,"msg_id":"855462045026816","send_time":1690185544362}
                             break;
                         case "ANCHOR_HELPER_DANMU":
                             //					LOGGER.info("直播小助手信息推送:::" + message);
                             break;
                         case "ENTRY_EFFECT_MUST_RECEIVE":
                             //					LOGGER.info("直播小助手信息推送:::" + message);
-                            break;
+
+                            // target_id":2125942578
+                            // target_id  登录后，target_id为你进入的主播的uid
+
+                            break;// {"cmd":"ENTRY_EFFECT_MUST_RECEIVE","data":{"basemap_url":"https://i0.hdslb.com/bfs/live/mlive/f7017a13c62c13369b85cb7a9f89981e79a3d2f9.png","business":3,"copy_color":"#000000","copy_writing":"欢迎 \u003c%春风十里不如一...%\u003e 进入直播间","copy_writing_v2":"欢迎 \u003c^icon^\u003e \u003c%春风十里不如…%\u003e 进入直播间","effect_silent_time":0,"effective_time":2,"effective_time_new":0,"face":"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg","highlight_color":"#FFF100","icon_list":[3],"id":137,"identities":22,"max_delay_time":7,"mobile_dynamic_url_webp":"","mock_effect":0,"new_style":0,"priority":1,"privilege_type":0,"show_avatar":1,"target_id":3493266005690401,"trigger_time":1690368114877259800,"uid":939948,"wealthy_info":null,"web_basemap_url":"https://i0.hdslb.com/bfs/live/mlive/f7017a13c62c13369b85cb7a9f89981e79a3d2f9.png","web_close_time":900,"web_dynamic_url_apng":"","web_dynamic_url_webp":"","web_effect_close":0,"web_effective_time":2},"is_report":false,"msg_id":"951182176557568","send_time":1690368116024}
                         case "GIFT_STAR_PROCESS":
                             //					LOGGER.info("礼物开始进度条信息推送:::" + message);
                             break;
@@ -1348,8 +1454,10 @@ public class ParseMessageThread extends Thread {
                             break;
                         case "CARD_MSG":
                             //					LOGGER.info("CARD_MSG:::" + message);
+                            // 登录后 推送的 （进谁房间的推送）
+                            // 消息为{"cmd":"CARD_MSG","data":{"card_data":{"arouse":600,"interval":3,"msg":"快来关注我，下次直播不迷路~","room_id":26764438,"source_event":1,"uid":939948},"card_type":"daily_recommend"},"is_report":false,"msg_id":"947298626449409","send_time":1690360708740}
                             break;
-                        case "USER_PANEL_RED_ALARM":
+                        case "USER_PANEL_RED_ALARM": //{"cmd":"USER_PANEL_RED_ALARM","data":{"alarm_num":0,"module":"room_gift_panel"},"is_report":false,"msg_id":"1448118364688384","send_time":1691315946583}
                             //					LOGGER.info("USER_PANEL_RED_ALARM:::" + message);
                             break;
                         case "TRADING_SCORE":

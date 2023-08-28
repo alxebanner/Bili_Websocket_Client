@@ -31,8 +31,8 @@ public interface ClientService {
     /**
      * 测试礼物
      *
-     * @param name 用户名
-     * @param num 礼物数量
+     * @param name     用户名
+     * @param num      礼物数量
      * @param giftName 礼物名称
      */
     void getOneGift(String name, String num, String giftName);
@@ -41,8 +41,27 @@ public interface ClientService {
      * 测试舰长
      *
      * @param name 用户名
-     * @param num 舰长数量
+     * @param num  舰长数量
      * @param type 舰队类型
      */
     void getOneToast(String name, String num, String type);
+
+    /**
+     * 获取登录二维码key
+     *
+     * @return 登录二维码key
+     */
+    String getQRCodeKey();
+
+    /**
+     * 轮询登录二维码key
+     *
+     * @param qrcode_key 二维码key
+     * @return 二维码key登录状态
+     */
+    String checkQRCodeKey(String qrcode_key);
+
+
+    String HttpGetLoginInfo(String qrcode_key);
+
 }

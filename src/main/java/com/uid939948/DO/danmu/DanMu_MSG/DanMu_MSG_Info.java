@@ -115,4 +115,9 @@ public class DanMu_MSG_Info {
      * 系统表情+ 自定义表情 列表
      */
     private List<String> emojiList;
+
+    /**
+     * 荣耀等级
+     */
+    private int honorLevel;
 }

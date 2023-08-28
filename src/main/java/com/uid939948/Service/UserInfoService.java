@@ -1,7 +1,6 @@
 package com.uid939948.Service;
 
 import com.uid939948.DO.UserInfoData.UserInfo;
-import com.uid939948.DO.WebsocketConfig.WebsocketConfigInfo;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
 
 import java.util.List;

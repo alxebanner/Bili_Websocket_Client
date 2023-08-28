@@ -1,5 +1,6 @@
 package com.uid939948.Conf;
 
+import com.uid939948.DO.UserBarrageType;
 import com.uid939948.DO.UserCookie;
 import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.danmu.ANCHOR_LOT_START.Anchor_lot;
@@ -12,10 +13,7 @@ import com.uid939948.thread.core.HeartOnlineThread;
 import com.uid939948.thread.core.ParseMessageThread;
 import com.uid939948.thread.core.TestThread;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 public class MainConf {
     //websocket客户端主线程
@@ -46,6 +44,11 @@ public class MainConf {
     public final static int packageOther = 1;
 
     /**
+     * 房间人气
+     */
+    public static Long ROOM_POPULARITY = 1L;
+
+    /**
      * 弹幕库地址，
      * 此处随便初始化一个
      */
@@ -60,11 +63,19 @@ public class MainConf {
     /**
      * 直播状态 0不直播 1直播 2轮播
      */
-    public static Short lIVE_STATUS = 0;
+    public static int lIVE_STATUS = 0;
     // cookie String串
-    public static String USERCOOKIE = "DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948";
-//    DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
+//    public static String USERCOOKIE = "DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948";
 
+    //public static String USERCOOKIE =   "DedeUserID__ckMd5=9518835468e33460DedeUserID__ckMd5=9518835468e33460;SESSDATA=16da32e7,1708694069,a2288*81Nu5er3Vw-ml1yF6nn2ldZzDuE_cd7mGJ4nRnhaor9DrPMe_fl6TvMDWimamiZRzvDth5WwAAMAA;bili_jct=ddf5e33c1157b88b8d38040e3b328445;DedeUserID=939948";
+
+
+    public static String USERCOOKIE ="DedeUserID=939948;DedeUserID__ckMd5=9518835468e33460;Expires=1708693173;SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA;bili_jct=2babeac9be9e71ec562c6674fc7aee88;" +
+            "=https%3A%2F%2Fwww.bilibili.com";
+//                                 https%3A%2F%2Fwww.bilibili.com
+//             params.put("gourl", "https://www.bilibili.com/");
+//    gourl
+    //    DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
 
     /**
      * 真实房间号  长号
@@ -90,6 +101,9 @@ public class MainConf {
 
     /**
      * 房间观看人数
+     *
+     *
+//     *
      */
     public static Long ROOM_WATCHER = 0L;
 
@@ -145,14 +159,49 @@ public class MainConf {
      */
     public static TestThread testThread;
 
-    /**
-     * 测试弹幕集合
-     */
-    public static List<String> testDanmuMessageList;
+//    /**
+//     * 测试弹幕集合
+//     */
+//    public static List<String> testDanmuMessageList;
 
     /**
      * 音乐列表
      */
     public static List<MusicInfo> musicInfoList;
 
+    /**
+     * 加班时间
+     */
+    public static int overtime = 12;
+
+    /**
+     * 截止剩余时间
+     */
+    public static Date endDate;
+
+    /**
+     * 发送弹幕类型
+     */
+    public static UserBarrageType userBarrageType;
+
+    /**
+     * 发送弹幕最大长度
+     */
+    public static int BarrageMaxLength;
+
+    /**
+     * 发送弹幕颜色
+     */
+    public static Long BarrageColor;
+
+
+    /**
+     * 保存的用户id
+     */
+    public static List<String> list1;
+
+    /**
+     * 首页最后刷新时间
+     */
+    public static long lastRoomInitTime = 0L;
 }

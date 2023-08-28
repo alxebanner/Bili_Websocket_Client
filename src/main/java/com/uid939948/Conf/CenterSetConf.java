@@ -248,7 +248,6 @@ public class CenterSetConf implements Serializable {
      */
     private String test_Toast_type = "3";
 
-
     /**
      * 测试礼物名称
      */
@@ -274,24 +273,71 @@ public class CenterSetConf implements Serializable {
      */
     private String gift_height = "220";
 
+    /**
+     * 测试礼物 宽度
+     */
     private String gift_danmu_width = "260";
 
+    /**
+     * 测试礼物 垂直偏移量
+     */
     private String gift_danmu_top = "120";
 
+    /**
+     * 测试礼物 水平偏移量
+     */
     private String gift_danmu_left = "197";
 
+    /**
+     * 测试礼物 文字大小
+     */
     private String gift_danmu_fontSize = "24";
 
+    /**
+     * 测试礼物 文字颜色
+     */
     private String gift_danmu_color = "red";
 
 
+    /**
+     * 小装饰 图片地址
+     */
+    private String pendant_picture_url = "https://s3.bmp.ovh/imgs/2023/06/06/d65da55402135079.png";
+
+    /**
+     * 小装饰 图片宽度
+     */
     private String pendant_width = "84";
 
+    /**
+     * 小装饰 图片高度
+     */
     private String pendant_height = "85";
 
+    /**
+     * 小装饰 图片垂直偏移量
+     */
     private String pendant_top = "98";
 
+    /**
+     * 小装饰 图片水平偏移量
+     */
     private String pendant_left = "489";
+
+    /**
+     * 开播后发送的弹幕
+     */
+    public String startLiveMessage = "快看我来的早不早";
+
+    /**
+     * 开播后发送的弹幕开关
+     */
+    private Boolean isStartLiveSendMessage = false;
+
+    /**
+     * 保存在配置文件的账号USERCOOKIE
+     */
+    private String userCookie = "";
 
     public String toJson() {
         return FastJsonUtils.toJson(this);

@@ -61,7 +61,7 @@ public class DanmujiInitConfig {
             log.error("读取配置文件失败,尝试重新读取" + e);
             MainConf.centerSetConf = null;
         }
-        //初始化配置文件开始
+        // 初始化配置文件开始
         if (MainConf.centerSetConf == null) {
             MainConf.centerSetConf = new CenterSetConf();
         } else {
@@ -70,7 +70,7 @@ public class DanmujiInitConfig {
             if (MainConf.ROOMID_SAFE != null && MainConf.ROOMID_SAFE > 0)
                 MainConf.centerSetConf.setRoomid(MainConf.ROOMID_SAFE);
         }
-        //初始化配置文件结束
+        // 初始化配置文件结束
         hashtable.put("set", base64Encoder.encode(MainConf.centerSetConf.toJson().getBytes()));
         ProFileTools.write(hashtable, "DanmujiProfile");
         try {
@@ -81,7 +81,13 @@ public class DanmujiInitConfig {
             // TODO: handle exception
             log.error("读取配置文件失败" + e);
         }
-        // 分离cookie  改
+//        log.info("打印USERCOOKIE");
+//        log.debug(MainConf.USERCOOKIE);
+//
+//        log.info("打印COOKIE");
+//        log.info(String.valueOf(MainConf.COOKIE));
+//        log.info(String.valueOf(StringUtils.isEmpty(MainConf.USERCOOKIE)));
+
         if (!StringUtils.isEmpty(MainConf.USERCOOKIE) && MainConf.COOKIE == null) {
             String key = null;
             String value = null;
@@ -117,6 +123,7 @@ public class DanmujiInitConfig {
             }
             if (controlNum >= 2) {
                 log.info("用户cookie装载成功");
+                log.debug(MainConf.USERCOOKIE);
                 controlNum = 0;
             } else {
                 log.info("用户cookie装载失败");
@@ -124,6 +131,11 @@ public class DanmujiInitConfig {
             }
             checkService.holdSet(MainConf.centerSetConf);
         }
+
+//        log.info("打印COOKIE 第二次");
+//        log.info(String.valueOf(MainConf.COOKIE));
+//        log.info(String.valueOf(StringUtils.isEmpty(MainConf.USERCOOKIE)));
+
         base64Encoder = null;
         hashtable.clear();
     }

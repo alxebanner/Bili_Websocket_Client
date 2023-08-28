@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title> New Document </title>
+    <style>
+  .inputText4 {
+    font-family:Arial,Helvetica,sans-serif;
+    background:none repeat scroll 0 0 #F5F7FD;
+    border:1px solid #B8BFE9;
+    padding:5px 7px;
+    width:100px;
+    vertical-align:middle;
+    height:30px;
+    font-size:12px;
+    margin:0;
+    list-style:none outside none;
+    }
+
+    </style>
+</head>
+<body>
+<!--<input type="text" maxlength="27" class="inputText4" size="100" value="" id="Validate" name="Validate">-->
+
+<div class="view"></div>
+
+<div id="qrcode"></div>
+</body>
+</html>
+<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/qrcodejs.js"></script>
+<script language="javascript" type="text/javascript">
+window.onload = function () {
+    <!--    1、获取二维码key-->
+    httpGetQR_Code_Key();
+
+    <!--    2、 生成二维码-->
+<!--    if (key !="") {-->
+<!--        &lt;!&ndash;   todo 生成二维码 放在前端&ndash;&gt;-->
+<!--      -->
+<!--    }-->
+
+    <!--    3、 轮询二维码-->
+    <!--    状态 有成功 带验证  二维码过期 等->
+
+     <!--   todo 根据key轮询 直到成功 或者二维码过期-->
+<!--    httpGetQR_Code_Check();-->
+    ;
+}
+
+<!--生成二维码图片-->
+function setQrcode(qrcode_key) {
+  new QRCode(document.getElementById("qrcode"), "https://passport.bilibili.com/h5-app/passport/login/scan?navhide=1&qrcode_key=" + qrcode_key + "&from=main-fe-header");
+}
+
+function pollQrcode(qrcode_key) {
+  $.ajax({
+            url: '../checkQRCodeKey',
+            data: {
+            qrcode_key:  qrcode_key
+            },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log("pollQrcode");
+                console.log(data.data);
+                var pollState = data.data;
+
+                switch(pollState) {
+                    case "86101":
+                       setTimeout(function(){
+                       pollQrcode(qrcode_key)
+                    }, 3000);
+                     console.log("二维码未登录 继续轮询")
+                    break;
+                    case "86038":
+                    console.log("二维码过期")
+                    document.getElementById("qrcode")
+                    $("#qrcode").children("img").hide()
+                    var div="<p>该二维码已过期， 请刷新页面</p>"
+                    $("#qrcode").append(div);
+                    break;
+                    case "86090":
+                    console.log("二维码扫码未确认")
+                     setTimeout(function(){
+                       pollQrcode(qrcode_key)
+                    }, 3000);
+                    break;
+                    case "0":
+                    console.log("二维码扫码已登录")
+                    break;
+                    default:
+                    console.log("二维码扫码状态未知 请查询联系开发人员" + pollState);
+                }
+
+                if(true) {
+                setTimeout(function(){
+                    }, 1000)
+                }
+        }
+    });
+}
+
+
+function httpGetQR_Code_Key() {
+            $.ajax({
+            url: '../getQRCodeKey',
+            data: {
+            },
+            async: false,
+            cache: false,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var key = data.data;
+
+                console.log("key");
+                console.log(key);
+
+<!--                生成二维码-->
+                setQrcode(key);
+
+<!--                轮询结果-->
+                pollQrcode(key)
+        }
+    });
+}
+
+
+
+
+
+
+
+</script>
+<!--<script type="text/javascript">-->
+<!--new QRCode(document.getElementById("qrcode"), "https://github.com/davidshimjs/qrcodejs");-->
+<!--var qrcode = new QRCode(document.getElementById("qrcode"), {-->
+<!-- text: "生成二维码的方法不止一种", width: 128, height: 128, colorDark : "#f60", colorLight : "#ccc", correctLevel : 0  }); </script>-->

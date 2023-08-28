@@ -12,18 +12,15 @@ import java.nio.ByteBuffer;
 
 public class HandleWebsocketPackage {
 
-
     private static Logger log = LogManager.getLogger(HandleWebsocketPackage.class);
-
 
     /**
      * 处理父数据包 单线程引用写法
      *
-     * @param message
+     * @param message 消息提
+     * @throws Exception 业务异常
      */
-    @SuppressWarnings("unused")
     public static void handle_Message(ByteBuffer message) throws Exception {
-//		StringBuilder stringBuilder = new StringBuilder();
         byte[] bytes = ByteUtils.decodeValue(message);
         byte[] bs = null;
         String resultStr = null;
@@ -40,7 +37,6 @@ public class HandleWebsocketPackage {
             bs = ByteUtils.subBytes(bytes, head_len, data_len - head_len);
 //			resultStr =HexUtils.toHexString(bs);
 
-
 //            log.info("开始处理响应数据");
 //            log.info("响应数据类型为 " + data_ver);
 
@@ -56,11 +52,8 @@ public class HandleWebsocketPackage {
             } else if (data_ver == 1) {
                 if (data_type == 3) {
                     try {
-                        //房间人气
-
-
-//						PublicDataConf.ROOM_POPULARITY = ByteUtils.byteslong(bs);
-
+                        // 房间人气
+                        MainConf.ROOM_POPULARITY = ByteUtils.byteslong(bs);
                     } catch (Exception e) {
                         // TODO 自动生成的 catch 块
                         e.printStackTrace();
@@ -83,12 +76,12 @@ public class HandleWebsocketPackage {
                 try {
                     resultStr = new String(bs, "utf-8");
 
-					MainConf.resultStrs.add(resultStr);
-					if (MainConf.parseMessageThread != null && !MainConf.parseMessageThread.FLAG) {
-						synchronized (MainConf.parseMessageThread) {
+                    MainConf.resultStrs.add(resultStr);
+                    if (MainConf.parseMessageThread != null && !MainConf.parseMessageThread.FLAG) {
+                        synchronized (MainConf.parseMessageThread) {
                             MainConf.parseMessageThread.notify();
-						}
-					}
+                        }
+                    }
 
                 } catch (Exception e) {
                     // TODO 自动生成的 catch 块
@@ -111,7 +104,8 @@ public class HandleWebsocketPackage {
     /**
      * 处理解压后子数据包
      *
-     * @param bytes
+     * @param bytes 字节码
+     * @throws Exception 业务异常
      */
     @SuppressWarnings("unused")
     public static void handle_zlibMessage(byte[] bytes) throws Exception {
@@ -165,13 +159,13 @@ public class HandleWebsocketPackage {
 //				}
             } else if (data_ver == 0) {
                 try {
-					resultStr = new String(bs, "utf-8");
+                    resultStr = new String(bs, "utf-8");
                     MainConf.resultStrs.add(resultStr);
-					if (MainConf.parseMessageThread != null && !MainConf.parseMessageThread.FLAG) {
-						synchronized (MainConf.parseMessageThread) {
+                    if (MainConf.parseMessageThread != null && !MainConf.parseMessageThread.FLAG) {
+                        synchronized (MainConf.parseMessageThread) {
                             MainConf.parseMessageThread.notify();
-						}
-					}
+                        }
+                    }
                 } catch (Exception e) {
                     // TODO 自动生成的 catch 块
                     e.printStackTrace();
@@ -199,6 +193,7 @@ public class HandleWebsocketPackage {
     // 两个方法
     // byte转换成实体类 解读弹幕
     // 实体类转换成byte 生成二进制数byte转发给服务器
+
     /**
      * 处理弹幕数据
      *
@@ -223,9 +218,9 @@ public class HandleWebsocketPackage {
      * @return 新数组
      */
     public static byte[] BEhandle(BarrageHeadHandle barrageHeadHandle) {
-        byte[] b=null;
+        byte[] b = null;
         try {
-            b= JavaStruct.pack(barrageHeadHandle);
+            b = JavaStruct.pack(barrageHeadHandle);
         } catch (StructException e) {
             // TODO 自动生成的 catch 块
             e.printStackTrace();

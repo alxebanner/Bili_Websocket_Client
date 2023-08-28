@@ -14,11 +14,9 @@ import com.uid939948.Service.SetService;
 import com.uid939948.Service.TestMessageService;
 import com.uid939948.Tools.HandleWebsocketPackage;
 import com.uid939948.Until.ByteUtils;
-import com.uid939948.Until.SpringUtils;
 import com.uid939948.WebSocketClient.WebSocketProxy;
 import com.uid939948.component.ThreadComponent;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.buf.HexUtils;
@@ -26,7 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,26 +35,32 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class ClientServiceImpl implements ClientService {
+    /**
+     * 默认的wss地址
+     */
+    public static final String COM_2245_SUB = "wss://broadcastlv.chat.bilibili.com:2245/sub";
+
+    /**
+     * 首页刷新间隔 60秒
+     */
+    public static final int INDEX_REFRESH_TIME = 60000;
     private ThreadComponent threadComponent;
 
     private SetService setService;
 
-
     @Resource
     private TestMessageService testMessageService;
-//    private TestMessageService testMessageService = SpringUtils.getBean(TestMessageService.class);
 
     @Override
     public void startConnService(long roomId) throws Exception {
-        // 第一步 获取房间号，并且获取房间信息
+        // 第一步 获取房间号，并且获取房间信息  roomId不确定为短号还是长号 需要查询
         // 1、 房间号长号  websocket地址 uid 主播名称
         // 2、 如果已经登录 确认是否是房管， 获取最大输入长度（用于弹幕姬输入）
         // 3、 开始连接websocket 发现送心跳包，并且启动发送心跳包的线程
         // 4、 在websocket 里面收到消息并且回复
 
-        if (ObjectUtil.isEmpty(roomId) || roomId < 1) {
-            return;
-        }
+        // 判断是否短时间连续刷新， 暂定为60秒
+        if (isTooFast(roomId)) return;
 
         if (ObjectUtil.isNotEmpty(MainConf.webSocketProxy) && MainConf.webSocketProxy.isOpen()) {
             MainConf.webSocketProxy.close();
@@ -65,77 +72,39 @@ public class ClientServiceImpl implements ClientService {
         }
 
         // 1、 获取房间基本信息
-        RoomInit roomInit = HttpRoomUtil.GetRoomInit(roomId);
-        MainConf.UID = roomInit.getUid();
-
-        if (roomInit.getShort_id() > 0) {
-            MainConf.SHORTROOMID = roomInit.getShort_id();
-            MainConf.ROOMID = roomInit.getRoom_id();
-        } else {
-            MainConf.ROOMID = roomInit.getRoom_id();
-        }
-        log.info("房间号" + roomInit.getRoom_id() + " 房间的 uid " + roomInit.getUid() +
-                " 开播状态 " + LiveStateEnum.getCountryValue(roomInit.getLive_status()));
-
-
-        String userCookie = "";
+        RoomInit roomInit = getRoomInit(roomId);
 
         // 2、 获取 websocket地址  使用随机地址
-        // todo userCookie 待完成   使用登陆后的toke 会获取更多websocket地址
 
         if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
-
-        }
-
-        WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, MainConf.USERCOOKIE);
-        log.debug("webSocketAddress");
-        log.debug(webSocketAddress + "");
-        log.debug("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
-        webSocketAddress.getHost_list().forEach(mo -> {
-            log.debug(mo.getHost());
-        });
-
-        // 随机获取websokct地址
-        HostServer hostServer = webSocketAddress.getHost_list()
-                .stream().findAny().orElse(new HostServer("wss://broadcastlv.chat.bilibili.com:2245/sub", 0, 0, 0));
-        MainConf.URL = HostServer.getWsUrl(hostServer);
-        Room room = HttpRoomUtil.httpGetRoomData(MainConf.ROOMID);
-        // 3、拼接开始连接的数据
-        FristSecurityData fristSecurityData = null;
-        // todo 登录的话 需要传UID
-
-        if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
-            fristSecurityData = new FristSecurityData(939948L, MainConf.ROOMID,
-                    webSocketAddress.getToken());
             log.info("已登录");
+            log.info("再次打印USERCOOKIE");
+            log.info(MainConf.USERCOOKIE);
+
+            log.info("打印旧的USERCOOKIE");
+            log.info("DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948");
+
+            // 获取 可以发送弹幕信息最大字数
+            getMaxBarrageNum();
         } else {
-            fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
+            log.info("未登录，5分钟后会出现名称匿名问题");
         }
-//        fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
 
-        byte[] byte_1 = HandleWebsocketPackage.BEhandle(BarrageHeadHandle.getBarrageHeadHandle(
-                fristSecurityData.toJson().getBytes().length + MainConf.packageHeadLength,
-                MainConf.packageHeadLength, MainConf.packageVersion, MainConf.firstPackageType,
-                MainConf.packageOther));
-        byte[] byte_2 = fristSecurityData.toJson().getBytes();
-        byte[] req = ByteUtils.byteMerger(byte_1, byte_2);
+        // 获取WebSocket地址
+        WebSocketAddress webSocketAddress = getWebSocketAddress();
 
-        MainConf.webSocketProxy = new WebSocketProxy(MainConf.URL, room);
-        MainConf.webSocketProxy.send(req);
-        MainConf.webSocketProxy.send(HexUtils.fromHexString(MainConf.heartByte));
+        // 随机获取websocket地址信息
+        Room room = getRoom(webSocketAddress);
+
+        // 3、拼接开始连接的数据
+        connectWebsocket(webSocketAddress, room);
 
         // 4、启动心跳线程
-        // 开启心跳线程 定期发送心跳
-        threadComponent.startHeartByteThread();
-        threadComponent.startHeartOnlineThread();
-
-        // 保存配置 并且 开启读取弹幕的线程
-        setService.holdSet(MainConf.centerSetConf);
+        startHeartbeat();
 
         // 在这里查询一次用户信息，并且保存到缓存里面
 //        MainConf.userInfo = HttpRoomUtil.httpGetUserInfo(roomInit.getUid());
         MainConf.userInfo = httpGetUserInfo_V2(MainConf.ROOMID);
-
 
         // 如果重新连 也会出现 不合理
 //        DanMu_MSG_Info danMuMsgInfo = new DanMu_MSG_Info();
@@ -165,21 +134,9 @@ public class ClientServiceImpl implements ClientService {
                     .collect(Collectors.toMap(GiftConfigData::getId, v -> v, (p1, p2) -> p1));
         }
 
-        // 测试模式弹幕
-        List<String> testDanmuMessageList = new ArrayList<>();
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"非舰队发言\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"早上好 \",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"中午好\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"下午好\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"特别长的弹幕 特别长的弹幕 特别长的弹幕 特别长的弹幕 特别长的弹幕\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"嘿 今天在忙什么呢\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":false,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"初次见面\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        testDanmuMessageList.add("{\"bulge_display\":null,\"danmuColor\":\"#00D1F1\",\"emojiList\":[],\"emoticon_url\":null,\"faceUrl\":\"https://i0.hdslb.com/bfs/face/8aa83c6494e43641a8c16b86e2774f335bcad8d0.jpg\",\"guard_level\":3,\"icon_id\":0,\"isEmoticon\":false,\"isFansMedal\":true,\"isHaveSystemEmoji\":false,\"isManager\":true,\"is_lighted\":0,\"medal_color\":0,\"medal_level\":27,\"medal_name\":\"72O\",\"message\":\"舰队发言\",\"uid\":939948,\"ul_level\":49,\"uname\":\"春风十里不如一路有语\"}");
-        MainConf.testDanmuMessageList = testDanmuMessageList;
-
         // 通过房间号获取粉丝团的表情 加入的已有头像内，
 
-        // 如果用户uid和粉丝团数量相等，则不需要重新获取
+        // 如果用户uid和粉丝团数量相等，则不需要重新获取(大概率不会相同)
         List<FansMemberInfo> fansMemberInfoList = HttpRoomUtil.getFansMembersRank(roomInit.getUid());
         List<FacePicture> facePictureList = new ArrayList<>();
 
@@ -193,12 +150,6 @@ public class ClientServiceImpl implements ClientService {
         }
 
         // 通过勋章获取的头像 uid可能有重合，需要去重 只更新头像 不更新次数
-
-//        if(StringUtils.isEmpty())
-        if (CollectionUtils.isEmpty(MainConf.facePictureList)) {
-
-        }
-
         if (ObjectUtils.isEmpty(MainConf.facePictureList)) {
             MainConf.facePictureList.addAll(facePictureList);
         } else {
@@ -212,6 +163,138 @@ public class ClientServiceImpl implements ClientService {
             //
 //            }
         }
+    }
+
+    /**
+     * 获取 可以发送弹幕信息最大字数
+     */
+    private static void getMaxBarrageNum() {
+        UserBarrageType userBarrageType = HttpRoomUtil.httpGetInfoByUser(MainConf.ROOMID);
+        MainConf.userBarrageType = userBarrageType;
+        MainConf.BarrageMaxLength = userBarrageType.getDanmu().getLength();
+        MainConf.BarrageColor = userBarrageType.getDanmu().getColor();
+        List<String> result = Arrays.asList(MainConf.USERCOOKIE.split(";"));
+        result.stream().filter(mo -> mo.startsWith("bili_jct=")).findAny().ifPresent(mo1 -> {
+            MainConf.COOKIE.setBili_jct(mo1.substring(9));
+        });
+    }
+
+    /**
+     * 获取WebSocket的地址
+     *
+     * @return WebSocket的地址
+     */
+    private static WebSocketAddress getWebSocketAddress() {
+        WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, MainConf.USERCOOKIE);
+        log.debug("webSocketAddress");
+        log.debug(webSocketAddress + "");
+        log.debug("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
+        webSocketAddress.getHost_list().forEach(mo -> {
+            log.debug(mo.getHost());
+        });
+        return webSocketAddress;
+    }
+
+    private static Room getRoom(WebSocketAddress webSocketAddress) {
+        HostServer hostServer = webSocketAddress.getHost_list()
+                .stream().findAny().orElse(new HostServer(COM_2245_SUB, 0, 0, 0));
+
+        MainConf.URL = HostServer.getWsUrl(hostServer);
+        Room room = HttpRoomUtil.httpGetRoomData(MainConf.ROOMID);
+        return room;
+    }
+
+    /**
+     * 判断是否频繁刷新首页
+     *
+     * @param roomId 房间号
+     * @return 是否频繁刷新首页
+     */
+    private static boolean isTooFast(long roomId) {
+        if (ObjectUtil.isEmpty(roomId) || roomId < 1) {
+            return false;
+        }
+
+        long currentTime = System.currentTimeMillis();
+        log.info(MainConf.lastRoomInitTime + " 上次刷新时间");
+        log.info(currentTime + " 本次刷新时间");
+        log.info(currentTime - MainConf.lastRoomInitTime + " 时间差");
+        if (MainConf.lastRoomInitTime == 0L) {
+            log.info(" 初次初始化房间号");
+            MainConf.lastRoomInitTime = System.currentTimeMillis();
+        } else if ((currentTime - MainConf.lastRoomInitTime > INDEX_REFRESH_TIME)) {
+            log.info(" 超过60秒");
+            MainConf.lastRoomInitTime = System.currentTimeMillis();
+        } else if (roomId == MainConf.ROOMID) {
+            log.info("没有超过60秒, 而且房间号相同不刷新");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 启动心跳线程
+     */
+    private void startHeartbeat() {
+        // 启动websocket心跳线程
+        threadComponent.startHeartByteThread();
+
+        // 启动本地websocket心跳线程
+        threadComponent.startHeartOnlineThread();
+
+        // 保存配置 并且 开启读取弹幕的线程
+        setService.holdSet(MainConf.centerSetConf);
+    }
+
+    /**
+     * 连接 websocket弹幕库
+     *
+     * @param webSocketAddress websocket弹幕库地址
+     * @param room             房间号
+     * @throws URISyntaxException   url异常
+     * @throws InterruptedException 中断异常
+     */
+    private static void connectWebsocket(WebSocketAddress webSocketAddress, Room room) throws URISyntaxException, InterruptedException {
+        FristSecurityData fristSecurityData = null;
+
+        if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
+            fristSecurityData = new FristSecurityData(939948L, MainConf.ROOMID,
+                    webSocketAddress.getToken());
+        } else {
+            fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());
+        }
+        byte[] byte_1 = HandleWebsocketPackage.BEhandle(BarrageHeadHandle.getBarrageHeadHandle(
+                fristSecurityData.toJson().getBytes().length + MainConf.packageHeadLength,
+                MainConf.packageHeadLength, MainConf.packageVersion, MainConf.firstPackageType,
+                MainConf.packageOther));
+        byte[] byte_2 = fristSecurityData.toJson().getBytes();
+        byte[] req = ByteUtils.byteMerger(byte_1, byte_2);
+
+        MainConf.webSocketProxy = new WebSocketProxy(MainConf.URL, room);
+        MainConf.webSocketProxy.send(req);
+        MainConf.webSocketProxy.send(HexUtils.fromHexString(MainConf.heartByte));
+    }
+
+    /**
+     * 获取房间基本信息
+     *
+     * @param roomId 房间号
+     * @return 房间基本信息
+     */
+    private static RoomInit getRoomInit(long roomId) {
+        RoomInit roomInit = HttpRoomUtil.GetRoomInit(roomId);
+        MainConf.UID = roomInit.getUid();
+        MainConf.lIVE_STATUS = roomInit.getLive_status();
+
+        if (roomInit.getShort_id() > 0) {
+            MainConf.SHORTROOMID = roomInit.getShort_id();
+            MainConf.ROOMID = roomInit.getRoom_id();
+        } else {
+            MainConf.ROOMID = roomInit.getRoom_id();
+        }
+        log.info("房间号" + roomInit.getRoom_id() + " 房间的 uid " + roomInit.getUid() +
+                " 开播状态 " + LiveStateEnum.getCountryValue(roomInit.getLive_status()));
+        return roomInit;
     }
 
     /**
@@ -261,6 +344,22 @@ public class ClientServiceImpl implements ClientService {
     public void getOneToast(String name, String faceUrl, String type) {
         testMessageService.toastMessage(name, faceUrl, "超长的舰队用户弹幕,超长的舰队用户弹幕,超长的舰队用户弹幕,", 3, type);
     }
+
+    @Override
+    public String getQRCodeKey() {
+        return HttpRoomUtil.httpGetQR_Code_Key();
+    }
+
+    @Override
+    public String checkQRCodeKey(String qrcode_key) {
+        return HttpRoomUtil.httpGetQR_Code_Check(qrcode_key);
+    }
+
+    @Override
+    public String HttpGetLoginInfo(String qrcode_key) {
+        return HttpRoomUtil.HttpGetLoginInfo(qrcode_key);
+    }
+
 
     @Autowired
     public void setSetService(SetService setService) {

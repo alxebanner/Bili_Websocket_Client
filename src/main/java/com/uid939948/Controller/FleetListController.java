@@ -1,11 +1,11 @@
 package com.uid939948.Controller;
 
-
 import com.alibaba.fastjson.JSONObject;
 import com.uid939948.Conf.CenterSetConf;
 import com.uid939948.Conf.MainConf;
 import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
+import com.uid939948.Http.HttpRoomUtil;
 import com.uid939948.Result.Result;
 import com.uid939948.Result.ResultCode;
 import com.uid939948.Service.ClientService;
@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -118,4 +119,29 @@ public class FleetListController {
         MainConf.centerSetConf = centerSetConf;
         return new Result(ResultCode.SUCCESS, MainConf.centerSetConf);
     }
+
+    @ResponseBody
+    @GetMapping(value = "/getQRCodeKey")
+    public Result getQRCodeKey() {
+        return new Result(ResultCode.SUCCESS, clientService.getQRCodeKey());
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/checkQRCodeKey")
+    public Result checkQRCodeKey(String qrcode_key) {
+        return new Result(ResultCode.SUCCESS, clientService.checkQRCodeKey(qrcode_key));
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/checkQRCodeKey1")
+    public Result checkQRCodeKey1(HttpServletRequest req) {
+
+        if (req.getSession().getAttribute("status") != null)
+            return null;
+
+        String oauthKey = (String) req.getSession().getAttribute("auth");
+        return new Result(ResultCode.SUCCESS, clientService.HttpGetLoginInfo(oauthKey));
+    }
 }
+
+

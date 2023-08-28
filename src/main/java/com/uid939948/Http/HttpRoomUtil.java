@@ -11,6 +11,7 @@ import com.uid939948.DO.FansMember.FansMemberInfo;
 import com.uid939948.DO.Login.LoginUrl;
 import com.uid939948.DO.Room;
 import com.uid939948.DO.RoomInit;
+import com.uid939948.DO.UserBarrageType;
 import com.uid939948.DO.UserInfoData.UserInfo;
 import com.uid939948.DO.WebSocketAddress;
 import com.uid939948.DO.danmu.Send_Gift.GiftConfigData;
@@ -27,10 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 public class HttpRoomUtil {
@@ -572,13 +570,353 @@ public class HttpRoomUtil {
         String url = "https://passport.bilibili.com/qrcode/getLoginInfo";
         String result;
         try {
-             result =  HttpUtil.sendPost(url, headers, params);
+            result = HttpUtil.sendPost(url, headers, params);
             JSONObject.parseObject(data);
-        }
-        catch (Exception e1) {
+        } catch (Exception e1) {
             // TODO 自动生成的 catch 块
             LOGGER.error("扫码登录失败抛出异常:" + e1);
         }
         return data;
     }
+
+    /**
+     * 发送弹幕  已登录
+     *
+     * @param msg 弹幕
+     * @return 是否发送成功
+     */
+    public static Boolean httpSendBarrage(String msg, UserBarrageType userBarrageType) {
+//        if (!StringUtils.isEmpty(MainConf.USERCOOKIE)) {
+//            return false;
+//        }
+        String data = null;
+        Map<String, String> headers = null;
+        Map<String, String> params = null;
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("referer", "https://passport.bilibili.com/login");
+
+        headers.put("cookie", MainConf.USERCOOKIE);
+
+        params = new HashMap<>(10);
+        params.put("color", userBarrageType.getDanmu().getColor().toString());
+        params.put("fontsize", "25");
+        params.put("mode", userBarrageType.getDanmu().getMode().toString());
+        params.put("msg", msg);
+        params.put("rnd", String.valueOf(System.currentTimeMillis()).substring(0, 10));
+        params.put("roomid", String.valueOf(MainConf.ROOMID));
+        params.put("bubble", userBarrageType.getBubble_id().toString());
+        params.put("csrf_token", MainConf.COOKIE.getBili_jct());
+        params.put("csrf", MainConf.COOKIE.getBili_jct());
+        String url = "https://api.live.bilibili.com/msg/send";
+        String result;
+        try {
+            result = HttpUtil.sendPost(url, headers, params);
+            return true;
+        } catch (Exception e1) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error("发送失败抛出异常:" + e1);
+        }
+        return false;
+    }
+
+    /**
+     * 发送弹幕  已登录
+     *
+     * @param msg 弹幕
+     * @return 是否发送成功
+     */
+    public static Boolean httpSendBarrage(String msg) {
+//        if (!StringUtils.isEmpty(MainConf.USERCOOKIE)) {
+//            return false;
+//        }
+        String data = null;
+        Map<String, String> headers = null;
+        Map<String, String> params = null;
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        headers.put("referer", "https://passport.bilibili.com/login");
+
+        headers.put("cookie", MainConf.USERCOOKIE);
+
+        params = new HashMap<>(10);
+        params.put("color", MainConf.userBarrageType.getDanmu().getColor().toString());
+        params.put("fontsize", "25");
+        params.put("mode", MainConf.userBarrageType.getDanmu().getMode().toString());
+        params.put("msg", msg);
+        params.put("rnd", String.valueOf(System.currentTimeMillis()).substring(0, 10));
+        params.put("roomid", String.valueOf(MainConf.ROOMID));
+        params.put("bubble", MainConf.userBarrageType.getBubble_id().toString());
+        params.put("csrf_token", MainConf.COOKIE.getBili_jct());
+        params.put("csrf", MainConf.COOKIE.getBili_jct());
+        String url = "https://api.live.bilibili.com/msg/send";
+        String result;
+        try {
+            result = HttpUtil.sendPost(url, headers, params);
+            return true;
+        } catch (Exception e1) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error("发送失败抛出异常:" + e1);
+        }
+        return false;
+    }
+
+
+    public static UserBarrageType httpGetInfoByUser(Long roomId) {
+        String result = null;
+        JSONObject jsonObject = null;
+        UserBarrageType userBarrageType = new UserBarrageType();
+        Map<String, String> headers = null;
+        String url = "https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByUser?room_id=" + roomId;
+
+        if (StringUtils.isEmpty(MainConf.USERCOOKIE)) {
+            LOGGER.info("未登录，无法获取弹幕长度信息");
+        }
+
+        headers = new HashMap<>(3);
+        headers.put("referer", "https://live.bilibili.com/" + roomId);
+        headers.put("cookie", MainConf.USERCOOKIE);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        try {
+            result = HttpUtil.doGetWithHeader(url, headers);
+        } catch (Exception e) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error(e);
+        }
+        if (result == null)
+            return userBarrageType;
+        jsonObject = JSONObject.parseObject(result);
+        short code = jsonObject.getShort("code");
+        if (code == 0) {
+            LOGGER.debug("获取 房间号" + roomId + "可发送弹幕长度");
+            userBarrageType = jsonObject.getJSONObject("data").getJSONObject("property").toJavaObject(UserBarrageType.class);
+        } else {
+            LOGGER.error("获取可发送弹幕长度失败:" + jsonObject);
+        }
+        return userBarrageType;
+    }
+
+    /**
+     * 文字编码
+     *
+     * @param str     字符串
+     * @param charset 格式
+     * @return 编码后格式
+     */
+    public static String URLEncoderString(String str, String charset) {
+        String result = "";
+        if (StringUtils.isBlank(str)) {
+            return "";
+        }
+        if (StringUtils.isBlank(charset)) {
+            charset = "UTF-8";
+        }
+        try {
+            result = java.net.URLEncoder.encode(str, charset);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 文字解码
+     *
+     * @param str     字符串
+     * @param charset 格式
+     * @return 解码后格式
+     */
+    public static String URLDecoderString(String str, String charset) {
+        String result = "";
+        if (StringUtils.isBlank(str)) {
+            return "";
+        }
+        if (StringUtils.isBlank(charset)) {
+            charset = "UTF-8";
+        }
+        try {
+            result = java.net.URLDecoder.decode(str, charset);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /**
+     * 获取二维码地址
+     *
+     * @return 获取二维码key
+     */
+    public static String httpGetQR_Code_Key() {
+        String result = null;
+        JSONObject jsonObject = null;
+        String key = "";
+        Map<String, String> headers = null;
+        String url = "https://passport.bilibili.com/x/passport-login/web/qrcode/generate?source=main-fe-header";
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        try {
+            result = HttpUtil.doGetWithHeader(url, headers);
+        } catch (Exception e) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error(e);
+        }
+        if (result == null)
+            return "";
+        jsonObject = JSONObject.parseObject(result);
+        short code = jsonObject.getShort("code");
+        if (code == 0) {
+            key = jsonObject.getJSONObject("data").getString("qrcode_key");
+
+        } else {
+            LOGGER.error("获取二维码失败:" + jsonObject);
+        }
+        return key;
+    }
+
+    /**
+     * 二维码轮询
+     *
+     * @param qrcode_key 二维码key
+     * @return 二维码key 的轮询结果
+     */
+    public static String httpGetQR_Code_Check(String qrcode_key) {
+        String result = null;
+        JSONObject jsonObject = null;
+        String key = "";
+        Map<String, String> headers = null;
+        String url = " https://passport.bilibili.com/x/passport-login/web/qrcode/poll?qrcode_key=" + qrcode_key + "&source=main-fe-headerr";
+
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+        try {
+            result = HttpUtil.doGetWithHeader(url, headers);
+        } catch (Exception e) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error(e);
+        }
+        if (result == null)
+            return "";
+        jsonObject = JSONObject.parseObject(result);
+
+        JSONObject j1 = jsonObject.getJSONObject("data");
+        String code = j1.getString("code");
+        String data_code = jsonObject.getString("code");
+        if ("0".equals(data_code)) {
+            if ("86090".equals(code)) {
+                LOGGER.info("二维码已扫码未确认:" + jsonObject);
+            } else if ("86101".equals(code)) {
+                LOGGER.info("未扫码 请等待继续扫码:" + jsonObject);
+            } else if ("86038".equals(code)) {
+                LOGGER.info("二维码已经失效,请刷新重试:" + jsonObject);
+            } else if ("0".equals(code)) {
+                LOGGER.info("二维码已登录:" + jsonObject);
+
+                // 旧的  DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
+
+                String key1 = jsonObject.getJSONObject("data").getString("url");
+
+
+                String s2 = key1.replace("https://passport.biligame.com/x/passport-login/web/crossDomain?", "");
+                String s3 = s2.replace("https%3A%2F%2Fwww.bilibili.com", "https://www.bilibili.com");
+
+                List<String> list = Arrays.asList(s3.split("&"));
+
+                String result1 = String.join(";", list);
+
+                MainConf.USERCOOKIE = result1;
+                LOGGER.info("输出qrcode_key:" + result1);
+
+
+//                HttpGetLoginInfo("3bcd33c2d6b4dcc19a9ad94562d97782");
+
+//                LOGGER.info("key1:" + key1);
+//                MainConf.USERCOOKIE = key1;
+//                {"code":0,"data":{"refresh_token":"aa1c81c20152d2a106f59dbe01589081","code":0,"message":"","url":"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com","timestamp":1693141173673},"message":"0","ttl":1}
+
+
+                //"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com
+            } else {
+                LOGGER.error("验证二维码出错:" + jsonObject);
+            }
+        }
+
+        return code;
+    }
+
+
+    public static String HttpGetLoginInfo(String oauthKey) {
+        String result = null;
+        JSONObject jsonObject = null;
+        String key = "";
+
+        Map<String, String> headers = null;
+        Map<String, String> params = null;
+
+
+        String url = " https://passport.bilibili.com/qrcode/getLoginInfo";
+
+        headers = new HashMap<>(3);
+        headers.put("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
+
+        headers.put("referer", "https://passport.bilibili.com/login");
+
+        params = new HashMap<>(3);
+
+        params.put("oauthKey", oauthKey);
+        params.put("gourl", "https://www.bilibili.com/");
+
+        try {
+            result = HttpUtil.sendPost(url, headers, params);
+        } catch (Exception e) {
+            // TODO 自动生成的 catch 块
+            LOGGER.error(e);
+        }
+        if (result == null)
+            return "";
+        jsonObject = JSONObject.parseObject(result);
+
+//        JSONObject j1 = jsonObject.getJSONObject("data");
+//        String code = j1.getString("code");
+//        String data_code = jsonObject.getString("code");
+//        if ("0".equals(data_code)) {
+//            if ("86090".equals(code)) {
+//                LOGGER.info("二维码已扫码未确认:" + jsonObject);
+//            } else if ("86101".equals(code)) {
+//                LOGGER.info("未扫码 请等待继续扫码:" + jsonObject);
+//            } else if ("86038".equals(code)) {
+//                LOGGER.info("二维码已经失效,请刷新重试:" + jsonObject);
+//            } else if ("0".equals(code)) {
+//                LOGGER.info("二维码已登录:" + jsonObject);
+//
+//                // 旧的  DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
+//
+//                String key1 = jsonObject.getJSONObject("data").getString("url");
+//
+//                LOGGER.info("key1:" + key1);
+//                MainConf.USERCOOKIE = key1;
+////                {"code":0,"data":{"refresh_token":"aa1c81c20152d2a106f59dbe01589081","code":0,"message":"","url":"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com","timestamp":1693141173673},"message":"0","ttl":1}
+//
+//
+//                //"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com
+//            } else {
+//                LOGGER.error("验证二维码出错:" + jsonObject);
+//            }
+//        }
+
+        return "1";
+    }
+    //111   DedeUserID__ckMd5=9518835468e33460DedeUserID__ckMd5=9518835468e33460;SESSDATA=16da32e7,1708694069,a2288*81Nu5er3Vw-ml1yF6nn2ldZzDuE_cd7mGJ4nRnhaor9DrPMe_fl6TvMDWimamiZRzvDth5WwAAMAA;bili_jct=ddf5e33c1157b88b8d38040e3b328445;DedeUserID=939948
+
 }
+//
+//url: "https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708694069&SESSDATA=16da32e7,1708694069,a2288*81Nu5er3Vw-ml1yF6nn2ldZzDuE_cd7mGJ4nRnhaor9DrPMe_fl6TvMDWimamiZRzvDth5WwAAMAA&bili_jct=ddf5e33c1157b88b8d38040e3b328445&gourl=https%3A%2F%2Fwww.bilibili.com"
+//
+//buvid3=24FC6C9C-3A1A-D50D-9D28-0FC47C39692703774infoc; b_nut=1693139103; i-wanna-go-back=-1; b_ut=7; b_lsid=75D812F7_18A36F1FB4C; _uuid=7108B5C97-B475-277C-5935-57B3282B9B4942808infoc; buvid_fp=438e7caaac2291a8b7338441a9847a96; home_feed_column=5; buvid4=B3E03C73-B7C6-C696-EC4B-F8291FE6F8B305324-023082720-0mOPZbinCsOGH0YulYR3xg%3D%3D; header_theme_version=CLOSE; CURRENT_FNVAL=4048; innersign=0; browser_resolution=1536-258; SESSDATA=16da32e7%2C1708694069%2Ca2288%2A81Nu5er3Vw-ml1yF6nn2ldZzDuE_cd7mGJ4nRnhaor9DrPMe_fl6TvMDWimamiZRzvDth5WwAAMAA; bili_jct=ddf5e33c1157b88b8d38040e3b328445; DedeUserID=939948; DedeUserID__ckMd5=9518835468e33460; sid=qcvet8gb

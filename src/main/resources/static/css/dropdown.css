@@ -469,8 +469,8 @@ position: fixed;
     color: #3366FF;
     text-align: left;
     position: fixed;
-    top: 113px;
-    left: 212px;
+    top: 116px;
+    left: 215px;
     width: 287px;
 }
 
@@ -581,7 +581,7 @@ position: fixed;
 
 .danmu_name_border span {
     position: relative;
-    top: 4px;
+    top: 0px;
 }
 
 .danmu_name_border1 span {

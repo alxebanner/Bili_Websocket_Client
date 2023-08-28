@@ -23,12 +23,12 @@ public class ConfigServiceImpl implements ConfigService {
     @Override
     public Boolean saveConfigRoomId(String roomId) {
         CenterSetConf centerSetConf = MainConf.centerSetConf;
-        Long room = 0L;
+        long room = 0L;
         try {
-            room = Long.valueOf(roomId);
+            room = Long.parseLong(roomId);
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            log.info("roomId 保存失败", roomId);
+            log.info("roomId 保存失败" + roomId);
         }
         centerSetConf.setRoomid(room);
         synchronized (centerSetConf) {
@@ -42,7 +42,6 @@ public class ConfigServiceImpl implements ConfigService {
         }
         return true;
     }
-
 
     @Override
     public WebsocketConfigInfo getConfig() {
