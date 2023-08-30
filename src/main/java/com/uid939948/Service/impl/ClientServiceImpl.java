@@ -78,11 +78,11 @@ public class ClientServiceImpl implements ClientService {
 
         if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
             log.info("已登录");
-            log.info("再次打印USERCOOKIE");
-            log.info(MainConf.USERCOOKIE);
+            log.debug("再次打印USERCOOKIE");
+            log.debug(MainConf.USERCOOKIE);
 
-            log.info("打印旧的USERCOOKIE");
-            log.info("DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948");
+            log.debug("打印旧的USERCOOKIE");
+//            log.info("DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948");
 
             // 获取 可以发送弹幕信息最大字数
             getMaxBarrageNum();
@@ -186,20 +186,25 @@ public class ClientServiceImpl implements ClientService {
      */
     private static WebSocketAddress getWebSocketAddress() {
         WebSocketAddress webSocketAddress = HttpRoomUtil.getDanmuInfo(MainConf.ROOMID, MainConf.USERCOOKIE);
-        log.debug("webSocketAddress");
-        log.debug(webSocketAddress + "");
-        log.debug("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
+        log.info("webSocketAddress");
+        log.info(webSocketAddress + "");
+        log.info("webSocketAddress 的数量为 " + webSocketAddress.getHost_list().size());
         webSocketAddress.getHost_list().forEach(mo -> {
-            log.debug(mo.getHost());
+            log.info(mo.getHost());
         });
         return webSocketAddress;
     }
 
+    /**
+     * 获取房间基本信息
+     *
+     * @param webSocketAddress websocket地址
+     * @return 房间基本信息
+     */
     private static Room getRoom(WebSocketAddress webSocketAddress) {
         HostServer hostServer = webSocketAddress.getHost_list()
                 .stream().findAny().orElse(new HostServer(COM_2245_SUB, 0, 0, 0));
-
-        MainConf.URL = HostServer.getWsUrl(hostServer);
+        MainConf.URL = hostServer.getWsUrl(hostServer);
         Room room = HttpRoomUtil.httpGetRoomData(MainConf.ROOMID);
         return room;
     }
@@ -228,6 +233,14 @@ public class ClientServiceImpl implements ClientService {
         } else if (roomId == MainConf.ROOMID) {
             log.info("没有超过60秒, 而且房间号相同不刷新");
             return true;
+        } else {
+
+            log.info("旧房间号" + MainConf.ROOMID);
+            log.info("新房间号" + roomId);
+
+
+            log.info("没有超过60秒, 而且房间号不相同  需要刷新");
+            return false;
         }
         return false;
     }
@@ -258,7 +271,7 @@ public class ClientServiceImpl implements ClientService {
         FristSecurityData fristSecurityData = null;
 
         if (StringUtils.isNotEmpty(MainConf.USERCOOKIE)) {
-            fristSecurityData = new FristSecurityData(939948L, MainConf.ROOMID,
+            fristSecurityData = new FristSecurityData(MainConf.USERCOOKIE_UID, MainConf.ROOMID,
                     webSocketAddress.getToken());
         } else {
             fristSecurityData = new FristSecurityData(MainConf.ROOMID, webSocketAddress.getToken());

@@ -64,18 +64,13 @@ public class MainConf {
      * 直播状态 0不直播 1直播 2轮播
      */
     public static int lIVE_STATUS = 0;
-    // cookie String串
 //    public static String USERCOOKIE = "DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948";
 
-    //public static String USERCOOKIE =   "DedeUserID__ckMd5=9518835468e33460DedeUserID__ckMd5=9518835468e33460;SESSDATA=16da32e7,1708694069,a2288*81Nu5er3Vw-ml1yF6nn2ldZzDuE_cd7mGJ4nRnhaor9DrPMe_fl6TvMDWimamiZRzvDth5WwAAMAA;bili_jct=ddf5e33c1157b88b8d38040e3b328445;DedeUserID=939948";
+    public static Long USERCOOKIE_UID = 939948L;
 
-
-    public static String USERCOOKIE ="DedeUserID=939948;DedeUserID__ckMd5=9518835468e33460;Expires=1708693173;SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA;bili_jct=2babeac9be9e71ec562c6674fc7aee88;" +
+    public static String USERCOOKIE = "DedeUserID=939948;DedeUserID__ckMd5=9518835468e33460;Expires=1708693173;SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA;bili_jct=2babeac9be9e71ec562c6674fc7aee88;" +
             "=https%3A%2F%2Fwww.bilibili.com";
-//                                 https%3A%2F%2Fwww.bilibili.com
-//             params.put("gourl", "https://www.bilibili.com/");
-//    gourl
-    //    DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
+
 
     /**
      * 真实房间号  长号
@@ -101,9 +96,6 @@ public class MainConf {
 
     /**
      * 房间观看人数
-     *
-     *
-//     *
      */
     public static Long ROOM_WATCHER = 0L;
 
@@ -159,11 +151,6 @@ public class MainConf {
      */
     public static TestThread testThread;
 
-//    /**
-//     * 测试弹幕集合
-//     */
-//    public static List<String> testDanmuMessageList;
-
     /**
      * 音乐列表
      */
@@ -194,11 +181,10 @@ public class MainConf {
      */
     public static Long BarrageColor;
 
-
     /**
      * 保存的用户id
      */
-    public static List<String> list1;
+    public static List<String> userList;
 
     /**
      * 首页最后刷新时间

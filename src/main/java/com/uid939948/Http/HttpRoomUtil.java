@@ -71,9 +71,13 @@ public class HttpRoomUtil {
         headers = new HashMap<>(2);
         headers.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36");
 
-        if (!StringUtils.isBlank(userCookie)) {
+        if (StringUtils.isNotEmpty(userCookie)) {
             headers.put("cookie", userCookie);
+            LOGGER.info("获取地址使用cookie" + userCookie);
+        } else {
+            LOGGER.info("获取地址没有使用cookie");
         }
+
         headers.put("referer", "https://live.bilibili.com/" + roomId);
 
         String url = "https://api.live.bilibili.com/xlive/web-room/v1/index/getDanmuInfo?id=" + roomId + "&type=0";
@@ -816,32 +820,23 @@ public class HttpRoomUtil {
             } else if ("86038".equals(code)) {
                 LOGGER.info("二维码已经失效,请刷新重试:" + jsonObject);
             } else if ("0".equals(code)) {
-                LOGGER.info("二维码已登录:" + jsonObject);
-
-                // 旧的  DedeUserID__ckMd5=9518835468e33460;SESSDATA=63651ffc%2C1704103286%2C8c171*71;bili_jct=726a82f532d3551d4dee029d88a48e68;sid=nm8lednh;DedeUserID=939948
-
-                String key1 = jsonObject.getJSONObject("data").getString("url");
-
-
-                String s2 = key1.replace("https://passport.biligame.com/x/passport-login/web/crossDomain?", "");
+                LOGGER.info("二维码已登录:");
+                LOGGER.debug("二维码已登录:" + jsonObject);
+                String s1 = jsonObject.getJSONObject("data").getString("url");
+                String s2 = s1.replace("https://passport.biligame.com/x/passport-login/web/crossDomain?", "");
                 String s3 = s2.replace("https%3A%2F%2Fwww.bilibili.com", "https://www.bilibili.com");
 
                 List<String> list = Arrays.asList(s3.split("&"));
 
+                String DedeUserID = list.stream().filter(mo -> mo.startsWith("DedeUserID=")).findAny().orElse("");
+                Long uid = Long.valueOf(DedeUserID.replace("DedeUserID=", ""));
+
                 String result1 = String.join(";", list);
 
                 MainConf.USERCOOKIE = result1;
-                LOGGER.info("输出qrcode_key:" + result1);
+                MainConf.USERCOOKIE_UID = uid;
+                LOGGER.debug("输出qrcode_key:" + result1);
 
-
-//                HttpGetLoginInfo("3bcd33c2d6b4dcc19a9ad94562d97782");
-
-//                LOGGER.info("key1:" + key1);
-//                MainConf.USERCOOKIE = key1;
-//                {"code":0,"data":{"refresh_token":"aa1c81c20152d2a106f59dbe01589081","code":0,"message":"","url":"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com","timestamp":1693141173673},"message":"0","ttl":1}
-
-
-                //"https://passport.biligame.com/x/passport-login/web/crossDomain?DedeUserID=939948&DedeUserID__ckMd5=9518835468e33460&Expires=1708693173&SESSDATA=4ace4b62,1708693173,2a913*81fkN7bL3uYg0xsLIkMy2WkS1KPH5Pqh3WHu1KJ4wV_bqLaPcimgAUMMXZBOU-nnNYly_kXgAAMAA&bili_jct=2babeac9be9e71ec562c6674fc7aee88&gourl=https%3A%2F%2Fwww.bilibili.com
             } else {
                 LOGGER.error("验证二维码出错:" + jsonObject);
             }
